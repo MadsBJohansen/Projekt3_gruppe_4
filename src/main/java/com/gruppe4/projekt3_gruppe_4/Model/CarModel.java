@@ -1,4 +1,4 @@
-package Model;
+package com.gruppe4.projekt3_gruppe_4.Model;
 
 public class CarModel {
     private String brand;
