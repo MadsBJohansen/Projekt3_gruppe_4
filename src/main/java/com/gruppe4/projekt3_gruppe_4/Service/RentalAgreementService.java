@@ -33,10 +33,10 @@ public class RentalAgreementService {
         );
     }
 
-//    public boolean validateRentalAgreement(int carId){
+//    public boolean validateRentalAgreement(int carId, LocalDate startDate){
 //
-//        for(RentalAgreement ra : rentalAgreementRepo.findAll()){
-//            if (ra.getStartDate().equals())
+//        for(RentalAgreement ra : rentalAgreementRepo.findByCarId(carId)){
+//            if (ra.getStartDate() < )
 //
 //        }
 //    }
