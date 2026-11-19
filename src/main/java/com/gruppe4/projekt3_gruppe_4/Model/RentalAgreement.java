@@ -1,26 +1,30 @@
 package com.gruppe4.projekt3_gruppe_4.Model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class RentalAgreement {
+    private int rentalAgreementId;
     private int customerId;
     private int carId;
     private int locationId;
     private int userId;
     private int rentalPeriodId;
-    private Date startDate;
-    private Date returnDate;
+    private LocalDate startDate;
+    private LocalDate returnDate;
     private BigDecimal monthlyPrice;
 
-    public RentalAgreement(int customerId,
+    public RentalAgreement(int rentalAgreementId,
+                           int customerId,
                            int carId,
                            int locationId,
                            int userId,
                            int rentalPeriodId,
-                           Date startDate,
-                           Date returnDate,
+                           LocalDate startDate,
+                           LocalDate returnDate,
                            BigDecimal monthlyPrice) {
+        this.rentalAgreementId = rentalAgreementId;
         this.customerId = customerId;
         this.carId = carId;
         this.locationId = locationId;
@@ -31,12 +35,30 @@ public class RentalAgreement {
         this.monthlyPrice = monthlyPrice;
     }
 
+    public RentalAgreement(int rentalAgreementId,
+                           int customerId,
+                           int carId,
+                           int locationId,
+                           int userId,
+                           int rentalPeriodId,
+                           LocalDate startDate,
+                           BigDecimal monthlyPrice) {
+        this.rentalAgreementId = rentalAgreementId;
+        this.customerId = customerId;
+        this.carId = carId;
+        this.locationId = locationId;
+        this.userId = userId;
+        this.rentalPeriodId = rentalPeriodId;
+        this.startDate = startDate;
+        this.monthlyPrice = monthlyPrice;
+    }
+
     public RentalAgreement(int customerId,
                            int carId,
                            int locationId,
                            int userId,
                            int rentalPeriodId,
-                           Date startDate,
+                           LocalDate startDate,
                            BigDecimal monthlyPrice) {
         this.customerId = customerId;
         this.carId = carId;
@@ -45,6 +67,10 @@ public class RentalAgreement {
         this.rentalPeriodId = rentalPeriodId;
         this.startDate = startDate;
         this.monthlyPrice = monthlyPrice;
+    }
+
+    public void setRentalAgreementId(int rentalAgreementId) {
+        this.rentalAgreementId = rentalAgreementId;
     }
 
     public void setCustomerId(int customerId) {
@@ -67,16 +93,20 @@ public class RentalAgreement {
         this.rentalPeriodId = rentalPeriodId;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
     public void setMonthlyPrice(BigDecimal monthlyPrice) {
         this.monthlyPrice = monthlyPrice;
+    }
+
+    public int getRentalAgreementId() {
+        return rentalAgreementId;
     }
 
     public int getCustomerId() {
@@ -99,11 +129,11 @@ public class RentalAgreement {
         return rentalPeriodId;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
