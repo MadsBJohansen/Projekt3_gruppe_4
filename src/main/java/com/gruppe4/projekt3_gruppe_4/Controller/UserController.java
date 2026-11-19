@@ -28,10 +28,10 @@ public class UserController {
                         HttpSession session,
                         Model model) {
 
-        User user = userService.login(username, userService.hashPassword(password));
+        User user = userService.login(username, password);
         if (user != null) {
             session.setAttribute("user", user);
-            return "rediect:/homepage";
+            return "redirect:/homepage";
         }
         model.addAttribute("error", "invalid username or password");
         return "login";
