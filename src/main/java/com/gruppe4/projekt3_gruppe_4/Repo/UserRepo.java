@@ -18,7 +18,7 @@ public class UserRepo {
     }
 
     public User findByUsername(String username) {
-        String sql = "SELECT FROM user WHERE username = ?";
+        String sql = "SELECT * FROM user WHERE username = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -33,6 +33,7 @@ public class UserRepo {
                     user.setUsername(rs.getString("username"));
                     user.setPasswordHash(rs.getString("password_hash"));
                     user.setRoleId(rs.getInt("role_id"));
+                    return user;
                 }
                 return null;
 
@@ -41,6 +42,23 @@ public class UserRepo {
 
         } catch (SQLException e) {
             throw new RuntimeException("Kunne ikke hente bruger", e);
+        }
+    }
+
+    public void saveUser(User user) {
+        String sql ="INSERT INTO user(first_name, last_name, username, password_hash, role_id) VALUES(?,?,?,?,?)";
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getUsername());
+            ps.setString(4, user.getPasswordHash());
+            ps.setInt(5, user.getRoleId());
+            ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
     }
 }
