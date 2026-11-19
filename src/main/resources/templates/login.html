@@ -7,22 +7,35 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <main>
-        <h1>Login</h1>
 
-        <p th:if="${error}" th:text="${error}">Error</p>
+    <header class="topbar">
+        <span class="logo">LOGO</span>
+        <span class="brand">Bilabonnement</span>
+    </header>
 
-        <form th:action="@{/login}" method="post">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+    <main class="login-page">
+        <div class="card">
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <h1>Login</h1>
+            <p class="subtitle">Internal system for employees of Bilabonnement</p>
 
-            <button type="submit">Login</button>
-        </form>
+            <form th:action="@{/login}" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="demo" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <p class="error" th:if="${error}" th:text="${error}">Error message</p>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p class="demo">Demo user for exam: <strong>demo</strong> / <strong></strong></p>
+        </div>
     </main>
 </body>
 </html>
