@@ -31,7 +31,6 @@ CREATE TABLE car_status
     status_code           VARCHAR(30)     NOT NULL UNIQUE
 );
 
-
 CREATE TABLE rental_period
 (
     rental_period_id      INT             AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +48,8 @@ CREATE TABLE car_model
     model_year            YEAR            NOT NULL,
     car_brand_id          INT             NOT NULL,
 
-    CONSTRAINT fk_car_model_brand  FOREIGN KEY (car_brand_id)  REFERENCES car_brand (car_brand_id)
+    CONSTRAINT fk_car_model_brand  FOREIGN KEY (car_brand_id)  REFERENCES car_brand (car_brand_id),
+    CONSTRAINT uq_car_model        UNIQUE (car_brand_id, name, model_year)
 );
 
 CREATE TABLE location
@@ -95,10 +95,12 @@ CREATE TABLE customer
 -- 4. Biler og statushistorik
 -- ------------------------------------------------------------
 
+-- Bilens status gemmes IKKE her. Den nuværende status er den seneste række i status_change
+-- (se VIEW car_current_status). En ny bil skal oprettes sammen med sin første status_change.
 CREATE TABLE car
 (
     car_id                INT             AUTO_INCREMENT PRIMARY KEY,
-    vin                   VARCHAR(17)     NOT NULL UNIQUE,
+    vin                   CHAR(17)        NOT NULL UNIQUE,
     car_model_id          INT             NOT NULL,
     trim_level            VARCHAR(50)     NOT NULL,
     mileage               INT             NOT NULL,
@@ -106,32 +108,44 @@ CREATE TABLE car
     co2_emission          DECIMAL(5,1)    NOT NULL,
     license_plate         VARCHAR(10)     NOT NULL UNIQUE,
     current_location_id   INT             NOT NULL,
-    car_status_id         INT             NOT NULL,
 
     CONSTRAINT fk_car_model        FOREIGN KEY (car_model_id)         REFERENCES car_model (car_model_id),
     CONSTRAINT fk_car_location     FOREIGN KEY (current_location_id)  REFERENCES location (location_id),
-    CONSTRAINT fk_car_status       FOREIGN KEY (car_status_id)        REFERENCES car_status (car_status_id),
     CONSTRAINT chk_car_base_price  CHECK (base_price > 0),
     CONSTRAINT chk_car_mileage     CHECK (mileage >= 0)
 );
 
+-- Historik: hver gang en bil skifter status, indsættes en ny række (rækker ændres/slettes ikke).
 CREATE TABLE status_change
 (
     status_change_id      INT             AUTO_INCREMENT PRIMARY KEY,
     car_id                INT             NOT NULL,
     car_status_id         INT             NOT NULL,
     changed_at            DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    expected_return       DATE            NULL,
 
+    INDEX idx_status_change_car (car_id, status_change_id),
     CONSTRAINT fk_status_change_car     FOREIGN KEY (car_id)         REFERENCES car (car_id),
     CONSTRAINT fk_status_change_status  FOREIGN KEY (car_status_id)  REFERENCES car_status (car_status_id)
 );
+
+-- Nuværende status pr. bil = seneste status_change (højeste id). Et VIEW gemmer ingen data,
+-- så der er ingen redundans – det er bare en gemt forespørgsel.
+CREATE VIEW car_current_status AS
+SELECT sc.car_id,
+       sc.car_status_id,
+       cs.status_code,
+       sc.changed_at
+FROM status_change sc
+JOIN car_status cs ON cs.car_status_id = sc.car_status_id
+WHERE sc.status_change_id = (SELECT MAX(sc2.status_change_id)
+                             FROM status_change sc2
+                             WHERE sc2.car_id = sc.car_id);
 
 
 -- 5. Lejeaftaler og skader
 -- ------------------------------------------------------------
 
-
+-- Forventet returdato beregnes: start_date + rental_period.months (gemmes ikke).
 CREATE TABLE rental_agreement
 (
     rental_agreement_id   INT             AUTO_INCREMENT PRIMARY KEY,
