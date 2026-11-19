@@ -28,6 +28,16 @@ public class RentalAgreementRepo {
         return jdbcTemplate.query(sql, rentalAgreementRowMapper);
     }
 
+//    public int doesRentalAgreementOverlap(){
+//        String sql = "SELECT COUNT(*) FROM rental_agreement WHERE "
+//
+//    }
+
+    public List<RentalAgreement> findByCarId(int carId){
+        String sql = "SELECT * FROM rental_agreement WHERE car_id = ?";
+        return jdbcTemplate.query(sql, rentalAgreementRowMapper, carId);
+    }
+
     public RentalAgreement findById(int rentalAgreementId){
         String sql = "SELECT * FROM rental_agreement WHERE rental_agreement_id = ?";
         return jdbcTemplate.queryForObject(sql, rentalAgreementRowMapper, rentalAgreementId);
