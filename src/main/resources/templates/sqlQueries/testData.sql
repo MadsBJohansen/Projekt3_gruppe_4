@@ -1,3 +1,5 @@
+USE projekt3_gruppe_4_db;
+
 -- ============================================================
 -- TESTDATA
 -- ============================================================
@@ -58,7 +60,7 @@ VALUES ('208', 2025, 1),
        ('Elroq', 2025, 16);
 
 -- password = 'demo' (BCrypt, virker med Spring Securitys BCryptPasswordEncoder)
-INSERT INTO employee (first_name, last_name, username, password_hash, role_id)
+INSERT INTO user (first_name, last_name, username, password_hash, role_id)
 VALUES ('Mads', 'Johansen', 'mads', '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK', 1),
        ('Gustav', 'Clement', 'gustav', '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK', 1),
        ('Al', 'Agami', 'al', '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK', 1),
@@ -76,8 +78,7 @@ INSERT INTO car (vin, car_model_id, trim_level, mileage, base_price, co2_emissio
 VALUES ('VF3ABCDEF12345678', 1, 'Allure', 1200, 189900.00, 112.0, 'AB12345', 1),
        ('VR1ABCDEF87654321', 2, 'Rivoli', 0, 299900.00, 125.5, 'CD67890', 1);
 
-INSERT INTO rental_agreement (customer_id, car_id, location_id, employee_id, rental_period_id, start_date,
-                              monthly_price)
+INSERT INTO rental_agreement (customer_id, car_id, location_id, user_id, rental_period_id, start_date, monthly_price)
 VALUES (1, 1, 1, 1, 2, '2026-11-01', 3999.00);
 
 -- Statushistorik (bil 1: AVAILABLE -> RENTED, bil 2: AVAILABLE)
