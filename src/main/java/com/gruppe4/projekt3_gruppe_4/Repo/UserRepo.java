@@ -41,7 +41,7 @@ public class UserRepo {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Kunne ikke hente bruger", e);
+            throw new RuntimeException("Could not load user", e);
         }
     }
 
@@ -58,7 +58,7 @@ public class UserRepo {
 
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException("Could not save user", e);
         }
     }
 }
