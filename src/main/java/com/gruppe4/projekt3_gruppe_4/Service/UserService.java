@@ -19,6 +19,7 @@ public class UserService {
     }
 
     public boolean createUser(User user, String rawPassword) {
+    public boolean CreateUser(User user) {
         if (userRepo.findByUsername(user.getUsername()) != null) {
             return false;
         }
@@ -42,4 +43,3 @@ public class UserService {
         return null;
     }
 }
-
