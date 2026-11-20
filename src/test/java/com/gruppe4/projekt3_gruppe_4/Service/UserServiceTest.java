@@ -66,8 +66,8 @@ class UserServiceTest {
         user.setUsername("new");
         when(userRepo.findByUsername("new")).thenReturn(null);
 
-        assertTrue(userService.createUser(user, "hemmelig"));
-        assertNotEquals("hemmelig", user.getPasswordHash());
+        assertTrue(userService.createUser(user, "secret"));
+        assertNotEquals("secret", user.getPasswordHash());
         verify(userRepo).saveUser(user);
     }
 
