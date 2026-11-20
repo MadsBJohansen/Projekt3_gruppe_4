@@ -40,6 +40,14 @@ body {
     padding: 24px;
 }
 
+.createCustomer-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 48px);
+    padding: 24px;
+}
+
 .card {
     width: 100%;
     max-width: 390px;
@@ -72,7 +80,7 @@ label {
     margin-bottom: 6px;
 }
 
-input {
+input, select {
     width: 100%;
     height: 42px;
     padding: 0 12px;
@@ -81,9 +89,11 @@ input {
     border-radius: 6px;
     font: inherit;
     font-size: 15px;
+    background-color: white;
+    box-sizing: border-box;
 }
 
-input:focus {
+input:focus, select:focus {
     outline: none;
     border-color: #2f6bc4;
     box-shadow: 0 0 0 3px rgba(47, 107, 196, 0.2);
@@ -104,6 +114,32 @@ input:focus {
 
 .error::before {
     content: "!";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 10px 14px;
+    background-color: #eaf6ec;
+    border: 1px solid #a9d8b2;
+    border-radius: 6px;
+    color: #1e5e2c;
+    font-size: 14px;
+}
+.success::before {
+    content: "✓";
     display: flex;
     justify-content: center;
     align-items: center;

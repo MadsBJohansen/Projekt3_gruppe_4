@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Create Customer</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="topbar">
+  <span class="logo">LOGO</span>
+  <span class="brand">Bilabonnement</span>
+</header>
+
+<main class="createCustomer-page">
+  <div class="card">
+
+    <h1>Create customer</h1>
+    <p class="subtitle">Internal system for employees of Bilabonnement</p>
+    <p class="error"   th:if="${error}"   th:text="${error}">Error message</p>
+    <p class="success" th:if="${success}" th:text="${success}">Customer created</p>
+
+    <form th:action="@{/customer}" method="post">
+      <label for="first_name">First Name</label>
+      <input id="first_name" type="text" name="first_name" th:value="${param.first_name}" required>
+
+      <label for="last_name">Last Name</label>
+      <input id="last_name" type="text" name="last_name" th:value="${param.last_name}" required>
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" th:value="${param.email}" required>
+
+      <label for="phone_number">Phone number</label>
+      <input id="phone_number" type="tel" name="phone_number" th:value="${param.phone_number}" required>
+
+      <label for="street_address">Street address</label>
+      <input id="street_address" type="text" name="street_address" th:value="${param.street_address}" required>
+
+      <label for="zip_code">Zip code</label>
+      <select id="zip_code" name="zip_code" required>
+        <option value="" disabled th:selected="${param.zip_code == null}">Choose zip code</option>
+        <option th:each="z : ${zipCodes}"
+                th:value="${z.zipCode}"
+                th:text="${z.zipCode + ' ' + z.city}"
+                th:selected="${param.zip_code != null and param.zip_code[0] == z.zipCode}">2200 København N</option>
+
+      </select>
+      <button type="submit">Create Customer</button>
+    </form>
+  </div>
+</main>
+</body>
+</html>

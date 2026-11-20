@@ -18,7 +18,7 @@ public class CustomerRepo {
     }
 
     public void saveCustomer(Customer customer){
-        String sql = "INSERT INTO Customer (first_name, last_name, email, phone_number, street_address, zip_code_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer (first_name, last_name, email, phone_number, street_address, zip_code_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
