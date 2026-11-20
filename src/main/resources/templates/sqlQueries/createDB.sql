@@ -1,15 +1,3 @@
--- ============================================================
--- Bilabonnement – createDB.sql (DDL)
--- Database: projekt3_gruppe_4_db
--- ============================================================
-
--- Brugeren F26A findes allerede på target-maskinen.
--- Fjern -- og kør disse linjer som root, hvis den mangler:
--- CREATE USER IF NOT EXISTS 'F26A'@'%' IDENTIFIED BY '1234';
--- GRANT ALL PRIVILEGES ON projekt3_gruppe_4_db.* TO 'F26A'@'%';
--- FLUSH PRIVILEGES;
-
--- DROP DATABASE sletter også alle tabeller.
 DROP DATABASE IF EXISTS projekt3_gruppe_4_db;
 CREATE DATABASE projekt3_gruppe_4_db;
 USE projekt3_gruppe_4_db;
@@ -162,7 +150,7 @@ SELECT sc.car_id,
        cs.status_code,
        sc.changed_at
 FROM status_change sc
-JOIN car_status cs ON cs.car_status_id = sc.car_status_id
+         JOIN car_status cs ON cs.car_status_id = sc.car_status_id
 WHERE sc.status_change_id = (SELECT MAX(sc2.status_change_id)
                              FROM status_change sc2
                              WHERE sc2.car_id = sc.car_id);
@@ -209,7 +197,7 @@ CREATE TABLE damage_report
 
     CONSTRAINT fk_damage_report_rental
         FOREIGN KEY (rental_agreement_id)
-        REFERENCES rental_agreement (rental_agreement_id),
+            REFERENCES rental_agreement (rental_agreement_id),
     CONSTRAINT fk_damage_report_user
         FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
@@ -223,6 +211,6 @@ CREATE TABLE damage
 
     CONSTRAINT fk_damage_report
         FOREIGN KEY (damage_report_id)
-        REFERENCES damage_report (damage_report_id) ON DELETE CASCADE,
+            REFERENCES damage_report (damage_report_id) ON DELETE CASCADE,
     CONSTRAINT chk_damage_repair_cost CHECK (repair_cost >= 0)
 );
