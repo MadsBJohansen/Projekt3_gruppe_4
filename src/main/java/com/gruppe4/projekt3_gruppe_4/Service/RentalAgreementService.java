@@ -3,11 +3,13 @@ package com.gruppe4.projekt3_gruppe_4.Service;
 import com.gruppe4.projekt3_gruppe_4.Model.RentalAgreement;
 import com.gruppe4.projekt3_gruppe_4.Repo.RentalAgreementRepo;
 import com.gruppe4.projekt3_gruppe_4.exceptions.RentalAgreementException;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Service
 public class RentalAgreementService {
 
     private final RentalAgreementRepo rentalAgreementRepo;
@@ -32,26 +34,27 @@ public class RentalAgreementService {
                 startDate,
                 monthlyPrice);
 
-        calculateEndDate(rentalAgreement);
-        if (validateRentalAgreement(rentalAgreement.getCarId(), rentalAgreement.getStartDate(), rentalAgreement.getReturnDate())){
-            rentalAgreementRepo.saveRentalAgreement(rentalAgreement);
-        }else{
+        calculateReturnDate(rentalAgreement);
+        if (isOverlappingRentalPeriod(rentalAgreement.getCarId(), rentalAgreement.getStartDate(), rentalAgreement.getReturnDate())){
             throw new RentalAgreementException("Overlapping dates!");
+        }else{
+            rentalAgreementRepo.saveRentalAgreement(rentalAgreement);
         }
 
     }
 // Checks if the car has overlapping rental dates
-    public boolean validateRentalAgreement(int carId, LocalDate startDate, LocalDate returnDate){
+    public boolean isOverlappingRentalPeriod(int carId, LocalDate startDate, LocalDate returnDate){
         for(RentalAgreement ra : rentalAgreementRepo.findByCarId(carId)){
-            return !ra.getStartDate().isAfter(startDate) && !ra.getReturnDate().isBefore(returnDate);
+            return ra.getStartDate().isAfter(startDate) && ra.getReturnDate().isBefore(returnDate);
         }
         return false;
     }
 
 // Calculates the end date of rental agreement
-    public void calculateEndDate(RentalAgreement rentalAgreement){
+    public void calculateReturnDate(RentalAgreement rentalAgreement){
         int rentalPeriode = rentalAgreementRepo.findRentalPeriodeById(rentalAgreement.getRentalAgreementId());
-        rentalAgreement.setReturnDate(rentalAgreement.getStartDate().plusMonths(rentalPeriode));
+        LocalDate returnDate =rentalAgreement.getStartDate().plusMonths(rentalPeriode);
+        rentalAgreement.setReturnDate(returnDate);
     }
 
 }
