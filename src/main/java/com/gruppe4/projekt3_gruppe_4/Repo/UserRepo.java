@@ -36,8 +36,6 @@ public class UserRepo {
                     return user;
                 }
                 return null;
-
-
             }
 
         } catch (SQLException e) {
