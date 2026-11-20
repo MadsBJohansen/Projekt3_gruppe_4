@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All JUnit Tests" type="JUnit" factoryName="JUnit">
+    <module name="Projekt3_gruppe_4" />
+    <option name="PACKAGE_NAME" value="com.gruppe4.projekt3_gruppe_4" />
+    <option name="TEST_OBJECT" value="package" />
+    <option name="VM_PARAMETERS" value="-Xshare:off -javaagent:$MAVEN_REPOSITORY$/org/mockito/mockito-core/5.23.0/mockito-core-5.23.0.jar" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
