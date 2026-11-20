@@ -115,3 +115,23 @@ input:focus {
     font-weight: bold;
     flex-shrink: 0;
 }
+
+button {
+    height: 44px;
+    margin-top: 6px;
+    background-color: #2f6bc4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    margin: 20px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: #556b82;
+}
