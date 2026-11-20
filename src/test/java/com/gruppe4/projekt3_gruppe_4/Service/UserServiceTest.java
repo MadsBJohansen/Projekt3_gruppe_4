@@ -47,14 +47,14 @@ class UserServiceTest {
     void login_wrongPassword_returnsNull() {            //exception flow
         when(userRepo.findByUsername("demo")).thenReturn(userWithPassword("demo"));
 
-        assertNull(userService.login("demo", "forkert"));
+        assertNull(userService.login("demo", "wrong"));
     }
 
     @Test
     void login_unknownUser_returnsNull() {
-        when(userRepo.findByUsername("findesikke")).thenReturn(null);
+        when(userRepo.findByUsername("nonexistent")).thenReturn(null);
 
-        assertNull(userService.login("findesikke", "demo"));
+        assertNull(userService.login("nonexistent", "demo"));
     }
 
     //-------createUser------
@@ -63,8 +63,8 @@ class UserServiceTest {
     @Test
     void createUser_validInput_savesHashedPassword() {          //happy flow
         User user = new User();
-        user.setUsername("ny");
-        when(userRepo.findByUsername("ny")).thenReturn(null);
+        user.setUsername("new");
+        when(userRepo.findByUsername("new")).thenReturn(null);
 
         assertTrue(userService.createUser(user, "hemmelig"));
         assertNotEquals("hemmelig", user.getPasswordHash());
@@ -84,7 +84,7 @@ class UserServiceTest {
     @Test
     void createUser_blankPassword_returnsFalse() {          //inputValidering
         User user = new User();
-        user.setUsername("ny");
+        user.setUsername("new");
 
         assertFalse(userService.createUser(user, " "));
         verify(userRepo, never()).saveUser(any());
