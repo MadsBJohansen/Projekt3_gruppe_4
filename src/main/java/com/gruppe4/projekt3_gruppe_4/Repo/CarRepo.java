@@ -2,6 +2,7 @@
 package com.gruppe4.projekt3_gruppe_4.Repo;
 
 import com.gruppe4.projekt3_gruppe_4.Model.Car;
+import com.gruppe4.projekt3_gruppe_4.enums.CarStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -17,6 +18,17 @@ public class CarRepo {
 
     public CarRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void updateCarStatus(int carId, CarStatus status){
+        String sql = """
+                    INSERT INTO status_change(car_id, car_status_id, changed_at)
+                    SELECT ?, car_status_id, NOW()
+                    FROM car_status
+                    WHERE status_code = ?
+                    """;
+        jdbcTemplate.update(sql,carId, status);
+
     }
 
     public int saveCar(Car car) {
