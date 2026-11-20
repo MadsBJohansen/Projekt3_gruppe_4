@@ -6,7 +6,7 @@ public class User {
     private String lastName;
     private String username;
     private String passwordHash;
-    private int roleId  ;
+    private int roleId;
 
     public int getUserId() {
         return userId;
