@@ -47,7 +47,7 @@ CREATE TABLE car_status
 CREATE TABLE rental_period
 (
     rental_period_id  INT          AUTO_INCREMENT PRIMARY KEY,
-    months            TINYINT      NOT NULL UNIQUE
+    months            INT      NOT NULL UNIQUE
 );
 
 
