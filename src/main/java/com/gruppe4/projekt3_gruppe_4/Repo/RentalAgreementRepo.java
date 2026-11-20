@@ -2,12 +2,14 @@ package com.gruppe4.projekt3_gruppe_4.Repo;
 import com.gruppe4.projekt3_gruppe_4.Model.RentalAgreement;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class RentalAgreementRepo {
     private final JdbcTemplate jdbcTemplate;
-    private RowMapper<RentalAgreement> rentalAgreementRowMapper = (rs, rowNum) ->
+    private final RowMapper<RentalAgreement> rentalAgreementRowMapper = (rs, rowNum) ->
             new RentalAgreement (rs.getInt("rental_agreement_id"),
                     rs.getInt("customer_id"),
                     rs.getInt("car_id"),
@@ -18,9 +20,8 @@ public class RentalAgreementRepo {
                     rs.getDate("return_date").toLocalDate(),
                     rs.getBigDecimal("monthly_price"));
 
-    public RentalAgreementRepo(JdbcTemplate jdbcTemplate, RowMapper<RentalAgreement> rentalAgreementRowMapper){
+    public RentalAgreementRepo(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
-        this.rentalAgreementRowMapper = rentalAgreementRowMapper;
     }
 
     public List<RentalAgreement> findAll(){

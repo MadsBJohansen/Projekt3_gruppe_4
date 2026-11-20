@@ -31,7 +31,7 @@ public class UserController {
         User user = userService.login(username, password);
         if (user != null) {
             session.setAttribute("user", user);
-            return "redirect:/homepage";
+            return "redirect:/";
         }
         model.addAttribute("error", "invalid username or password");
         return "login";
