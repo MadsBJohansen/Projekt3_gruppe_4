@@ -79,4 +79,29 @@ public class CarRepo {
 
         return key.intValue();
     }
+
+    public boolean existsByVin(String vin) {
+        String sql = "SELECT COUNT(*) FROM car WHERE vin = ?";
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                vin
+        );
+
+        return count != null && count > 0;
+    }
+    public boolean existsByLicensePlate(String licensePlate) {
+        String sql = "SELECT COUNT(*) FROM car WHERE license_plate = ?";
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                licensePlate
+        );
+
+        return count != null && count > 0;
+    }
+
+
 }
