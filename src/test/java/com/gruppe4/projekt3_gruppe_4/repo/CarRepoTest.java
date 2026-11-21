@@ -58,4 +58,76 @@ class CarRepoTest {
 
         assertEquals(car.getVin(), savedVin);
     }
+    @Test
+    void shouldReturnTrueWhenVinExists() {
+// Arrange
+Car car = new Car(
+        "VINTEST1234567890",
+        1,
+        "Comfort",
+        25000,
+        new BigDecimal("250000.00"),
+        new BigDecimal("120.0"),
+        "VIN98765",
+        1
+);
+
+        carRepo.saveCar(car);
+
+// Act
+boolean exists = carRepo.existsByVin(car.getVin());
+
+// Assert
+assertTrue(exists);
+    }
+    @Test
+    void shouldReturnFalseWhenVinDoesNotExist() {
+        // Arrange
+        String unknownVin = "UNKNOWNVIN1234567";
+
+        // Act
+        boolean exists = carRepo.existsByVin(unknownVin);
+
+        // Assert
+        assertFalse(exists);
+    }
+    @Test
+    void shouldReturnTrueWhenLicensePlateExists() {
+        // Arrange
+        String licensePlate = "LP98765";
+
+        Car car = new Car(
+                "LPTEST12345678901",
+                1,
+                "Comfort",
+                25000,
+                new BigDecimal("250000.00"),
+                new BigDecimal("120.0"),
+                licensePlate,
+                1
+        );
+
+        carRepo.saveCar(car);
+
+        // Act
+        boolean exists = carRepo.existsByLicensePlate(licensePlate);
+
+        // Assert
+        assertTrue(exists);
+    }
+    @Test
+    void shouldReturnFalseWhenLicensePlateDoesNotExist() {
+        // Arrange
+        String unknownLicensePlate = "ZZ00000";
+
+        // Act
+        boolean exists = carRepo.existsByLicensePlate(unknownLicensePlate);
+
+        // Assert
+        assertFalse(exists);
+    }
+
+
+
+
 }
