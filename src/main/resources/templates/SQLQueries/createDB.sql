@@ -93,7 +93,7 @@ CREATE TABLE contract
     start_date      	DATE 			NOT NULL,
     car_return_date 	DATE,
     canceled_at    	DATETIME,
-    period	 	INT  			NOT NULL,
+    `period`	 	INT  			NOT NULL,
     monthly_price	DECIMAL(10,2)	NOT NULL,
     CONSTRAINT fk_contract_customer_id
         FOREIGN KEY(customer_id) REFERENCES customer(id),
@@ -104,7 +104,7 @@ CREATE TABLE contract
     CONSTRAINT fk_contract_user_id
         FOREIGN KEY(user_id) REFERENCES user(id),
     CONSTRAINT chk_contract_period
-        CHECK(period = 3 OR period = 6 OR period = 12),
+        CHECK(`period` = 3 OR `period` = 6 OR `period` = 12),
     CONSTRAINT chk_contract_monthly_price
         CHECK(monthly_price >= 0)
 

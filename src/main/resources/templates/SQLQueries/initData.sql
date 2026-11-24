@@ -13,12 +13,14 @@ VALUES      ('2200','København N'),
 -- Password = 'demo' (BCrypt, virker med Spring Securitys BCryptPasswordEncoder)
 SET @demo = '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK';
 
-INSERT INTO user(first_name, last_name, username, password_hash, role)
-VALUES      ('Demo', 'Demosen', 'demo', @demo, 'Admin'),
-            ('Mads', 'Johansen', 'mads', @demo, 'Admin'),
-            ('Gustav', 'Clement', 'gustav', @demo, 'Business Developer'),
-            ('Al', 'Agami', 'al', @demo, 'Data Registration'),
-            ('Rasmus','Gøtze', 'rasmus', @demo, 'Damage And Repair');
+INSERT INTO user
+(first_name, last_name, username, password_hash, role)
+VALUES
+    ('Demo', 'Demosen', 'demo', @demo, 'ADMIN'),
+    ('Mads', 'Johansen', 'mads', @demo, 'ADMIN'),
+    ('Gustav', 'Clement', 'gustav', @demo, 'BUSINESS_DEVELOPER'),
+    ('Al', 'Agami', 'al', @demo, 'DATA_REGISTRATION'),
+    ('Rasmus', 'Gøtze', 'rasmus', @demo, 'DAMAGE_AND_REPAIR');
 
 INSERT INTO customer(first_name, last_name, email, phone_number, street_address, zip_code_id)
 VALUES      ('Bjørn', 'Programmering', 'bjoern@example.com', '+4511223344', 'Guldbergsgade 29', 1),
@@ -34,7 +36,7 @@ VALUES
     ('HBUSRJGF9CBFPR9BN' ,'allure', 61860, 140000.00, 105.0, 'AB12345', 1, 'Fiat', '500 Vita comfort 70 HK', 2023),
     ('2T1BURHE7JC019482' ,'rivoli',    27160, 330000.00, 0, 'CD67890', 1, 'Polestar', '2 Plus Standard Range Single Motor', 2022);
 
-INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
+INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, `period`)
 VALUES
     (1, 2, 1, 2, '2026-11-24', 3999.00, 6);
 
