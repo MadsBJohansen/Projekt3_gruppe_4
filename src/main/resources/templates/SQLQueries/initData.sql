@@ -11,7 +11,7 @@ VALUES      ('2200','København N'),
 
 
 -- Password = 'demo' (BCrypt, virker med Spring Securitys BCryptPasswordEncoder)
-SET @demo = '$2a10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK';
+SET @demo = '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK';
 
 INSERT INTO user(first_name, last_name, username, password_hash, role)
 VALUES      ('Demo', 'Demosen', 'demo', @demo, 'Admin'),
