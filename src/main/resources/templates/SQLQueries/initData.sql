@@ -37,3 +37,8 @@ VALUES
 INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
 VALUES
     (1, 2, 1, 2, '2026-11-24', 3999.00, 6);
+
+INSERT INTO car_status_log (car_id, changed_at, status)
+VALUES (1, '2026-11-20 09:00:00', 'AVAILABLE'),
+       (2, '2026-11-20 09:00:00', 'AVAILABLE'),
+       (2, '2026-11-24 10:00:00', 'RENTED');
