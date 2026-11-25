@@ -26,6 +26,7 @@ public class CarController {
     public String showCreateCarForm(Model model) {
         model.addAttribute("car", new Car());
         model.addAttribute("locations", locationRepo.findAll());
+        model.addAttribute("cars", carService.findAllCars());
 
         return "user-page";
     }
@@ -41,6 +42,7 @@ public class CarController {
                     "Enter valid numbers for mileage, price, CO2 emission, and year.");
             model.addAttribute("openCreateCar", true);
             model.addAttribute("locations", locationRepo.findAll());
+            model.addAttribute("cars", carService.findAllCars());
 
             return "user-page";
         }
@@ -50,6 +52,7 @@ public class CarController {
             model.addAttribute("error", exception.getMessage());
             model.addAttribute("openCreateCar", true);
             model.addAttribute("locations", locationRepo.findAll());
+            model.addAttribute("cars", carService.findAllCars());
 
             return "user-page";
         }

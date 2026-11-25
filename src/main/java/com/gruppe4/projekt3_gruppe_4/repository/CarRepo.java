@@ -95,8 +95,37 @@ public class CarRepo {
     }
 
     public List<Car> findAllCars() {
-        String sql = "SELECT * FROM car ORDER BY id";
-        return jdbcTemplate.query(sql, carRowMapper);
+        String sql = """
+                SELECT car.*,
+                    (
+                        SELECT status
+                        FROM car_status_log
+                        WHERE car_id = car.id
+                        ORDER BY changed_at DESC, id DESC
+                        LIMIT 1
+                    ) AS status
+                FROM car
+                ORDER BY car.id DESC
+                """;
+
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+            Car car = new Car(
+                    resultSet.getInt("id"),
+                    resultSet.getString("vin"),
+                    resultSet.getString("trim_level"),
+                    resultSet.getInt("mileage"),
+                    resultSet.getBigDecimal("base_price"),
+                    resultSet.getBigDecimal("co2_emission"),
+                    resultSet.getString("license_plate"),
+                    resultSet.getInt("current_location_id"),
+                    resultSet.getString("brand"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("year")
+            );
+
+            car.setStatus(resultSet.getString("status"));
+            return car;
+        });
     }
 
     public List<Car> findCarsByStatus(String status) {
