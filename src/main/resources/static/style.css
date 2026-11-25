@@ -201,3 +201,30 @@ button:hover {
 #create-car button[type="button"] {
     background-color: #556b82;
 }
+
+/* ------ Customer ----------------------------*/
+
+.modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;                 /* centrerer i midten af skærmen */
+    height: fit-content;
+    max-width: none;
+    overflow: visible;            /* boblerne må stikke ud */
+
+    border: none;
+    border-radius: 60px;
+    padding: 20px 40px 20px;
+    background: white;
+    filter: drop-shadow(0 8px 15px rgba(36, 87, 167, 0.25));
+
+    width: 300px;
+    box-sizing: border-box;
+}
+
+/* Sløret glas bag popover'en */
+.modal::backdrop {
+    background-color: rgba(242, 242, 242, 0.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}

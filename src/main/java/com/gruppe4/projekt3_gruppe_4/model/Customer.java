@@ -39,6 +39,8 @@ public class Customer {
         this.zipCodeId = zipCodeId;
     }
 
+    public Customer(){}
+
     public int getId() {
         return id;
     }

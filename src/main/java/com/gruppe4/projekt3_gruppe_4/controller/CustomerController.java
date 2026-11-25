@@ -17,7 +17,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/createCustomer")
+    @PostMapping("/customer/createCustomer")
     public String createCustomer(@RequestParam String firstName,
                                  @RequestParam String lastName,
                                  @RequestParam String email,
