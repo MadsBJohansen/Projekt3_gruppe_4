@@ -83,7 +83,9 @@ public class CarRepo {
         }
 
         car.setId(id);
-    }public void saveInitialStatus(int carId) {
+    }
+
+    public void saveInitialStatus(int carId) {
         String sql = """
             INSERT INTO car_status_log (car_id, status)
             VALUES (?, ?)
