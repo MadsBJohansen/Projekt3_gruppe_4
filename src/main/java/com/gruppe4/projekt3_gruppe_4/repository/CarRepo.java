@@ -4,6 +4,8 @@ import com.gruppe4.projekt3_gruppe_4.model.Car;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CarRepo {
 
@@ -68,12 +70,49 @@ public class CarRepo {
         }
 
         car.setId(id);
-    }public void saveInitialStatus(int carId) {
+    }
+
+    public void saveInitialStatus(int carId) {
         String sql = """
             INSERT INTO car_status_log (car_id, status)
             VALUES (?, ?)
             """;
 
         jdbcTemplate.update(sql, carId, "AVAILABLE");
+    }
+
+    public List<Car> findAll() {
+        String sql = """
+                SELECT car.*,
+                    (
+                        SELECT status
+                        FROM car_status_log
+                        WHERE car_id = car.id
+                        ORDER BY changed_at DESC, id DESC
+                        LIMIT 1
+                    ) AS status
+                FROM car
+                ORDER BY car.id DESC
+                """;
+
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+            Car car = new Car(
+                    resultSet.getString("vin"),
+                    resultSet.getString("trim_level"),
+                    resultSet.getInt("mileage"),
+                    resultSet.getBigDecimal("base_price"),
+                    resultSet.getBigDecimal("co2_emission"),
+                    resultSet.getString("license_plate"),
+                    resultSet.getInt("current_location_id"),
+                    resultSet.getString("brand"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("year")
+            );
+
+            car.setId(resultSet.getInt("id"));
+            car.setStatus(resultSet.getString("status"));
+
+            return car;
+        });
     }
 }

@@ -14,6 +14,7 @@ public class Car {
     private String brand;
     private String model;
     private int year;
+    private String status;
 
     public Car() {
     }
@@ -76,6 +77,14 @@ public class Car {
 
     public int getYear() {
         return year;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setId(int id) {
