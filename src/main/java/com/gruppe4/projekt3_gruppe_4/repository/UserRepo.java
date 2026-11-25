@@ -14,7 +14,7 @@ public class UserRepo {
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getString("username"),
-                    rs.getString("passwordHash"),
+                    rs.getString("password_hash"),
                     Role.valueOf(rs.getString("role")));
 
     public UserRepo(JdbcTemplate jdbcTemplate) {

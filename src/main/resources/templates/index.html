@@ -15,33 +15,11 @@
 
 <main class="login-page">
     <div class="card">
-        <h1>Welcom</h1>
-        <p class="subtitle">Login to continue</p>
-        <button type="button" onclick="document.getElementById('loginDialog').showModal()">
-            Login
-        </button>
+        <h1>Login</h1>
+        <form class="login-form" th:action="@{/user/user-page}">
+            <button type="submit">Login</button>
+        </form>
     </div>
-
-<dialog id="loginDialog">
-    <form th:action="@{/login}" method="post">
-
-        <p th:if="${error}" th:text="${error}" class="error"></p>
-
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
-        <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
-    </form>
-</dialog>
-
-<script th:if="${error}">
-    document.getElementById('loginDialog').showModal();
-</script>
-
 </main>
 </body>
 </html>

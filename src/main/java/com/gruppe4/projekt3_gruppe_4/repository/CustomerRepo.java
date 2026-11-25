@@ -23,6 +23,11 @@ public class CustomerRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Customer findById(int id){
+        String sql = "SELECT * FROM customer WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, customerRowMapper,id);
+    }
+
     public void saveCustomer(Customer customer){
         String sql = """
                         INSERT INTO customer(
