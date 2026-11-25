@@ -1,9 +1,11 @@
 package com.gruppe4.projekt3_gruppe_4.controller;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
+import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import com.gruppe4.projekt3_gruppe_4.repository.LocationRepo;
 import com.gruppe4.projekt3_gruppe_4.service.CarService;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +25,14 @@ public class CarController {
     }
 
     @GetMapping({"/car/user-page", "/user-page"})
-    public String showCreateCarForm(Model model) {
+    public String showCreateCarForm(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+
+
         model.addAttribute("car", new Car());
+        model.addAttribute("customer", new Customer());
         model.addAttribute("locations", locationRepo.findAll());
         model.addAttribute("cars", carService.findAllCars());
 
@@ -35,12 +43,19 @@ public class CarController {
     public String createCar(
             @ModelAttribute("car") Car car,
             BindingResult bindingResult,
-            Model model) {
+            Model model,
+            HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+
+
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("error",
                     "Enter valid numbers for mileage, price, CO2 emission, and year.");
             model.addAttribute("openCreateCar", true);
+            model.addAttribute("customer", new Customer());
             model.addAttribute("locations", locationRepo.findAll());
             model.addAttribute("cars", carService.findAllCars());
 
@@ -51,6 +66,7 @@ public class CarController {
         } catch (IllegalArgumentException exception) {
             model.addAttribute("error", exception.getMessage());
             model.addAttribute("openCreateCar", true);
+            model.addAttribute("customer", new Customer());
             model.addAttribute("locations", locationRepo.findAll());
             model.addAttribute("cars", carService.findAllCars());
 
