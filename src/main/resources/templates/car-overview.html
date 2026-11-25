@@ -14,13 +14,13 @@
 </header>
 
 <main>
-    <form th:action="@{/statstics/cars}" method="get">
+    <form th:action="@{/statistics/cars}" method="get">
         <label for="status" >Status</label>
         <select id="status" th:name="status" onchange="this.form.submit()">
-            <option value="">Alle</option>
+            <option value="">All</option>
             <option th:each="s : ${statuses}"
                     th:value="${s}"
-                    th:text="${s} + ' (' + ${countPerStatus[s]} + ')'"
+                    th:text="${s} + ' (' + ${countPerStatus.get(s)} + ')'"
                     th:selected="${s == selectedStatus}"></option>
         </select>
     </form>

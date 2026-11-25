@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement</title>
@@ -15,11 +14,22 @@
 
 <main class="login-page">
     <div class="card">
-        <h1>Login</h1>
-        <form class="login-form" th:action="@{/user/user-page}">
+        <h1>Welcome</h1>
+        <p class="subtitle">Login to continue</p>
+
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
             <button type="submit">Login</button>
         </form>
     </div>
 </main>
+
 </body>
 </html>

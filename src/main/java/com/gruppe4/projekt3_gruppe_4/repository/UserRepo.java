@@ -2,9 +2,12 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.enums.Role;
 import com.gruppe4.projekt3_gruppe_4.model.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.sql.SQLException;
 
 @Repository
 public class UserRepo {
@@ -23,17 +26,25 @@ public class UserRepo {
 
     public User findByUsername(String username) {
         String sql = "SELECT * FROM user WHERE username = ?";
-        return jdbcTemplate.queryForObject(sql, userRowMapper, username);
+        try {
+            return jdbcTemplate.queryForObject(sql, userRowMapper, username);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public void saveUser(User user) {
-        String sql = "INSERT INTO user(first_name, last_name, username, password_hash, role) WHERE ?, ?, ?, ?, ?";
+        String sql = "INSERT INTO user(first_name, last_name, username, password_hash, role) VALUES ?, ?, ?, ?, ?";
 
-        jdbcTemplate.update(sql,
-                user.getFirstName(),
-                user.getLastName(),
-                user.getUsername(),
-                user.getPasswordHash(),
-                user.getRole());
+        try {
+            jdbcTemplate.update(sql,
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getUsername(),
+                    user.getPasswordHash(),
+                    user.getRole());
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException("Could not save user", e);
+        }
     }
 }
