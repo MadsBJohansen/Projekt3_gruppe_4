@@ -2,12 +2,29 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class CarRepo {
 
     private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<Car> carRowMapper = ((rs, rowNum) ->
+            new Car(rs.getInt("id"),
+                    rs.getString("vin"),
+                    rs.getString("trim_level"),
+                    rs.getInt("mileage"),
+                    rs.getBigDecimal("base_price"),
+                    rs.getBigDecimal("co2_emission"),
+                    rs.getString("license_plate"),
+                    rs.getInt("current_location_id"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getInt("year")));
 
     public CarRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -75,5 +92,28 @@ public class CarRepo {
             """;
 
         jdbcTemplate.update(sql, carId, "AVAILABLE");
+    }
+
+    public List<Car> findAllCars() {
+        String sql = "SELECT * FROM car ORDER BY id";
+        return jdbcTemplate.query(sql, carRowMapper);
+    }
+
+    public List<Car> findCarsByStatus(String status) {
+        String sql = "SELECT c.* FROM car AS c JOIN car_status AS l ON l.car_id = c.id" +
+                " WHERE l.status = ?" +
+                " AND l.changed_at = (SELECT MAX(l2.changed_at)" +
+                " FROM car_status_log AS l2 WHERE l2.car_id = c.id)";
+
+        return jdbcTemplate.query(sql, carRowMapper, status);
+    }
+
+    public int countCarsByStatus(String status) {
+        String sql = "SELECT COUNT(*) FROM car AS c JOIN car_status AS l ON l.car_id = c.id" +
+                " WHERE l.status = ?" +
+                " AND l.changed_at = (SELECT MAX(l2.changed_at)" +
+                " FROM car_status_log AS l2 WHERE l2car.car_id = c.id";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, status);
     }
 }
