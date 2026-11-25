@@ -19,7 +19,7 @@ public class CarService {
     }
 
     public List<Car> findAll() {
-        return carRepo.findAll();
+        return carRepo.findAllCars();
     }
 
     @Transactional

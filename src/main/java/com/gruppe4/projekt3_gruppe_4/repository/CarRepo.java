@@ -5,8 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -102,7 +100,7 @@ public class CarRepo {
     }
 
     public List<Car> findCarsByStatus(String status) {
-        String sql = "SELECT c.* FROM car AS c JOIN car_status AS l ON l.car_id = c.id" +
+        String sql = "SELECT c.* FROM car AS c JOIN car_status_log AS l ON l.car_id = c.id" +
                 " WHERE l.status = ?" +
                 " AND l.changed_at = (SELECT MAX(l2.changed_at)" +
                 " FROM car_status_log AS l2 WHERE l2.car_id = c.id)";
@@ -111,10 +109,10 @@ public class CarRepo {
     }
 
     public int countCarsByStatus(String status) {
-        String sql = "SELECT COUNT(*) FROM car AS c JOIN car_status AS l ON l.car_id = c.id" +
+        String sql = "SELECT COUNT(*) FROM car AS c JOIN car_status_log AS l ON l.car_id = c.id" +
                 " WHERE l.status = ?" +
                 " AND l.changed_at = (SELECT MAX(l2.changed_at)" +
-                " FROM car_status_log AS l2 WHERE l2car.car_id = c.id";
+                " FROM car_status_log AS l2 WHERE l2.car_id = c.id)";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, status);
     }

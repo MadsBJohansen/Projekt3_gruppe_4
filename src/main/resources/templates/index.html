@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Bilabonnement</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-VIRKER
 
+<header class="topbar">
+    <span class="logo">LOGO</span>
+    <span class="brand">Bilabonnement</span>
+</header>
+
+<main class="login-page">
+    <div class="card">
+        <h1>Welcom</h1>
+        <p class="subtitle">Login to continue</p>
+        <button type="button" onclick="document.getElementById('loginDialog').showModal()">
+            Login
+        </button>
+    </div>
+
+<dialog id="loginDialog">
+    <form th:action="@{/login}" method="post">
+
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+        <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
+    </form>
+</dialog>
+
+<script th:if="${error}">
+    document.getElementById('loginDialog').showModal();
+</script>
+
+</main>
 </body>
 </html>
