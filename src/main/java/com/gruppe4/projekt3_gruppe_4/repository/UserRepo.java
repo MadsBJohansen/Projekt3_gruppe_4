@@ -34,7 +34,7 @@ public class UserRepo {
     }
 
     public void saveUser(User user) {
-        String sql = "INSERT INTO user(first_name, last_name, username, password_hash, role) VALUES ?, ?, ?, ?, ?";
+        String sql = "INSERT INTO user(first_name, last_name, username, password_hash, role) VALUES (?, ?, ?, ?, ?)";
 
         try {
             jdbcTemplate.update(sql,
