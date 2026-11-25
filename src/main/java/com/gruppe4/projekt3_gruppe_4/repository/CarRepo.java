@@ -12,6 +12,7 @@ public class CarRepo {
     public CarRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     public boolean existsByLicensePlate(String licensePlate) {
         String sql = "SELECT COUNT(*) FROM car WHERE license_plate = ?";
 
@@ -21,6 +22,7 @@ public class CarRepo {
 
         return count != null && count > 0;
     }
+
     public boolean existsByVin(String vin) {
         String sql = "SELECT COUNT(*) FROM car WHERE vin = ?";
 
@@ -30,14 +32,15 @@ public class CarRepo {
 
         return count != null && count > 0;
     }
+
     public void saveCar(Car car) {
         String sql = """
-            INSERT INTO car (
-                vin, trim_level, mileage, base_price, co2_emission,
-                license_plate, current_location_id, brand, model, year
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """;
+                INSERT INTO car (
+                    vin, trim_level, mileage, base_price, co2_emission,
+                    license_plate, current_location_id, brand, model, year
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
 
         jdbcTemplate.update(
                 sql,
@@ -52,5 +55,25 @@ public class CarRepo {
                 car.getModel(),
                 car.getYear()
         );
+
+        Integer id = jdbcTemplate.queryForObject(
+                "SELECT id FROM car WHERE vin = ?",
+                Integer.class,
+                car.getVin()
+        );
+        if (id == null) {
+            throw new IllegalStateException(
+                    "Could not retrieve the car ID after saving."
+            );
+        }
+
+        car.setId(id);
+    }public void saveInitialStatus(int carId) {
+        String sql = """
+            INSERT INTO car_status_log (car_id, status)
+            VALUES (?, ?)
+            """;
+
+        jdbcTemplate.update(sql, carId, "AVAILABLE");
     }
 }
