@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement</title>
@@ -15,33 +14,22 @@
 
 <main class="login-page">
     <div class="card">
-        <h1>Welcom</h1>
+        <h1>Welcome</h1>
         <p class="subtitle">Login to continue</p>
-        <button type="button" onclick="document.getElementById('loginDialog').showModal()">
-            Login
-        </button>
-    </div>
-
-<dialog id="loginDialog">
-    <form th:action="@{/login}" method="post">
 
         <p th:if="${error}" th:text="${error}" class="error"></p>
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
-        <button type="submit">Login</button>
-        <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
-    </form>
-</dialog>
-
-<script th:if="${error}">
-    document.getElementById('loginDialog').showModal();
-</script>
-
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </main>
+
 </body>
 </html>

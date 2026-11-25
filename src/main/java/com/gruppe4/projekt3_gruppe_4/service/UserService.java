@@ -19,6 +19,14 @@ public class UserService {
     }
 
     public boolean createUser(User user, String rawPassword) {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
+            return false;
+        }
+
+        if (user.getUsername() == null || user.getUsername().isBlank() ||
+        rawPassword == null || rawPassword.isBlank()) {
+            return false;
+        }
 
         user.setPasswordHash(hashPassword(rawPassword));
         userRepo.saveUser(user);
