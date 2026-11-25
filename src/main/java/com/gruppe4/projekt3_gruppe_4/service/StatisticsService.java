@@ -28,4 +28,8 @@ public class StatisticsService {
         }
         return result;
     }
+
+    public List<Car> getAllCars() {
+        return carRepo.findAllCars();
+    }
 }

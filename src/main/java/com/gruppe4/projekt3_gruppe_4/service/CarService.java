@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Year;
+import java.util.List;
 
 @Service
 public class CarService {
@@ -16,40 +18,59 @@ public class CarService {
         this.carRepo = carRepo;
     }
 
+    public List<Car> findAll() {
+        return carRepo.findAllCars();
+    }
+
     @Transactional
     public void createCar(Car car) {
+        validateRequiredFields(car);
+        validateCarDetails(car);
+        checkDuplicates(car);
+
+        carRepo.saveCar(car);
+        carRepo.saveInitialStatus(car.getId());
+    }
+
+    private void validateRequiredFields(Car car) {
         if (car == null) {
             throw new IllegalArgumentException("Car information is required.");
         }
 
-        if (car.getVin() == null || car.getVin().isBlank()) {
+        if (isMissing(car.getVin())) {
             throw new IllegalArgumentException("VIN is required.");
         }
 
+        if (isMissing(car.getLicensePlate())) {
+            throw new IllegalArgumentException("License plate is required.");
+        }
+
+        if (isMissing(car.getBrand())) {
+            throw new IllegalArgumentException("Brand is required.");
+        }
+
+        if (isMissing(car.getModel())) {
+            throw new IllegalArgumentException("Model is required.");
+        }
+
+        if (isMissing(car.getTrimLevel())) {
+            throw new IllegalArgumentException("Trim level is required.");
+        }
+
+        if (car.getCurrentLocationId() <= 0) {
+            throw new IllegalArgumentException("A location must be selected.");
+        }
+    }
+
+    private void validateCarDetails(Car car) {
         if (car.getVin().length() != 17) {
             throw new IllegalArgumentException(
                     "VIN must contain exactly 17 characters."
             );
         }
 
-        if (car.getLicensePlate() == null || car.getLicensePlate().isBlank()) {
-            throw new IllegalArgumentException("License plate is required.");
-        }
-
-        if (car.getBrand() == null || car.getBrand().isBlank()) {
-            throw new IllegalArgumentException("Brand is required.");
-        }
-
-        if (car.getModel() == null || car.getModel().isBlank()) {
-            throw new IllegalArgumentException("Model is required.");
-        }
-
-        if (car.getTrimLevel() == null || car.getTrimLevel().isBlank()) {
-            throw new IllegalArgumentException("Trim level is required.");
-        }
-
-        if (car.getCurrentLocationId() <= 0) {
-            throw new IllegalArgumentException("A location must be selected.");
+        if (car.getYear() < Year.now().getValue() - 5) {
+            throw new IllegalArgumentException("The car must not be more than 5 years old.");
         }
 
         if (car.getMileage() < 0) {
@@ -65,7 +86,9 @@ public class CarService {
                 || car.getCo2Emission().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("CO2 emission must not be negative.");
         }
+    }
 
+    private void checkDuplicates(Car car) {
         if (carRepo.existsByVin(car.getVin())) {
             throw new IllegalArgumentException(
                     "A car with this VIN is already registered."
@@ -77,8 +100,9 @@ public class CarService {
                     "A car with this license plate is already registered."
             );
         }
+    }
 
-        carRepo.saveCar(car);
-        carRepo.saveInitialStatus(car.getId());
+    private boolean isMissing(String value) {
+        return value == null || value.isBlank();
     }
 }

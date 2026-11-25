@@ -31,8 +31,7 @@ private BigDecimal monthlyPrice;
     this.monthlyPrice = monthlyPrice;
     }
 
-    public Contract(){
-
+    public Contract() {
     }
 
     public LocalDate getContractEndDate() {

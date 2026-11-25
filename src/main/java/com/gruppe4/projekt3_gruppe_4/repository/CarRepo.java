@@ -83,7 +83,9 @@ public class CarRepo {
         }
 
         car.setId(id);
-    }public void saveInitialStatus(int carId) {
+    }
+
+    public void saveInitialStatus(int carId) {
         String sql = """
             INSERT INTO car_status_log (car_id, status)
             VALUES (?, ?)
@@ -109,10 +111,10 @@ public class CarRepo {
     }
 
     public int countCarsByStatus(String status) {
-        String sql = "SELECT COUNT(*) FROM car AS c JOIN car_status AS l ON l.car_id = c.id" +
+        String sql = "SELECT COUNT(*) FROM car AS c JOIN car_status_log AS l ON l.car_id = c.id" +
                 " WHERE l.status = ?" +
                 " AND l.changed_at = (SELECT MAX(l2.changed_at)" +
-                " FROM car_status_log AS l2 WHERE l2car.car_id = c.id";
+                " FROM car_status_log AS l2 WHERE l2.car_id = c.id)";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, status);
     }
