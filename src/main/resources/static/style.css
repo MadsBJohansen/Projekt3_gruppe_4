@@ -172,8 +172,8 @@ button:hover {
     color: #556b82;
 }
 
-/* Create Car popup */
-#create-car {
+/* Popups (Create car, login etc.) */
+dialog {
     width: 420px;
     max-width: 90vw;
     max-height: 85vh;
@@ -183,21 +183,18 @@ button:hover {
     border-radius: 8px;
 }
 
-#create-car h2 {
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
     margin-top: 0;
+}
+
+dialog button[type="button"] {
+    background-color: #556b82;
 }
 
 .car-form button {
     padding: 0 20px;
-}
-
-.car-form button:hover {
-    margin-top: 6px;
-    font-size: 15px;
-    color: white;
-    background-color: #24549c;
-}
-
-#create-car button[type="button"] {
-    background-color: #556b82;
 }
