@@ -16,9 +16,9 @@ SET @demo = '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK';
 INSERT INTO user(first_name, last_name, username, password_hash, role)
 VALUES      ('Demo', 'Demosen', 'demo', @demo, 'Admin'),
             ('Mads', 'Johansen', 'mads', @demo, 'Admin'),
-            ('Gustav', 'Clement', 'gustav', @demo, 'Business Developer'),
-            ('Al', 'Agami', 'al', @demo, 'Data Registration'),
-            ('Rasmus','Gøtze', 'rasmus', @demo, 'Damage And Repair');
+            ('Gustav', 'Clement', 'gustav', @demo, 'BUSINESS_DEVELOPER'),
+            ('Al', 'Agami', 'al', @demo, 'DATA_REGISTRATION'),
+            ('Rasmus','Gøtze', 'rasmus', @demo, 'DAMAGE_AND_REPAIR');
 
 INSERT INTO customer(first_name, last_name, email, phone_number, street_address, zip_code_id)
 VALUES      ('Bjørn', 'Programmering', 'bjoern@example.com', '+4511223344', 'Guldbergsgade 29', 1),
