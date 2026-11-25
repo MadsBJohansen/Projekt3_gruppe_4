@@ -22,7 +22,7 @@ public class CarController {
         this.locationRepo = locationRepo;
     }
 
-    @GetMapping("/car/user-page")
+    @GetMapping({"/car/user-page", "/user-page"})
     public String showCreateCarForm(Model model) {
         model.addAttribute("car", new Car());
         model.addAttribute("locations", locationRepo.findAll());

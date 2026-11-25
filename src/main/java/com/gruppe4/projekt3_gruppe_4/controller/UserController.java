@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/user/user-page")
     public String showUserPage(Model model){
         model.addAttribute("customer", new Customer());
-        return "user-page";
+        return "redirect:/car/user-page";
     }
 
     @PostMapping("/user/login")
@@ -44,3 +44,4 @@ public class UserController {
         return "index";
     }
 }
+
