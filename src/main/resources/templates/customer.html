@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Customer</title>
+</head>
+<body>
+<header class="topbar">
+    <span class="logo">LOGO</span>
+    <span class="brand">Bilabonnement</span>
+</header>
+    <div class="customer" th:object="${customer}">
+        <span th:text="*{firstName}">First name</span>
+        <span th:text="*{lastName}">Last name</span>
+        <span th:text="*{email}">Email</span>
+        <span th:text="*{phoneNumber}">Phone numer</span>
+        <span th:text="*{streetAddress}">Street address</span>
+        <span th:object="${zipCode}" th:text="*{zipCode}">Zip code</span>
+        <span th:object="${zipCode}" th:text="*{city}">City</span>
+    </div>
+
+</body>
+</html>

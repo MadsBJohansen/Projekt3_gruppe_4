@@ -20,8 +20,13 @@ public class ZipCodeRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public ZipCode findById(int id){
+        String sql = "SELECT * FROM zip_code WHERE id = ?";
+        return  jdbcTemplate.queryForObject(sql, zipCodeRowMapper, id);
+    }
+
     public ZipCode findByZipCode(String zipCode){
-        String sql = "SELECT city FROM zip_code WHERE zip_code = ?";
+        String sql = "SELECT * FROM zip_code WHERE zip_code = ?";
         try {
            return jdbcTemplate.queryForObject(sql, zipCodeRowMapper, zipCode);
         } catch (EmptyResultDataAccessException e) {

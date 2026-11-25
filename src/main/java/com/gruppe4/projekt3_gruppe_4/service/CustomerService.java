@@ -15,6 +15,10 @@ public class CustomerService {
         this.zipCodeService = zipCodeService;
     }
 
+    public Customer findById(int id){
+        return customerRepo.findById(id);
+    }
+
     public void createCustomer(String firstName,
                                String lastName,
                                String email,
