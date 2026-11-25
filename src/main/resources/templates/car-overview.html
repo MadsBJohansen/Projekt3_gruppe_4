@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car overview</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="topbar">
+    <span class="logo">LOGO</span>
+    <span class="brand">Bilabonnement</span>
+</header>
+
+<main>
+    <form th:action="@{/statstics/cars}" method="get">
+        <label for="status" >Status</label>
+        <select id="status" th:name="status" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option th:each="s : ${statuses}"
+                    th:value="${s}"
+                    th:text="${s} + ' (' + ${countPerStatus[s]} + ')'"
+                    th:selected="${s == selectedStatus}"></option>
+        </select>
+    </form>
+</main>
+</body>
+</html>
