@@ -10,7 +10,7 @@
         <p>All fields are required. VIN must contain 17 characters.</p>
         <p class="error" role="alert" th:if="${error}" th:text="${error}"></p>
 
-        <form th:action="@{/cars/create}" th:object="${car}" method="post">
+        <form th:action="@{/car/cars/create}" th:object="${car}" method="post">
             <div class="car-fields">
                 <div class="car-field">
                     <label for="vin">VIN</label>
@@ -70,3 +70,4 @@
         document.getElementById("create-car").showPopover();
     </script>
 </div>
+

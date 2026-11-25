@@ -39,5 +39,30 @@
 
 <!-- Insert the Create Car button and form. -->
 <div th:replace="~{create-car :: createCar}"></div>
+
+<h2>Cars</h2>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">License plate</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Model</th>
+        <th scope="col">Year</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.licensePlate}"></td>
+        <td th:text="${car.brand}"></td>
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.year}"></td>
+        <td th:text="${car.status}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(cars)}">
+        <td colspan="5">No cars registered.</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
