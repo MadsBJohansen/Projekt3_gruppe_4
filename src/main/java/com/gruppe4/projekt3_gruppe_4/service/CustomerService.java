@@ -20,21 +20,25 @@ public class CustomerService {
                                String email,
                                String phoneNumber,
                                String streetAddress,
-                               int zipCodeId) throws CustomerException {
-        if (!doesEmailExists(email)){
-            customerRepo.saveCustomer(
-                    new Customer(
-                            firstName,
-                            lastName,
-                            email,phoneNumber,
-                            streetAddress,
-                            zipCodeId));
-        }else {
+                               String zipCode) throws CustomerException {
+        if (doesEmailExist(email)){
             throw new CustomerException("Email already exists!");
         }
-    }
+        if (zipCodeService.findByZipCode(zipCode) == null){
+            throw new CustomerException("INVALID zip code!");
+        }
+        int zipCodeId = zipCodeService.findByZipCode(zipCode).getZipCodeId();
+        customerRepo.saveCustomer(
+                new Customer(
+                        firstName,
+                        lastName,
+                        email,phoneNumber,
+                        streetAddress,
+                        zipCodeId));
+        }
 
-    public boolean doesEmailExists(String email){
+
+    public boolean doesEmailExist(String email){
         return customerRepo.findByEmail(email) != null;
     }
 }

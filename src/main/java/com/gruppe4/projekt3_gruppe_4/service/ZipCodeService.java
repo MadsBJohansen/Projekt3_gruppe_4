@@ -15,8 +15,4 @@ public class ZipCodeService {
     public ZipCode findByZipCode(String zipCode){
         return zipCodeRepo.findByZipCode(zipCode);
     }
-
-    public boolean doesZipCodeExists(String zipCode){
-        return zipCodeRepo.findByZipCode(zipCode) != null;
-    }
 }
