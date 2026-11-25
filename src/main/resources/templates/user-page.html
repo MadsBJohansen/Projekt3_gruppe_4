@@ -9,6 +9,34 @@
 <body>
 <h1>User page</h1>
 
+
+<button class="btn" type="button" popovertarget="create-customer">+ Create Customer</button>
+<div id="create-customer" popover class="modal">
+    <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
+        <h2>New customer</h2>
+
+        <label for="firstName">First name</label>
+        <input id="firstName" type="text" name="firstName" required>
+
+        <label for="lastName">Last name</label>
+        <input id="lastName" type="text" name="lastName" required>
+
+        <label for="email">Email</label>
+        <input id="email" type="text" name="email" required>
+
+        <label for="phoneNumber">Phone number</label>
+        <input id="phoneNumber" type="text" name="phoneNumber" required>
+
+        <label for="streetAddress">Street address</label>
+        <input id="streetAddress" type="text" name="streetAddress" required>
+
+        <label for="zipCode">Zip code</label>
+        <input id="zipCode" type="text" name="ZipCode" required>
+
+    </form>
+
+</div>
+
 <!-- Insert the Create Car button and form. -->
 <div th:replace="~{create-car :: createCar}"></div>
 </body>
