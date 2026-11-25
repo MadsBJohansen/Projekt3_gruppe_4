@@ -1,18 +1,19 @@
 package com.gruppe4.projekt3_gruppe_4.model;
 
 public class ZipCode {
-    private int zipCodeId;
+    private int id;
     private String zipCode;
     private String city;
 
-    public ZipCode(int zipCodeId, String zipCode, String city) {
-        this.zipCodeId = zipCodeId;
+    public ZipCode(int id, String zipCode, String city) {
+        this.id = id;
         this.zipCode = zipCode;
         this.city = city;
+
     }
 
     public int getZipCodeId() {
-        return zipCodeId;
+        return id;
     }
 
     public String getZipCode() {
@@ -24,7 +25,7 @@ public class ZipCode {
     }
 
     public void setZipCodeId(int zipCodeId) {
-        this.zipCodeId = zipCodeId;
+        this.id = zipCodeId;
     }
 
     public void setZipCode(String zipCode) {
