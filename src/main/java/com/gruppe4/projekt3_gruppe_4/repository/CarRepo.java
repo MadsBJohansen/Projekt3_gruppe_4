@@ -5,8 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
