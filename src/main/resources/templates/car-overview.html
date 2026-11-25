@@ -17,7 +17,7 @@
     <form th:action="@{/statstics/cars}" method="get">
         <label for="status" >Status</label>
         <select id="status" th:name="status" onchange="this.form.submit()">
-            <option value="">Alle</option>
+            <option value="">All</option>
             <option th:each="s : ${statuses}"
                     th:value="${s}"
                     th:text="${s} + ' (' + ${countPerStatus[s]} + ')'"
