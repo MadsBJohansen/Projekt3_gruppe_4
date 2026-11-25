@@ -36,7 +36,7 @@ VALUES
     ('HBUSRJGF9CBFPR9BN' ,'allure', 61860, 140000.00, 105.0, 'AB12345', 1, 'Fiat', '500 Vita comfort 70 HK', 2023),
     ('2T1BURHE7JC019482' ,'rivoli',    27160, 330000.00, 0, 'CD67890', 1, 'Polestar', '2 Plus Standard Range Single Motor', 2022);
 
-INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, `period`)
+INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
 VALUES
     (1, 2, 1, 2, '2026-11-24', 3999.00, 6);
 
