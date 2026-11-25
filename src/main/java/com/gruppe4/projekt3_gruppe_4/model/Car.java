@@ -35,6 +35,21 @@ public class Car {
         this.year = year;
     }
 
+    public Car(int id, String vin, String trimLevel, int mileage, BigDecimal basePrice, BigDecimal co2Emission,
+               String licensePlate, int currentLocationId, String brand, String model, int year) {
+        this.id = id;
+        this.vin = vin;
+        this.trimLevel = trimLevel;
+        this.mileage = mileage;
+        this.basePrice = basePrice;
+        this.co2Emission = co2Emission;
+        this.licensePlate = licensePlate;
+        this.currentLocationId = currentLocationId;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+
     public int getId() {
         return id;
     }
