@@ -15,7 +15,7 @@ public class LocationRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Location> findAll() {
+    public List<Location> findAllLocations() {
         String sql = "SELECT id, name FROM location ORDER BY name";
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->

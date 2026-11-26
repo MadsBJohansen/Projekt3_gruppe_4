@@ -1,7 +1,7 @@
 package com.gruppe4.projekt3_gruppe_4.controller;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
-import com.gruppe4.projekt3_gruppe_4.repository.LocationRepo;
+import com.gruppe4.projekt3_gruppe_4.service.LocationService;
 import com.gruppe4.projekt3_gruppe_4.service.CarService;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,11 +17,11 @@ import java.time.Year;
 public class CarController {
 
     private final CarService carService;
-    private final LocationRepo locationRepo;
+    private final LocationService locationService;
 
-    public CarController(CarService carService, LocationRepo locationRepo) {
+    public CarController(CarService carService, LocationService locationService) {
         this.carService = carService;
-        this.locationRepo = locationRepo;
+        this.locationService = locationService;
     }
 
     @GetMapping("/car/{carId}/showCar")
@@ -52,7 +52,7 @@ public class CarController {
 
 
         model.addAttribute("car", new Car());
-        model.addAttribute("locations", locationRepo.findAll());
+        model.addAttribute("locations", locationService.findAllLocations());
         model.addAttribute("cars", carService.findAllCars());
 
         return "user-page";
@@ -74,7 +74,7 @@ public class CarController {
             model.addAttribute("error",
                     "Enter valid numbers for mileage, price, CO2 emission, and year.");
             model.addAttribute("openCreateCar", true);
-            model.addAttribute("locations", locationRepo.findAll());
+            model.addAttribute("locations", locationService.findAllLocations());
             model.addAttribute("cars", carService.findAllCars());
 
             return "user-page";
@@ -84,7 +84,7 @@ public class CarController {
         } catch (IllegalArgumentException exception) {
             model.addAttribute("error", exception.getMessage());
             model.addAttribute("openCreateCar", true);
-            model.addAttribute("locations", locationRepo.findAll());
+            model.addAttribute("locations", locationService.findAllLocations());
             model.addAttribute("cars", carService.findAllCars());
 
             return "user-page";
