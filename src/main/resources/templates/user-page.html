@@ -31,14 +31,74 @@
         <input id="streetAddress" type="text" name="streetAddress" required>
 
         <label for="zipCode">Zip code</label>
-        <input id="zipCode" type="text" name="ZipCode" required>
+        <input id="zipCode" type="text" name="zipCode" required>
+
+        <button type="submit">Create</button>
+        <button type="button" popovertarget="create-customer"
+                popovertargetaction="hide">Cancel</button>
 
     </form>
 
 </div>
 
-<!-- Insert the Create Car button and form. -->
-<div th:replace="~{create-car :: createCar}"></div>
+<button class="btn" type="button" popovertarget="create-car">
+    + Create Car
+</button>
+
+<div id="create-car" popover class="modal">
+    <form class="modal-form" th:action="@{/car/cars/create}" method="post">
+        <h2>New car</h2>
+
+        <p class="error" th:if="${error}" th:text="${error}"></p>
+
+        <label for="vin">VIN</label>
+        <input id="vin" type="text" name="vin"
+               minlength="17" maxlength="17" required>
+
+        <label for="licensePlate">License plate</label>
+        <input id="licensePlate" type="text" name="licensePlate"
+               maxlength="7" required>
+
+        <label for="brand">Brand</label>
+        <input id="brand" type="text" name="brand" maxlength="50" required>
+
+        <label for="model">Model</label>
+        <input id="model" type="text" name="model" maxlength="50" required>
+
+        <label for="trimLevel">Trim level</label>
+        <input id="trimLevel" type="text" name="trimLevel"
+               maxlength="50" required>
+
+        <label for="year">Year</label>
+        <input id="year" type="number" name="year"
+               th:min="${#dates.year(#dates.createNow()) - 5}"
+               step="1" required>
+
+        <label for="mileage">Mileage (km)</label>
+        <input id="mileage" type="number" name="mileage"
+               min="0" step="1" required>
+
+        <label for="basePrice">Base price (DKK)</label>
+        <input id="basePrice" type="number" name="basePrice"
+               min="0.01" max="99999999.99" step="0.01" required>
+
+        <label for="co2Emission">CO2 emission (g/km)</label>
+        <input id="co2Emission" type="number" name="co2Emission"
+               min="0" max="9999.9" step="0.1" required>
+
+        <label for="currentLocationId">Location</label>
+        <select id="currentLocationId" name="currentLocationId" required>
+            <option value="" disabled selected>Select a location</option>
+            <option th:each="location : ${locations}"
+                    th:value="${location.id}"
+                    th:text="${location.name}"></option>
+        </select>
+
+        <button type="submit">Create</button>
+        <button type="button" popovertarget="create-car"
+                popovertargetaction="hide">Cancel</button>
+    </form>
+</div>
 
 <h2>Cars</h2>
 <table>
