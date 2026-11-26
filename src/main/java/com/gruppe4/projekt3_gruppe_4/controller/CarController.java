@@ -32,8 +32,8 @@ public class CarController {
         return "car";
     }
 
-    @PostMapping("/car/updateCar")
-    public String updateCar(@ModelAttribute Car car, Model model){
+    @PostMapping("/car/editCar")
+    public String editCar(@ModelAttribute Car car, Model model){
         try {
             carService.updateCar(car);
 

@@ -1,6 +1,7 @@
 package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
+import com.gruppe4.projekt3_gruppe_4.model.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

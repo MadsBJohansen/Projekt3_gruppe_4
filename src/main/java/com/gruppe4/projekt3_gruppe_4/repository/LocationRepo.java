@@ -2,6 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,19 +11,23 @@ import java.util.List;
 public class LocationRepo {
 
     private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<Location> locationRowMapper = (rs, rowNum) ->
+            new Location(rs.getInt("id"),
+    rs.getString("name"),
+    rs.getString("street_address"),
+            rs.getInt("zip_code_id"));
 
     public LocationRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Location> findAll() {
-        String sql = "SELECT id, name FROM location ORDER BY name";
+    public List<Location> findAllLocations() {
+        String sql = "SELECT * FROM location";
+        return jdbcTemplate.query(sql, locationRowMapper);
+    }
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Location(
-                        rs.getInt("id"),
-                        rs.getString("name")
-                )
-        );
+    public Location findById(int id){
+        String sql = "SELECT * FROM location WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, locationRowMapper ,id);
     }
 }
