@@ -23,31 +23,20 @@ public class CustomerService {
         return customerRepo.findById(id);
     }
 
-    public void createCustomer(String firstName,
-                               String lastName,
-                               String email,
-                               String phoneNumber,
-                               String streetAddress,
-                               String zipCode) throws CustomerException {
-        if (doesEmailExist(email)){
+    public void createCustomer(Customer customer) throws CustomerException {
+        if (doesEmailExist(customer.getEmail())){
             throw new CustomerException("Email already exists!");
         }
 
-        ZipCode zipCodeObject = zipCodeService.findByZipCode(zipCode);
-        if (zipCodeObject == null){
-            throw new CustomerException("INVALID zip code!");
-        }
-        customerRepo.saveCustomer(
-                new Customer(
-                        firstName,
-                        lastName,
-                        email,phoneNumber,
-                        streetAddress,
-                        zipCodeObject.getZipCodeId()));
+        customerRepo.saveCustomer(customer);
         }
 
     public boolean doesEmailExist(String email){
         return customerRepo.findByEmail(email) != null;
+    }
+
+    public boolean doesZipCodeExist(String zipCode){
+        return zipCodeService.findByZipCode(zipCode) == null;
     }
 
     public List<Customer> findAll() {

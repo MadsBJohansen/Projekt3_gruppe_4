@@ -1,11 +1,10 @@
 package com.gruppe4.projekt3_gruppe_4.controller;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
-import com.gruppe4.projekt3_gruppe_4.service.LocationService;
+import com.gruppe4.projekt3_gruppe_4.model.Customer;
+import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
+import com.gruppe4.projekt3_gruppe_4.service.*;
 import com.gruppe4.projekt3_gruppe_4.model.User;
-import com.gruppe4.projekt3_gruppe_4.service.CarService;
-import com.gruppe4.projekt3_gruppe_4.service.CustomerService;
-import com.gruppe4.projekt3_gruppe_4.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,17 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
-    private final UserService userService;
     private final CarService carService;
     private final CustomerService customerService;
     private final LocationService locationService;
+    private final ZipCodeService zipCodeService;
 
-    public UserController(UserService userService, CarService carService,
-                          CustomerService customerService, LocationService locationService) {
-        this.userService = userService;
+    public UserController(CarService carService,
+                          CustomerService customerService,
+                          LocationService locationService,
+                          ZipCodeService zipCodeService) {
         this.carService = carService;
         this.customerService = customerService;
         this.locationService = locationService;
+        this.zipCodeService = zipCodeService;
     }
 
     @GetMapping("/user/user-page")
@@ -33,8 +34,11 @@ public class UserController {
                                Model model) {
         model.addAttribute("tab", tab);
         model.addAttribute("car", new Car());
+        model.addAttribute("customer", new Customer());
+        model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
         model.addAttribute("locations", locationService.findAllLocations());
         model.addAttribute("cars", carService.findAllCars());
+
 
         if (tab.equals("customers")) {
             model.addAttribute("customers", customerService.findAll());
