@@ -11,12 +11,18 @@ body {
 
 .topbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     height: 48px;
     padding: 0 24px;
     background-color: #2f3a4a;
     color: white;
+}
+.topbar-left{
+    display: flex;
+    align-items: center;
+    gap: 12px
 }
 
 .logo {
@@ -164,6 +170,27 @@ button {
     font-weight: 600;
     cursor: pointer;
 }
+
+/* faner og tabs til user-page*/
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    height: 48px;
+    padding: 0 24px;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.tabs ul {
+    display: flex;
+    gap: 50px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 
 /* Create Car form */
 #create-car {
