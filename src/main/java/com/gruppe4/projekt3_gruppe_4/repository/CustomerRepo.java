@@ -1,10 +1,13 @@
 package com.gruppe4.projekt3_gruppe_4.repository;
 
+import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class CustomerRepo {
@@ -46,6 +49,11 @@ public class CustomerRepo {
                 customer.getPhoneNumber(),
                 customer.getStreetAddress(),
                 customer.getZipCodeId());
+    }
+
+    public List<Customer> findAllCustomers() {
+        String sql = "SELECT * FROM customer ORDER BY id";
+        return jdbcTemplate.query(sql, customerRowMapper);
     }
 
     public Customer findByEmail(String email){

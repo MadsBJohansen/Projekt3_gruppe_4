@@ -46,4 +46,7 @@ public class Damage {
         this.description = description;
         this.repairCost = repairCost;
     }
+
+    public Damage() {
+    }
 }

@@ -1,10 +1,13 @@
 package com.gruppe4.projekt3_gruppe_4.service;
 
 import com.gruppe4.projekt3_gruppe_4.exceptions.CustomerException;
+import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
 import com.gruppe4.projekt3_gruppe_4.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -43,8 +46,11 @@ public class CustomerService {
                         zipCodeObject.getZipCodeId()));
         }
 
-
     public boolean doesEmailExist(String email){
         return customerRepo.findByEmail(email) != null;
+    }
+
+    public List<Customer> findAll() {
+        return customerRepo.findAllCustomers();
     }
 }

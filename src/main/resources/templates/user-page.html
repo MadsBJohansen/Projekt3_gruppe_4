@@ -7,10 +7,23 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<h1>User page</h1>
+<header class="topbar">
+    <div class="topbar-left">
+    <a th:href="@{/user/user-page}" class="company-logo">
+        <img th:src="@{/img/company-logo.svg}" class="logo" alt="Company logo">
+    </a>
+    <span class="brand">Bilabonnement</span>
+    </div>
+    <nav>
+        <ul>
+            <li><form th:action="@{/user/logout}" method="post">
+                <button type="submit" class="login-btn">Log out</button>
+            </form></li>
+        </ul>
+    </nav>
+</header>
 
 <button class="btn" type="button" popovertarget="create-customer">+ Create Customer</button>
-
 <div id="create-customer" popover class="modal">
     <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
         <h2>New customer</h2>
@@ -43,84 +56,150 @@
     + Create Car
 </button>
 
-<div id="create-car" popover class="modal">
-    <form class="modal-form" th:action="@{/car/cars/create}" method="post">
+<div id="create-car" th:attr="popover=${openCreateCar == true ? null : 'auto'}"
+     th:class="${openCreateCar == true ? 'card' : 'modal'}">
+    <form class="modal-form" th:action="@{/car/cars/create}" th:object="${car}" method="post">
         <h2>New car</h2>
 
         <p class="error" th:if="${error}" th:text="${error}"></p>
 
         <label for="vin">VIN</label>
-        <input id="vin" type="text" name="vin"
+        <input id="vin" type="text" th:field="*{vin}"
                minlength="17" maxlength="17" required>
 
         <label for="licensePlate">License plate</label>
-        <input id="licensePlate" type="text" name="licensePlate"
+        <input id="licensePlate" type="text" th:field="*{licensePlate}"
                maxlength="7" required>
 
         <label for="brand">Brand</label>
-        <input id="brand" type="text" name="brand" maxlength="50" required>
+        <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
 
         <label for="model">Model</label>
-        <input id="model" type="text" name="model" maxlength="50" required>
+        <input id="model" type="text" th:field="*{model}" maxlength="50" required>
 
         <label for="trimLevel">Trim level</label>
-        <input id="trimLevel" type="text" name="trimLevel"
+        <input id="trimLevel" type="text" th:field="*{trimLevel}"
                maxlength="50" required>
 
         <label for="year">Year</label>
-        <input id="year" type="number" name="year"
+        <input id="year" type="number" th:field="*{year}"
                th:min="${#dates.year(#dates.createNow()) - 5}"
                step="1" required>
 
         <label for="mileage">Mileage (km)</label>
-        <input id="mileage" type="number" name="mileage"
+        <input id="mileage" type="number" th:field="*{mileage}"
                min="0" step="1" required>
 
         <label for="basePrice">Base price (DKK)</label>
-        <input id="basePrice" type="number" name="basePrice"
+        <input id="basePrice" type="number" th:field="*{basePrice}"
                min="0.01" max="99999999.99" step="0.01" required>
 
         <label for="co2Emission">CO2 emission (g/km)</label>
-        <input id="co2Emission" type="number" name="co2Emission"
+        <input id="co2Emission" type="number" th:field="*{co2Emission}"
                min="0" max="9999.9" step="0.1" required>
 
         <label for="currentLocationId">Location</label>
-        <select id="currentLocationId" name="currentLocationId" required>
-            <option value="" disabled selected>Select a location</option>
+        <select id="currentLocationId" th:field="*{currentLocationId}" required>
+            <option value="0" disabled>Select a location</option>
             <option th:each="location : ${locations}"
                     th:value="${location.id}"
                     th:text="${location.name}"></option>
         </select>
 
         <button type="submit">Create</button>
-        <button type="button" popovertarget="create-car"
+        <button type="button" th:if="${openCreateCar != true}" popovertarget="create-car"
                 popovertargetaction="hide">Cancel</button>
+        <a th:if="${openCreateCar == true}" th:href="@{/car/user-page}">Cancel</a>
     </form>
+
 </div>
 
-<h2>Cars</h2>
-<table>
-    <thead>
-    <tr>
-        <th scope="col">License plate</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Model</th>
-        <th scope="col">Year</th>
-        <th scope="col">Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.licensePlate}"></td>
-        <td th:text="${car.brand}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.year}"></td>
-        <td th:text="${car.status}"></td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(cars)}">
-        <td colspan="5">No cars registered.</td>
-    </tr>
-    </tbody>
-</table>
+<nav class="tabs">
+    <ul>
+        <li>
+            <a th:href="@{/user/user-page(tab='home')}"
+               th:classappend="${tab == 'home'} ? 'active'">Home</a>
+        </li>
+        <li>
+            <a th:href="@{/user/user-page(tab='cars')}"
+               th:classappend="${tab == 'cars'} ? 'active'">Cars</a>
+        </li>
+        <li>
+            <a th:href="@{/user/user-page(tab='customers')}"
+               th:classappend="${tab == 'customers'} ? 'active'">Customers</a>
+        </li>
+    </ul>
+</nav>
+<main class="main">
+    <section th:if="${tab == 'home'}">
+        <h1>Welcome, <span th:text="${session.user.firstName}"></span></h1>
+        <div class="workspace-grid">
+            <a class="tools-card" th:href="@{/contract/createContract}">
+                <h3>Create Contract</h3>
+            </a>
+            <a class="tools-card" th:href="@{/car/createCar}">
+                <h3>Create Car</h3>
+            </a>
+            <a class="tools-card" th:href="@{/customer/createCustomer}">
+                <h3> Create Customer</h3>
+            </a>
+        </div>
+    </section>
+    <section th:if="${tab == 'cars'}">
+        <h1>Cars</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>License plate</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Mileage</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr th:each="car : ${cars}">
+                <td th:text="${car.licensePlate}"></td>
+                <td th:text="${car.brand}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.year}"></td>
+                <td th:text="${car.mileage}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(cars)}">
+                <td colspan="5">No cars found</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section th:if="${tab == 'customers'}">
+        <h1>customers</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Street address</th>
+                <th>Zip Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.firstName}"></td>
+                <td th:text="${customer.lastName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phoneNumber}"></td>
+                <td th:text="${customer.streetAddress}"></td>
+                <td th:text="${customer.zipCodeId}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(customers)}">
+                <td colspan="6">No customers found</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
 </body>
 </html>

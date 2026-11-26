@@ -1,7 +1,6 @@
 package com.gruppe4.projekt3_gruppe_4.controller;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
-import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import com.gruppe4.projekt3_gruppe_4.repository.LocationRepo;
 import com.gruppe4.projekt3_gruppe_4.service.CarService;
 
@@ -9,9 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.time.Year;
 
 @Controller
 public class CarController {
@@ -24,7 +24,27 @@ public class CarController {
         this.locationRepo = locationRepo;
     }
 
-    @GetMapping({"/car/user-page", "/user-page"})
+    @GetMapping("/car/{carId}/showCar")
+    public String showCar(Model model, @PathVariable int carId){
+
+        Car car = carService.findById(carId);
+        model.addAttribute("car", car);
+        return "car";
+    }
+
+    @PostMapping("/car/updateCar")
+    public String updateCar(@ModelAttribute Car car, Model model){
+        try {
+            carService.updateCar(car);
+
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/car/showCar";
+        }
+        return "redirect:/car/showCar";
+    }
+
+    @GetMapping("/car/user-page")
     public String showCreateCarForm(Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
@@ -32,7 +52,6 @@ public class CarController {
 
 
         model.addAttribute("car", new Car());
-        model.addAttribute("customer", new Customer());
         model.addAttribute("locations", locationRepo.findAll());
         model.addAttribute("cars", carService.findAllCars());
 
@@ -55,7 +74,6 @@ public class CarController {
             model.addAttribute("error",
                     "Enter valid numbers for mileage, price, CO2 emission, and year.");
             model.addAttribute("openCreateCar", true);
-            model.addAttribute("customer", new Customer());
             model.addAttribute("locations", locationRepo.findAll());
             model.addAttribute("cars", carService.findAllCars());
 
@@ -66,13 +84,12 @@ public class CarController {
         } catch (IllegalArgumentException exception) {
             model.addAttribute("error", exception.getMessage());
             model.addAttribute("openCreateCar", true);
-            model.addAttribute("customer", new Customer());
             model.addAttribute("locations", locationRepo.findAll());
             model.addAttribute("cars", carService.findAllCars());
 
             return "user-page";
         }
 
-        return "redirect:/user-page";
+        return "redirect:/car/user-page";
     }
 }
