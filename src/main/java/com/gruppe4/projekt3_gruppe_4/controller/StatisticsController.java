@@ -20,7 +20,7 @@ public class StatisticsController {
 
     @GetMapping("/statistics/cars")
     public String showCarOverview(@RequestParam(required = false) CarStatus status,
-                                  HttpSession session, Model model, SessionStatus sessionStatus) {
+                                  HttpSession session, Model model) {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }

@@ -3,15 +3,12 @@ package com.gruppe4.projekt3_gruppe_4.controller;
 import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.service.LocationService;
 import com.gruppe4.projekt3_gruppe_4.service.CarService;
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.Year;
 
 @Controller
 public class CarController {
@@ -25,23 +22,23 @@ public class CarController {
     }
 
     @GetMapping("/car/{carId}/showCar")
-    public String showCar(Model model, @PathVariable int carId){
-
+    public String showCar(Model model, @PathVariable int carId, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
         Car car = carService.findById(carId);
         model.addAttribute("car", car);
+        model.addAttribute("locations", locationService.findAllLocations());
         return "car";
     }
 
     @PostMapping("/car/editCar")
-    public String editCar(@ModelAttribute Car car, Model model){
-        try {
-            carService.updateCar(car);
-
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "redirect:/car/showCar";
+    public String editCar(@ModelAttribute Car car, Model model, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
         }
-        return "redirect:/car/showCar";
+        carService.updateCar(car);
+        return "redirect:/car/"+ car.getId() + "/showCar";
     }
 
     @GetMapping("/car/user-page")
