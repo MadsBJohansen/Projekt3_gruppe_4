@@ -44,3 +44,6 @@ INSERT INTO car_status_log (car_id, changed_at, status)
 VALUES (1, '2026-11-20 09:00:00', 'AVAILABLE'),
        (2, '2026-11-20 09:00:00', 'AVAILABLE'),
        (2, '2026-11-24 10:00:00', 'RENTED');
+
+INSERT INTO damage_report (contract_id, user_id, date)
+VALUES (1, 5, '2026-11-26')

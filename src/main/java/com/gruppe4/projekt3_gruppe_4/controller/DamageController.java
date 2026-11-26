@@ -37,7 +37,7 @@ public class DamageController {
         }
         model.addAttribute("report", damageService.findReportById(reportId));
         model.addAttribute("damages", damageService.findDamagesByReportId(reportId));
-        return "damage-report";
+        return "damage-report.html";
     }
 
     @PostMapping("/damage-reports/create")
