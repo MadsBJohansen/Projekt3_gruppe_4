@@ -109,7 +109,7 @@
         <button type="submit">Create</button>
         <button type="button" th:if="${openCreateCar != true}" popovertarget="create-car"
                 popovertargetaction="hide">Cancel</button>
-        <a th:if="${openCreateCar == true}" th:href="@{/user-page}">Cancel</a>
+        <a th:if="${openCreateCar == true}" th:href="@{/car/user-page}">Cancel</a>
     </form>
 
 </div>
