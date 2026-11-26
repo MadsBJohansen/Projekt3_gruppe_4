@@ -18,4 +18,8 @@ public class LocationService {
     public List<Location> findAllLocations() {
         return locationRepo.findAllLocations();
     }
+
+    public Location findById(int id){
+        return locationRepo.findById(id);
+    }
 }

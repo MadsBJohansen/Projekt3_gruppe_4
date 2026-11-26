@@ -5,6 +5,7 @@ import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
 import com.gruppe4.projekt3_gruppe_4.service.CustomerService;
 import com.gruppe4.projekt3_gruppe_4.service.ZipCodeService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,11 @@ public class CustomerController {
 
     @GetMapping("/customer/{customerId}/showCustomer")
     public String showCustomer(@PathVariable int customerId,
-                               Model model){
+                               Model model, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
+
         Customer customer = customerService.findById(customerId);
         model.addAttribute("customer", customer);
         model.addAttribute("zipCode", zipCodeService.findById(customer.getZipCodeId()));
@@ -37,7 +42,10 @@ public class CustomerController {
                                  @RequestParam String phoneNumber,
                                  @RequestParam String streetAddress,
                                  @RequestParam String zipCode,
-                                 Model model){
+                                 Model model, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
         try {
             customerService.createCustomer(
                     firstName,
