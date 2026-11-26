@@ -22,6 +22,14 @@ public class CarService {
         return carRepo.findAllCars();
     }
 
+    public void updateCar(Car car){
+        carRepo.update(car);
+    }
+
+    public Car findById(int id){
+        return carRepo.findById(id);
+    }
+
     @Transactional
     public void createCar(Car car) {
         validateRequiredFields(car);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User page</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <a th:href="@{/user/user-page}" class="company-logo">
+      <img th:src="@{/img/company-logo.svg}" class="logo" alt="Company logo">
+    </a>
+    <span class="brand">Bilabonnement</span>
+  </div>
+  <nav>
+    <ul>
+      <li><form th:action="@{/user/logout}" method="post">
+        <button type="submit" class="login-btn">Log out</button>
+      </form></li>
+    </ul>
+  </nav>
+</header>
+
+</body>
+</html>

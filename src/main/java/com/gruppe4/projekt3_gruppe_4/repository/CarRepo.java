@@ -28,6 +28,36 @@ public class CarRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Car findById(int id){
+        String sql = "SELECT * FROM car WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, carRowMapper, id);
+    }
+
+    public void update(Car car){
+        String sql = """
+                        INSERT INTO car(trim_level,
+                                        mileage,
+                                        base_price,
+                                        co2_emission,
+                                        license_plate,
+                                        current_location_id,
+                                        brand,
+                                        model,
+                                        year)
+                        VALUES (?,?,?,?,?,?,?,?,?)
+                     """;
+        jdbcTemplate.update(sql,
+                car.getTrimLevel(),
+                car.getMileage(),
+                car.getBasePrice(),
+                car.getCo2Emission(),
+                car.getLicensePlate(),
+                car.getCurrentLocationId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getYear());
+    }
+
     public boolean existsByLicensePlate(String licensePlate) {
         String sql = "SELECT COUNT(*) FROM car WHERE license_plate = ?";
 
