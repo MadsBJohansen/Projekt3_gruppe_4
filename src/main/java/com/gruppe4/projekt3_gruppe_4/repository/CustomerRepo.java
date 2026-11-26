@@ -2,6 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.model.Customer;
+import com.gruppe4.projekt3_gruppe_4.model.Damage;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -64,4 +65,5 @@ public class CustomerRepo {
             return null;
         }
     }
+
 }
