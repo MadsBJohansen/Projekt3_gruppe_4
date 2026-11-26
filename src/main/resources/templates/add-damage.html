@@ -12,5 +12,15 @@
     <span class="logo">LOGO</span>
     <span class="brand">Bilabonnement</span>
 </header>
+
+<form th:action="@{/damage/add}" method="post">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" maxlength="255"></textarea>
+
+    <label for="repairCost">Repair cost</label>
+    <input type="number" id="repairCost" step="0.01" min="0">
+
+    <button type="submit">Add damage</button>
+</form>
 </body>
 </html>

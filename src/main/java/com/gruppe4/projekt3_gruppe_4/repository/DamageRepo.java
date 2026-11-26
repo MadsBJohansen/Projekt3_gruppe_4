@@ -30,7 +30,7 @@ public class DamageRepo {
     }
 
     public void saveDamage(Damage damage) {
-        String sql = "INSERT INTO damage (damage_report_id, description, repair_cost) VALUES ?,?,?";
+        String sql = "INSERT INTO damage (damage_report_id, description, repair_cost) VALUES (?,?,?)";
         jdbcTemplate.update(sql,
                     damage.getDamageReportId(),
                     damage.getDescription(),
@@ -38,7 +38,7 @@ public class DamageRepo {
     }
 
     public int saveReport(DamageReport damageReport) {
-        String sql = "INSERT INTO damage_report(contract_id, user_id, date) VALUES ?, ?, ?, ";
+        String sql = "INSERT INTO damage_report(contract_id, user_id, date) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
                     damageReport.getContractId(),
                     damageReport.getUserId(),

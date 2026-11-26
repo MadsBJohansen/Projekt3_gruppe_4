@@ -13,6 +13,13 @@
     <span class="brand">Bilabonnement</span>
 </header>
 
+<form th:action="@{/damage-reports/create}" method="post">
+    <select name="contractId">
+        <option th:each="contract : ${contracts}" th:value="${contract.id}" th:text="${contract.id}"></option>
+    </select>
+    <button type="submit">Create Damage Report</button>
+</form>
+
 <table>
     <thead>
         <tr>

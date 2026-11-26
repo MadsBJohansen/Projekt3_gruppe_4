@@ -12,5 +12,24 @@
     <span class="logo">LOGO</span>
     <span class="brand">Bilabonnement</span>
 </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Damage ID</th>
+                <th>Report ID</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="damage : ${damages}">
+                <td th:text="${damage.getId()}"></td>
+                <td th:text="${damage.getDamageReportId()}"></td>
+                <td th:text="${damage.getDescription()}"></td>
+                <td th:text="${damage.getRepairCost()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>
