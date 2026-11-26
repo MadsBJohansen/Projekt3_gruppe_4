@@ -19,4 +19,8 @@ public class ContractService {
         LocalDate startDate = contract.getStartDate();
         return startDate.plusMonths(period);
     }
+
+    public boolean isContractEnded(Contract contract) {
+        return !calculateEndDate(contract).isAfter(LocalDate.now());
+    }
 }

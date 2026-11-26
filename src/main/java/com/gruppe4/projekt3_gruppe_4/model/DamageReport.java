@@ -15,6 +15,12 @@ public class DamageReport {
         this.reportDate = reportDate;
     }
 
+    public DamageReport(int contractId, int userId, LocalDate reportDate) {
+        this.contractId = contractId;
+        this.userId = userId;
+        this.reportDate = reportDate;
+    }
+
     public int getId() {
         return id;
     }
