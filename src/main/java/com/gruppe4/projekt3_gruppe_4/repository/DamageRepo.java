@@ -2,6 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Damage;
 import com.gruppe4.projekt3_gruppe_4.model.DamageReport;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,22 @@ public class DamageRepo {
                     damage.getDamageReportId(),
                     damage.getDescription(),
                     damage.getRepairCost());
+    }
+
+    public void saveReport(DamageReport damageReport) {
+        String sql = "INSERT INTO damage_report(contract_id, user_id, date) VALUES ?, ?, ?, ";
+        jdbcTemplate.update(sql,
+                    damageReport.getContractId(),
+                    damageReport.getUserId(),
+                    damageReport.getReportDate());
+    }
+
+    public DamageReport findReportByContractId(int contractId) {
+        String sql = "SELECT * FROM damage_report WHERE contract_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, damageReportRowMapper, contractId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
+    }
 }
