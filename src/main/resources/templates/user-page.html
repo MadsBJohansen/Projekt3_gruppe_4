@@ -10,6 +10,7 @@
 <h1>User page</h1>
 
 <button class="btn" type="button" popovertarget="create-customer">+ Create Customer</button>
+
 <div id="create-customer" popover class="modal">
     <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
         <h2>New customer</h2>
@@ -30,7 +31,7 @@
         <input id="streetAddress" type="text" name="streetAddress" required>
 
         <label for="zipCode">Zip code</label>
-        <input id="zipCode" type="text" name="ZipCode" required>
+        <input id="zipCode" type="text" name="zipCode" required>
 
         <button type="submit">Create</button>
         <button type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
