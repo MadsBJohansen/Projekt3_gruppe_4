@@ -23,97 +23,6 @@
     </nav>
 </header>
 
-<button class="btn" type="button" popovertarget="create-customer">+ Create Customer</button>
-<div id="create-customer" popover class="modal">
-    <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
-        <h2>New customer</h2>
-
-        <label for="firstName">First name</label>
-        <input id="firstName" type="text" name="firstName" required>
-
-        <label for="lastName">Last name</label>
-        <input id="lastName" type="text" name="lastName" required>
-
-        <label for="email">Email</label>
-        <input id="email" type="text" name="email" required>
-
-        <label for="phoneNumber">Phone number</label>
-        <input id="phoneNumber" type="text" name="phoneNumber" required>
-
-        <label for="streetAddress">Street address</label>
-        <input id="streetAddress" type="text" name="streetAddress" required>
-
-        <label for="zipCode">Zip code</label>
-        <input id="zipCode" type="text" name="zipCode" required>
-
-        <button type="submit">Create</button>
-        <button type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
-    </form>
-
-</div>
-
-<button class="btn" type="button" popovertarget="create-car">
-    + Create Car
-</button>
-
-<div id="create-car" th:attr="popover=${openCreateCar == true ? null : 'auto'}"
-     th:class="${openCreateCar == true ? 'card' : 'modal'}">
-    <form class="modal-form" th:action="@{/car/cars/create}" th:object="${car}" method="post">
-        <h2>New car</h2>
-
-        <p class="error" th:if="${error}" th:text="${error}"></p>
-
-        <label for="vin">VIN</label>
-        <input id="vin" type="text" th:field="*{vin}"
-               minlength="17" maxlength="17" required>
-
-        <label for="licensePlate">License plate</label>
-        <input id="licensePlate" type="text" th:field="*{licensePlate}"
-               maxlength="7" required>
-
-        <label for="brand">Brand</label>
-        <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
-
-        <label for="model">Model</label>
-        <input id="model" type="text" th:field="*{model}" maxlength="50" required>
-
-        <label for="trimLevel">Trim level</label>
-        <input id="trimLevel" type="text" th:field="*{trimLevel}"
-               maxlength="50" required>
-
-        <label for="year">Year</label>
-        <input id="year" type="number" th:field="*{year}"
-               th:min="${#dates.year(#dates.createNow()) - 5}"
-               step="1" required>
-
-        <label for="mileage">Mileage (km)</label>
-        <input id="mileage" type="number" th:field="*{mileage}"
-               min="0" step="1" required>
-
-        <label for="basePrice">Base price (DKK)</label>
-        <input id="basePrice" type="number" th:field="*{basePrice}"
-               min="0.01" max="99999999.99" step="0.01" required>
-
-        <label for="co2Emission">CO2 emission (g/km)</label>
-        <input id="co2Emission" type="number" th:field="*{co2Emission}"
-               min="0" max="9999.9" step="0.1" required>
-
-        <label for="currentLocationId">Location</label>
-        <select id="currentLocationId" th:field="*{currentLocationId}" required>
-            <option value="0" disabled>Select a location</option>
-            <option th:each="location : ${locations}"
-                    th:value="${location.id}"
-                    th:text="${location.name}"></option>
-        </select>
-
-        <button type="submit">Create</button>
-        <button type="button" th:if="${openCreateCar != true}" popovertarget="create-car"
-                popovertargetaction="hide">Cancel</button>
-        <a th:if="${openCreateCar == true}" th:href="@{/car/user-page}">Cancel</a>
-    </form>
-
-</div>
-
 <nav class="tabs">
     <ul>
         <li>
@@ -134,15 +43,15 @@
     <section th:if="${tab == 'home'}">
         <h1>Welcome, <span th:text="${session.user.firstName}"></span></h1>
         <div class="workspace-grid">
-            <a class="tools-card" th:href="@{/contract/createContract}">
+             <button type="button" class="tools-card" popovertarget="create-contract">
                 <h3>Create Contract</h3>
-            </a>
-            <button class="tools-card" type="button" popovertarget="create-car">
-                Create Car
             </button>
-            <a class="tools-card" th:href="@{/customer/createCustomer}">
+            <button type="button" class="tools-card" popovertarget="create-car">
+                <h3>Create Car</h3>
+            </button>
+            <button type="button" class="tools-card" popovertarget="create-customer">
                 <h3> Create Customer</h3>
-            </a>
+            </button>
         </div>
     </section>
     <section th:if="${tab == 'cars'}">
@@ -199,6 +108,92 @@
             </tbody>
         </table>
     </section>
+
+    <div id="create-customer" popover class="modal">
+        <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
+            <h2>New customer</h2>
+
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" name="firstName" required>
+
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" name="lastName" required>
+
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email" required>
+
+            <label for="phoneNumber">Phone number</label>
+            <input id="phoneNumber" type="text" name="phoneNumber" required>
+
+            <label for="streetAddress">Street address</label>
+            <input id="streetAddress" type="text" name="streetAddress" required>
+
+            <label for="zipCode">Zip code</label>
+            <input id="zipCode" type="text" name="zipCode" required>
+
+            <button type="submit">Create</button>
+            <button type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
+        </form>
+
+    </div>
+
+    <div id="create-car" th:attr="popover=${openCreateCar == true ? null : 'auto'}"
+         th:class="${openCreateCar == true ? 'card' : 'modal'}">
+        <form class="modal-form" th:action="@{/car/cars/create}" th:object="${car}" method="post">
+            <h2>New car</h2>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <label for="vin">VIN</label>
+            <input id="vin" type="text" th:field="*{vin}"
+                   minlength="17" maxlength="17" required>
+
+            <label for="licensePlate">License plate</label>
+            <input id="licensePlate" type="text" th:field="*{licensePlate}"
+                   maxlength="7" required>
+
+            <label for="brand">Brand</label>
+            <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
+
+            <label for="model">Model</label>
+            <input id="model" type="text" th:field="*{model}" maxlength="50" required>
+
+            <label for="trimLevel">Trim level</label>
+            <input id="trimLevel" type="text" th:field="*{trimLevel}"
+                   maxlength="50" required>
+
+            <label for="year">Year</label>
+            <input id="year" type="number" th:field="*{year}"
+                   th:min="${#dates.year(#dates.createNow()) - 5}"
+                   step="1" required>
+
+            <label for="mileage">Mileage (km)</label>
+            <input id="mileage" type="number" th:field="*{mileage}"
+                   min="0" step="1" required>
+
+            <label for="basePrice">Base price (DKK)</label>
+            <input id="basePrice" type="number" th:field="*{basePrice}"
+                   min="0.01" max="99999999.99" step="0.01" required>
+
+            <label for="co2Emission">CO2 emission (g/km)</label>
+            <input id="co2Emission" type="number" th:field="*{co2Emission}"
+                   min="0" max="9999.9" step="0.1" required>
+
+            <label for="currentLocationId">Location</label>
+            <select id="currentLocationId" th:field="*{currentLocationId}" required>
+                <option value="0" disabled>Select a location</option>
+                <option th:each="location : ${locations}"
+                        th:value="${location.id}"
+                        th:text="${location.name}"></option>
+            </select>
+
+            <button type="submit">Create</button>
+            <button type="button" th:if="${openCreateCar != true}" popovertarget="create-car"
+                    popovertargetaction="hide">Cancel</button>
+            <a th:if="${openCreateCar == true}" th:href="@{/car/user-page}">Cancel</a>
+        </form>
+
+    </div>
 </main>
 
 </body>

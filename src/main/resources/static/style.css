@@ -208,15 +208,22 @@ button {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     display: grid;
     padding: 50px;
+    gap: 40px;
 }
 
 .tools-card {
-    border: black;
+    border: 1px solid #d5d9dd;
     border-radius: 20px;
-    padding: 20px 20px 20px;
-    margin: 20px;
+    padding: 20px;
+    color: #1f2937;
     background-color: white;
-    text-decoration: none;
+    height: auto;
+    margin: 0;
+    text-align: center;
+    font-weight: normal;
+    width: 100%;
+    transition: transform 0.15s;
+
 }
 .tools-card:hover {
 transform: scale(1.05);
@@ -256,6 +263,8 @@ transform: scale(1.05);
 }
 .car-form button:focus-visible { outline: 3px solid #1f2937; outline-offset: 3px; }
 #create-car button[type="button"] { background-color: #556b82; }
+
+
 /* Stack fields on small screens. */
 @media (max-width: 650px) {
     .car-fields { grid-template-columns: 1fr; }
