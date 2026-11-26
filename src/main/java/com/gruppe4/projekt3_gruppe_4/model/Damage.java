@@ -2,7 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.model;
 
 import java.math.BigDecimal;
 
-public class damage {
+public class Damage {
     private int id;
     private int damageReportId;
     private String description;
@@ -40,7 +40,7 @@ public class damage {
         this.repairCost = repairCost;
     }
 
-    public damage(int id, int damageReportId, String description, BigDecimal repairCost) {
+    public Damage(int id, int damageReportId, String description, BigDecimal repairCost) {
         this.id = id;
         this.damageReportId = damageReportId;
         this.description = description;
