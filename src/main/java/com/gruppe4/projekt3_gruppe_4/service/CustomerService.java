@@ -2,6 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.service;
 
 import com.gruppe4.projekt3_gruppe_4.exceptions.CustomerException;
 import com.gruppe4.projekt3_gruppe_4.model.Customer;
+import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
 import com.gruppe4.projekt3_gruppe_4.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +29,18 @@ public class CustomerService {
         if (doesEmailExist(email)){
             throw new CustomerException("Email already exists!");
         }
-        if (zipCodeService.findByZipCode(zipCode) == null){
+
+        ZipCode zipCodeObject = zipCodeService.findByZipCode(zipCode);
+        if (zipCodeObject == null){
             throw new CustomerException("INVALID zip code!");
         }
-        int zipCodeId = zipCodeService.findByZipCode(zipCode).getZipCodeId();
         customerRepo.saveCustomer(
                 new Customer(
                         firstName,
                         lastName,
                         email,phoneNumber,
                         streetAddress,
-                        zipCodeId));
+                        zipCodeObject.getZipCodeId()));
         }
 
 
