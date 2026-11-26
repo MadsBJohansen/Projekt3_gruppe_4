@@ -3,6 +3,7 @@ package com.gruppe4.projekt3_gruppe_4.controller;
 import com.gruppe4.projekt3_gruppe_4.model.Damage;
 import com.gruppe4.projekt3_gruppe_4.model.DamageReport;
 import com.gruppe4.projekt3_gruppe_4.model.User;
+import com.gruppe4.projekt3_gruppe_4.service.ContractService;
 import com.gruppe4.projekt3_gruppe_4.service.DamageService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class DamageController {
     private final DamageService damageService;
+    private final ContractService contractService;
 
-    public DamageController(DamageService damageService) {
+    public DamageController(DamageService damageService, ContractService contractService) {
         this.damageService = damageService;
+        this.contractService = contractService;
     }
 
     @GetMapping("/damage-reports")
@@ -22,6 +25,7 @@ public class DamageController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
+        model.addAttribute("contracts", contractService.findAllEndedContracts());
         model.addAttribute("reports", damageService.findAllReports());
         return "damage-reports";
     }
@@ -37,7 +41,7 @@ public class DamageController {
         }
         model.addAttribute("report", damageService.findReportById(reportId));
         model.addAttribute("damages", damageService.findDamagesByReportId(reportId));
-        return "damage-report.html";
+        return "damage-report";
     }
 
     @PostMapping("/damage-reports/create")

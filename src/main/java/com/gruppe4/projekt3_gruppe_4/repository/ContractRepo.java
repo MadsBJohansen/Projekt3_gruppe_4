@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public class ContractRepo {
@@ -45,4 +46,8 @@ public class ContractRepo {
         return jdbcTemplate.queryForObject(sql, contractRowMapper, id);
     }
 
+    public List<Contract> findAllContracts() {
+        String sql = "SELECT * FROM contract";
+        return jdbcTemplate.query(sql, contractRowMapper);
+    }
 }

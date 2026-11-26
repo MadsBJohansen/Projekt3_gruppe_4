@@ -40,6 +40,12 @@ INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, mont
 VALUES
     (1, 2, 1, 2, '2026-11-24', 3999.00, 6);
 
+INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
+VALUES
+    (2, 1, 1, 4, '2025-09-01', 2999.00, 6),   -- id 2, slut 2026-03-01
+    (3, 1, 1, 4, '2026-03-15', 2999.00, 6),   -- id 3, slut 2026-09-15
+    (1, 2, 1, 4, '2026-03-01', 3999.00, 6);   -- id 4, slut 2026-09-01
+
 INSERT INTO car_status_log (car_id, changed_at, status)
 VALUES (1, '2026-11-20 09:00:00', 'AVAILABLE'),
        (2, '2026-11-20 09:00:00', 'AVAILABLE'),
