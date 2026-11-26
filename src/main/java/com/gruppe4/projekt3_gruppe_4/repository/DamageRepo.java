@@ -23,7 +23,7 @@ public class DamageRepo {
                     rs.getInt("id"),
                     rs.getInt("contract_id"),
                     rs.getInt("user_id"),
-                    rs.getDate("report_date").toLocalDate());
+                    rs.getDate("date").toLocalDate());
 
     public DamageRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
