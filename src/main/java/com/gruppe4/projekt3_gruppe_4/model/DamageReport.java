@@ -2,13 +2,13 @@ package com.gruppe4.projekt3_gruppe_4.model;
 
 import java.time.LocalDate;
 
-public class damageReport {
+public class DamageReport {
     private int id;
     private int contractId;
     private int userId;
     private LocalDate reportDate;
 
-    public damageReport(int id, int contractId, int userId, LocalDate reportDate) {
+    public DamageReport(int id, int contractId, int userId, LocalDate reportDate) {
         this.id = id;
         this.contractId = contractId;
         this.userId = userId;
