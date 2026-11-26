@@ -9,9 +9,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.time.Year;
 
 @Controller
 public class CarController {
@@ -22,6 +23,26 @@ public class CarController {
     public CarController(CarService carService, LocationRepo locationRepo) {
         this.carService = carService;
         this.locationRepo = locationRepo;
+    }
+
+    @GetMapping("/car/{carId}/showCar")
+    public String showCar(Model model, @PathVariable int carId){
+
+        Car car = carService.findById(carId);
+        model.addAttribute("car", car);
+        return "car";
+    }
+
+    @PostMapping("/car/updateCar")
+    public String updateCar(@ModelAttribute Car car, Model model){
+        try {
+            carService.updateCar(car);
+
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/car/showCar";
+        }
+        return "redirect:/car/showCar";
     }
 
     @GetMapping({"/car/user-page", "/user-page"})
@@ -38,6 +59,8 @@ public class CarController {
 
         return "user-page";
     }
+
+    @GetMapping()
 
     @PostMapping("/car/cars/create")
     public String createCar(
