@@ -7,10 +7,23 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<h1>User page</h1>
+<header class="topbar">
+    <div class="topbar-left">
+    <a th:href="@{/user/user-page}" class="company-logo">
+        <img th:src="@{/img/company-logo.svg}" class="logo" alt="Company logo">
+    </a>
+    <span class="brand">Bilabonnement</span>
+    </div>
+    <nav>
+        <ul>
+            <li><form th:action="@{/user/logout}" method="post">
+                <button type="submit" class="login-btn">Log out</button>
+            </form></li>
+        </ul>
+    </nav>
+</header>
 
 <button class="btn" type="button" popovertarget="create-customer">+ Create Customer</button>
-
 <div id="create-customer" popover class="modal">
     <form class="modal-form" th:action="@{/customer/createCustomer}" method="post">
         <h2>New customer</h2>
@@ -96,6 +109,7 @@
         <button type="button" popovertarget="create-car"
                 popovertargetaction="hide">Cancel</button>
     </form>
+
 </div>
 
 <h2>Cars</h2>
@@ -122,5 +136,92 @@
     </tr>
     </tbody>
 </table>
+<nav class="tabs">
+    <ul>
+        <li>
+            <a th:href="@{/user/user-page(tab='home')}"
+               th:classappend="${tab == 'home'} ? 'active'">Home</a>
+        </li>
+        <li>
+            <a th:href="@{/user/user-page(tab='cars')}"
+               th:classappend="${tab == 'cars'} ? 'active'">Cars</a>
+        </li>
+        <li>
+            <a th:href="@{/user/user-page(tab='customers')}"
+               th:classappend="${tab == 'customers'} ? 'active'">Customers</a>
+        </li>
+    </ul>
+</nav>
+<main class="main">
+    <section th:if="${tab == 'home'}">
+        <h1>Welcome, <span th:text="${session.user.firstName}"></span></h1>
+        <div class="workspace-grid">
+            <a class="tools-card" th:href="@{/contract/createContract}">
+                <h3>Create Contract</h3>
+            </a>
+            <a class="tools-card" th:href="@{/car/createCar}">
+                <h3>Create Car</h3>
+            </a>
+            <a class="tools-card" th:href="@{/customer/createCustomer}">
+                <h2> Create Customer</h2>
+            </a>
+        </div>
+    </section>
+    <section th:if="${tab == 'cars'}">
+        <h1>Cars</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>License plate</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Mileage</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr th:each="car : ${cars}">
+                <td th:text="${car.licensePlate}"></td>
+                <td th:text="${car.brand}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.year}"></td>
+                <td th:text="${car.mileage}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(cars)}">
+                <td colspan="5">No cars found</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section th:if="${tab == 'customers'}">
+        <h1>customers</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Street address</th>
+                <th>Zip Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.firstName}"></td>
+                <td th:text="${customer.lastName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phoneNumber}"></td>
+                <td th:text="${customer.streetAddress}"></td>
+                <td th:text="${customer.zipCodeId}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(customers)}">
+                <td colspan="6">No customers found</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
 </body>
 </html>
