@@ -36,16 +36,17 @@ public class CarRepo {
 
     public void update(Car car){
         String sql = """
-                        INSERT INTO car(trim_level,
-                                        mileage,
-                                        base_price,
-                                        co2_emission,
-                                        license_plate,
-                                        current_location_id,
-                                        brand,
-                                        model,
-                                        year)
-                        VALUES (?,?,?,?,?,?,?,?,?)
+                        UPDATE car
+                        SET trim_level = ?,
+                            mileage = ?,
+                            base_price = ?,
+                            co2_emission = ?,
+                            license_plate = ?,
+                            current_location_id = ?,
+                            brand = ?,
+                            model = ?,
+                            year = ?
+                        WHERE id = ?
                      """;
         jdbcTemplate.update(sql,
                 car.getTrimLevel(),

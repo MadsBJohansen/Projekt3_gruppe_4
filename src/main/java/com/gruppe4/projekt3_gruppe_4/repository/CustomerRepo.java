@@ -52,6 +52,26 @@ public class CustomerRepo {
                 customer.getZipCodeId());
     }
 
+    public void update(Customer customer){
+        String sql = """
+                        UPDATE customer
+                        SET first_name = ?,
+                            last_name = ?,
+                            email = ?,
+                            phone_number = ?,
+                            street_address = ?,
+                            zip_code_id = ?
+                        WHERE id = ?
+                """;
+        jdbcTemplate.update(sql,
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                customer.getPhoneNumber(),
+                customer.getStreetAddress(),
+                customer.getZipCodeId());
+    }
+
     public List<Customer> findAllCustomers() {
         String sql = "SELECT * FROM customer ORDER BY id";
         return jdbcTemplate.query(sql, customerRowMapper);

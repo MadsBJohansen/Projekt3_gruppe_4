@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ZipCodeRepo {
     private final JdbcTemplate jdbcTemplate;
@@ -18,6 +20,11 @@ public class ZipCodeRepo {
 
     public ZipCodeRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public List<ZipCode> findAllZipCodes(){
+        String sql = "SELECT * FROM zip_code";
+        return jdbcTemplate.query(sql, zipCodeRowMapper);
     }
 
     public ZipCode findById(int id){
