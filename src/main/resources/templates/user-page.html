@@ -114,30 +114,6 @@
 
 </div>
 
-<h2>Cars</h2>
-<table>
-    <thead>
-    <tr>
-        <th scope="col">License plate</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Model</th>
-        <th scope="col">Year</th>
-        <th scope="col">Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.licensePlate}"></td>
-        <td th:text="${car.brand}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.year}"></td>
-        <td th:text="${car.status}"></td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(cars)}">
-        <td colspan="5">No cars registered.</td>
-    </tr>
-    </tbody>
-</table>
 <nav class="tabs">
     <ul>
         <li>
@@ -165,7 +141,7 @@
                 <h3>Create Car</h3>
             </a>
             <a class="tools-card" th:href="@{/customer/createCustomer}">
-                <h2> Create Customer</h2>
+                <h3> Create Customer</h3>
             </a>
         </div>
     </section>
