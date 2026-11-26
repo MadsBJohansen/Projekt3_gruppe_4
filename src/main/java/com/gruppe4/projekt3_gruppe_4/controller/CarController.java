@@ -44,7 +44,6 @@ public class CarController {
         return "redirect:/car/showCar";
     }
 
-    @GetMapping({"/car/user-page", "/user-page"})
     @GetMapping("/car/user-page")
     public String showCreateCarForm(Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {
@@ -58,8 +57,6 @@ public class CarController {
 
         return "user-page";
     }
-
-    @GetMapping()
 
     @PostMapping("/car/cars/create")
     public String createCar(
