@@ -1,5 +1,6 @@
 package com.gruppe4.projekt3_gruppe_4.service;
 
+import com.gruppe4.projekt3_gruppe_4.model.User;
 import com.gruppe4.projekt3_gruppe_4.repository.DamageRepo;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,12 @@ public class DamageService {
     public void createDamageReport () {
         
     }
+
+    public void addDamage() {
+
+    }
+
+//    public boolean isContractEnded() {
+//
+//    }
 }
