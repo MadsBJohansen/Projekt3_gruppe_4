@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DamageRepo {
     private final JdbcTemplate jdbcTemplate;
@@ -51,5 +53,15 @@ public class DamageRepo {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public List<Damage> findDamagesByReportId(int reportId) {
+        String sql = "SELECT * FROM damage WHERE damage_report_id = ?";
+        return jdbcTemplate.query(sql, damageRowMapper, reportId);
+    }
+
+    public List<DamageReport> findAllReports() {
+        String sql = "SELECT * FROM damage_report";
+        return jdbcTemplate.query(sql, damageReportRowMapper);
     }
 }
