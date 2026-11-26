@@ -35,12 +35,13 @@ public class DamageRepo {
                     damage.getRepairCost());
     }
 
-    public void saveReport(DamageReport damageReport) {
+    public int saveReport(DamageReport damageReport) {
         String sql = "INSERT INTO damage_report(contract_id, user_id, date) VALUES ?, ?, ?, ";
         jdbcTemplate.update(sql,
                     damageReport.getContractId(),
                     damageReport.getUserId(),
                     damageReport.getReportDate());
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
     }
 
     public DamageReport findReportByContractId(int contractId) {
