@@ -15,4 +15,8 @@ public class ZipCodeService {
     public ZipCode findByZipCode(String zipCode){
         return zipCodeRepo.findByZipCode(zipCode);
     }
+
+    public ZipCode findById(int id){
+        return zipCodeRepo.findById(id);
+    }
 }

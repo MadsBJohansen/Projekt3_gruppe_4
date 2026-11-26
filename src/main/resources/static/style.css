@@ -165,13 +165,6 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    margin: 20px 0 0;
-    text-align: center;
-    font-size: 13px;
-    color: #556b82;
-}
-
 /* Create Car form */
 #create-car {
     width: 660px;
@@ -212,6 +205,10 @@ button:hover {
 }
 
 /* ------ Customer ----------------------------*/
+
+.customer{
+
+}
 
 .modal {
     position: fixed;
