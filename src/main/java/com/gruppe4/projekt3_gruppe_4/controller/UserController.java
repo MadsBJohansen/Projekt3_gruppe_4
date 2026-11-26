@@ -1,7 +1,7 @@
 package com.gruppe4.projekt3_gruppe_4.controller;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
-import com.gruppe4.projekt3_gruppe_4.repository.LocationRepo;
+import com.gruppe4.projekt3_gruppe_4.service.LocationService;
 import com.gruppe4.projekt3_gruppe_4.model.User;
 import com.gruppe4.projekt3_gruppe_4.service.CarService;
 import com.gruppe4.projekt3_gruppe_4.service.CustomerService;
@@ -18,14 +18,14 @@ public class UserController {
     private final UserService userService;
     private final CarService carService;
     private final CustomerService customerService;
-    private final LocationRepo locationRepo;
+    private final LocationService locationService;
 
     public UserController(UserService userService, CarService carService,
-                          CustomerService customerService, LocationRepo locationRepo) {
+                          CustomerService customerService, LocationService locationService) {
         this.userService = userService;
         this.carService = carService;
         this.customerService = customerService;
-        this.locationRepo = locationRepo;
+        this.locationService = locationService;
     }
 
     @GetMapping("/user/user-page")
@@ -33,7 +33,7 @@ public class UserController {
                                Model model) {
         model.addAttribute("tab", tab);
         model.addAttribute("car", new Car());
-        model.addAttribute("locations", locationRepo.findAll());
+        model.addAttribute("locations", locationService.findAllLocations());
         model.addAttribute("cars", carService.findAllCars());
 
         if (tab.equals("customers")) {
