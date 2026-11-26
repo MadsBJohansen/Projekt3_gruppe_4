@@ -23,5 +23,56 @@
   </nav>
 </header>
 
+<button class="btn" type="button" popovertarget="edit-car">Edit car</button>
+
+<div id="edit-car" popover class="modal" th:object="${car}">
+  <form class="modal-form" th:action="@{/car/editCar}" method="post">
+    <h2>Car</h2>
+
+        <label for="vin">VIN</label>
+        <input id="vin" type="text" th:field="*{vin}"
+               minlength="17" maxlength="17" required>
+
+        <label for="licensePlate">License plate</label>
+        <input id="licensePlate" type="text" th:field="*{licensePlate}"
+               maxlength="7" required>
+
+        <label for="brand">Brand</label>
+        <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
+
+        <label for="model">Model</label>
+        <input id="model" type="text" th:field="*{model}" maxlength="50" required>
+
+        <label for="trimLevel">Trim level</label>
+        <input id="trimLevel" type="text" th:field="*{trimLevel}"
+               maxlength="50" required>
+
+        <label for="year">Year</label>
+        <input id="year" type="number" th:field="*{year}" required>
+
+        <label for="mileage">Mileage (km)</label>
+        <input id="mileage" type="number" th:field="*{mileage}" min="0" required>
+
+        <label for="basePrice">Base price (DKK)</label>
+        <input id="basePrice" type="number" th:field="*{basePrice}"
+               min="0.01" max="99999999.99" step="0.01" required>
+
+        <label for="co2Emission">CO2 emission (g/km)</label>
+        <input id="co2Emission" type="number" th:field="*{co2Emission}"
+               min="0" max="9999.9" step="0.1" required>
+
+        <label for="currentLocationId">Location</label>
+        <select id="currentLocationId" th:field="*{currentLocationId}" required>
+          <option value="0" disabled>Select a location</option>
+          <option th:each="location : ${locations}"
+                  th:value="${location.id}"
+                  th:text="${location.name}"></option>
+        </select>
+    <button type="submit">Update</button>
+    <button type="button" popovertargetaction="hide">Cancel</button>
+      </form>
+
+</div>
+
 </body>
 </html>
