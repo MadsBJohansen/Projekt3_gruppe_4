@@ -15,26 +15,26 @@
             <span th:text="*{firstName}">First name</span>
             <span th:text="*{lastName}">Last name</span>
         </div>
-        <div class="customer">
+        <div class="customer-field">
             <span th:text="*{email}">Email</span>
         </div>
-        <div class="customer">
+        <div class="customer-field">
             <span th:text="*{phoneNumber}">Phone number</span>
         </div>
-        <div class="customer">
+        <div class="customer-field">
             <span th:text="*{streetAddress}">Street address</span>
         </div>
-        <div class="customer">
+        <div class="customer-field">
             <span th:object="${zipCode}" th:text="*{zipCode}">Zip code</span>
         </div>
-        <div class="customer">
+        <div class="customer-field">
             <span th:object="${zipCode}" th:text="*{city}">City</span>
         </div>
     </div>
 
     <button type="button" class="btn" popovertarget="edit-customer">Edit customer</button>
     <div id="edit-customer" popover class="modal">
-        <form class="modal-form" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
+        <form class="modal-form" th:object="${customer}" th:action="@{/customer/updateCustomer}" method="post">
             <h2>Edit customer</h2>
 
             <label for="firstName">First name</label>
@@ -59,9 +59,14 @@
                         th:text="${zipcode.getCity() + ' ' + zipcode.getZipCode()}"></option>
             </select>
 
-            <button type="submit">Create</button>
+            <button type="submit">Update</button>
             <button type="button" popovertarget="edit-customer" popovertargetaction="hide">Cancel</button>
         </form>
+        <form th:object="${customer}" th:action="@{/customer/archiveCustomer}" method="post" onsubmit="return confirm('DELETE CUSTOMER!!??')">
+            <input type="hidden" name="customerId" th:value="${customerId}">
+            <button type="submit">DELETE</button>
+        </form>
+
     </div>
 </body>
 </html>

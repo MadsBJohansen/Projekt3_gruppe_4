@@ -301,26 +301,30 @@ transform: scale(1.05);
 
 /* ------ Customer ----------------------------*/
 
-.customer{
+.customer-card{
 
 }
 
-.modal {
-    position: fixed;
-    inset: 0;
-    margin: auto;                 /* centrerer i midten af skærmen */
-    height: fit-content;
-    max-width: none;
-    overflow: visible;            /* boblerne må stikke ud */
+/*------- Pop-up form --------------------------------*/
+.modal-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
 
-    border: none;
-    border-radius: 60px;
-    padding: 20px 40px 20px;
-    background: white;
-    filter: drop-shadow(0 8px 15px rgba(36, 87, 167, 0.25));
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
 
-    width: 300px;
-    box-sizing: border-box;
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: left;
 }
 
 /* Sløret glas bag popover'en */

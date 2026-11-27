@@ -46,4 +46,14 @@ public class CustomerService {
     public void updateCustomer(Customer customer){
         customerRepo.update(customer);
     }
+
+    public void archiveCustomer(Customer customer){
+        customer.setFirstName("DELETED");
+        customer.setLastName("DELETED");
+        customer.setEmail("DELETED");
+        customer.setPhoneNumber("DELETED");
+        customer.setStreetAddress("DELETED");
+
+        customerRepo.update(customer);
+    }
 }
