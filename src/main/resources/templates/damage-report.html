@@ -1,34 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <title>Damage Report</title>
-    </head>
-    <body><header th:replace="~{fragments/header :: header('damage')}"></header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Damage Report</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header('damage')}"></div>
 
-        <main class="page">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Damage ID</th>
-                        <th>Report ID</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="damage : ${damages}">
-                        <td th:text="${damage.getId()}"></td>
-                        <td th:text="${damage.getDamageReportId()}"></td>
-                        <td th:text="${damage.getDescription()}"></td>
-                        <td th:text="${damage.getRepairCost()}"></td>
-                    </tr>
-                </tbody>
-            </table>
+<main class="page">
+    <h1 th:text="'Damage Report ' + ${report.id}"></h1>
 
-        </main>
-    </body>
+    <div class="damage-layout">
+        <aside class="panel">
+            <h2 th:text="'Pending review (' + ${#lists.size(pendingContracts)} + ')'"></h2>
+
+            <form th:each="c : ${pendingContracts}"
+                  th:action="@{/damage-reports/create}" method="post">
+                <input type="hidden" name="contractId" th:value="${c.id}">
+                <button type="submit" class="btn pending-item" th:text="'Contract ' + ${c.id}"></button>
+            </form>
+
+            <p th:if="${pendingContracts.isEmpty()}">No contracts waiting</p>
+        </aside>
+
+        <div class="damage-right">
+            <section class="panel">
+                <div class="car-title">
+                    <h2 th:text="${car.brand} + ' ' + ${car.model} + ' · ' + ${car.licensePlate}"></h2>
+                    <span class="badge">Returned</span>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <span class="info-label">Contract</span>
+                        <span th:text="${contract.id}"></span>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-label">Customer</span>
+                        <span th:text="${customer.firstName} + ' ' + ${customer.lastName}"></span>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-label">Rental end</span>
+                        <span th:text="${endDate}"></span>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-label">Mileage</span>
+                        <span th:text="${car.mileage} + ' km'"></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Damages</h2>
+
+                <div class="damage-row damage-head">
+                    <span>Description</span>
+                    <span>Price (DKK)</span>
+                </div>
+
+                <div class="damage-row" th:each="d : ${damages}">
+                    <span th:text="${d.description}"></span>
+                    <span th:text="${d.repairCost}"></span>
+                </div>
+
+                <form th:action="@{/damage/add}" method="post" th:object="${damage}" class="damage-row damage-form">
+                    <input type="hidden" th:field="*{damageReportId}">
+
+                    <input type="text" th:field="*{description}" maxlength="255" required
+                           placeholder="e.g. scratch on door" aria-label="Description">
+
+                    <input type="number" th:field="*{repairCost}" step="0.01" min="0.01" required
+                           placeholder="0.00" aria-label="Repair cost (DKK)">
+
+                    <button type="submit" class="btn">Add</button>
+                </form>
+
+                <footer class="damage-footer">
+                    <span th:text="${#lists.size(damages)} + ' damages registered'"></span>
+                    <strong th:text="'Total: ' + ${totalCost} + ' DKK'"></strong>
+                </footer>
+            </section>
+        </div>
+    </div>
+</main>
+</body>
 </html>

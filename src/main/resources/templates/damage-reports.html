@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <title>Damage Reports</title>
-    </head>
-    <body>
-        <header th:replace="~{fragments/header :: header('damage')}"></header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Damage Reports</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header('damage')}"></header>
 
-        <main class="page">
-            <details class="create-dropdown">
-                <summary class="btn">Create Damage Report</summary>
-                <div class="dropdown-content">
-                    <form class="form-inline" th:each="contract : ${contracts}"
-                        th:action="@{/damage-reports/create}" method="post">
-                        <input type="hidden" name="contractId" th:value="${contract.id}">
-                        <button type="submit" th:text="'Contract ' + ${contract.id}" class="btn"></button>
-                    </form>
-                    <p th:if="${contracts.isEmpty()}">No contracts ready</p>
-                </div>
-            </details>
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Contract ID</th>
-                        <th>Report ID</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="report : ${reports}">
-                        <td th:text="${report.getContractId()}"></td>
-                        <td th:text="${report.getId()}"></td>
-                        <td th:text="${report.getReportDate()}"></td>
-                        <td><a class="btn" th:href="@{/damage-reports/{reportId}(reportId=${report.id})}">View</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-    </body>
+<main class="page">
+    <div class="page-header">
+        <h1>Damage reports</h1>
+        <details class="create-dropdown">
+            <summary class="btn">+ Create Report</summary>
+            <div class="dropdown-content">
+                <form class="form-inline" th:each="contract : ${contracts}"
+                      th:action="@{/damage-reports/create}" method="post">
+                    <input type="hidden" name="contractId" th:value="${contract.id}">
+                    <button class="btn" type="submit" th:text="'Contract ' + ${contract.id}"></button>
+                </form>
+                <p th:if="${contracts.isEmpty()}">No contracts ready</p>
+            </div>
+        </details>
+    </div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Contract ID</th>
+            <th>Report ID</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="report : ${reports}">
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getContractId()}"></a></td>
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getId()}"></a></td>
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getReportDate()}"></a></td>
+            <td><a class="btn" th:href="@{/damage-reports/{reportId}(reportId=${report.id})}">View</a></td>
+        </tr>
+    </tbody>
+</table>
+</main>
+</body>
 </html>
