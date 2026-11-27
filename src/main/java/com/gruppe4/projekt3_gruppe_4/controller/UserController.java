@@ -29,23 +29,18 @@ public class UserController {
         this.zipCodeService = zipCodeService;
     }
 
-    @GetMapping("/user/user-page")
-    public String showUserPage(@RequestParam(defaultValue = "home") String tab,
-                               Model model, HttpSession session) {
-        if(session.getAttribute("user") == null){
+    @GetMapping("/user/showUser-page")
+    public String showUserPage(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null){
             return "redirect:/";
         }
-        model.addAttribute("tab", tab);
+
         model.addAttribute("car", new Car());
         model.addAttribute("customer", new Customer());
         model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
         model.addAttribute("locations", locationService.findAllLocations());
         model.addAttribute("cars", carService.findAllCars());
 
-
-        if (tab.equals("customers")) {
-            model.addAttribute("customers", customerService.findAll());
-        }
         return "user-page";
     }
 }

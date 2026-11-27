@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="header(active)">
+<div th:fragment="header">
   <header class="topbar">
     <div class="topbar-left">
       <span class="logo">LOGO</span>
@@ -14,10 +14,10 @@
 
   <nav class="tabs">
     <ul>
-      <li><a th:href="@{/user/user-page(tab='home')}" th:classappend="${active == 'home'} ? 'active'">Home</a></li>
-      <li><a th:href="@{/user/user-page(tab='cars')}" th:classappend="${active == 'cars'} ? 'active'">Cars</a></li>
-      <li><a th:href="@{/user/user-page(tab='customers')}" th:classappend="${active == 'customers'} ? 'active'">Customers</a></li>
-      <li><a th:href="@{/damage-reports}" th:classappend="${active == 'damage'} ? 'active'">Damage reports</a></li>
+      <li><a th:href="@{/user/showUser-page}">Home</a></li>
+      <li><a th:href="@{/car/showCars}">Cars</a></li>
+      <li><a th:href="@{/customer/showCustomers}">Customers</a></li>
+      <li><a th:href="@{/damage-reports}">Damage reports</a></li>
     </ul>
   </nav>
 </div>

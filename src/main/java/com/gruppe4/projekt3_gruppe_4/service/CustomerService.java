@@ -7,6 +7,8 @@ import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
 import com.gruppe4.projekt3_gruppe_4.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,8 +41,28 @@ public class CustomerService {
         return zipCodeService.findByZipCode(zipCode) == null;
     }
 
-    public List<Customer> findAll() {
+    public List<Customer> findAllCustomers(){
         return customerRepo.findAllCustomers();
+    }
+
+    public List<Customer> findAllActiveCustomers() {
+        List<Customer> activeCustomers = new ArrayList<>();
+        for (Customer customer : customerRepo.findAllCustomers()){
+            if(!customer.getFirstName().equals("DELETED") && !customer.getLastName().equals("DELETED")){
+                activeCustomers.add(customer);
+            }
+        }
+        return activeCustomers;
+    }
+
+    public List<Customer> findAllDeletedCustomers() {
+        List<Customer> deletedCustomers = new ArrayList<>();
+        for (Customer customer : customerRepo.findAllCustomers()){
+            if(customer.getFirstName().equals("DELETED") && customer.getLastName().equals("DELETED")){
+                deletedCustomers.add(customer);
+            }
+        }
+        return deletedCustomers;
     }
 
     public void updateCustomer(Customer customer){
@@ -50,9 +72,9 @@ public class CustomerService {
     public void archiveCustomer(Customer customer){
         customer.setFirstName("DELETED");
         customer.setLastName("DELETED");
-        customer.setEmail("DELETED");
-        customer.setPhoneNumber("DELETED");
-        customer.setStreetAddress("DELETED");
+        customer.setEmail("DELETED@" + customer.getId());
+        customer.setPhoneNumber("" + LocalDateTime.now());
+        customer.setStreetAddress("");
 
         customerRepo.update(customer);
     }
