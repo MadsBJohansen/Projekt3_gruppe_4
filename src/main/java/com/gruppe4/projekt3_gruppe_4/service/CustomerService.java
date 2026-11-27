@@ -42,4 +42,8 @@ public class CustomerService {
     public List<Customer> findAll() {
         return customerRepo.findAllCustomers();
     }
+
+    public void updateCustomer(Customer customer){
+        customerRepo.update(customer);
+    }
 }

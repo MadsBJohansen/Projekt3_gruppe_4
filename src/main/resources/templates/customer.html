@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
     <title>Customer</title>
 </head>
 <body>
@@ -12,15 +12,59 @@
     <span class="logo">LOGO</span>
     <span class="brand">Bilabonnement</span>
 </header>
-    <div class="customer" th:object="${customer}">
-        <span th:text="*{firstName}">First name</span>
-        <span th:text="*{lastName}">Last name</span>
-        <span th:text="*{email}">Email</span>
-        <span th:text="*{phoneNumber}">Phone numer</span>
-        <span th:text="*{streetAddress}">Street address</span>
-        <span th:object="${zipCode}" th:text="*{zipCode}">Zip code</span>
-        <span th:object="${zipCode}" th:text="*{city}">City</span>
+    <div class="workspace-grid" th:object="${customer}">
+        <div class="customer">
+            <span th:text="*{firstName}">First name</span>
+            <span th:text="*{lastName}">Last name</span>
+        </div>
+        <div class="customer">
+            <span th:text="*{email}">Email</span>
+        </div>
+        <div class="customer">
+            <span th:text="*{phoneNumber}">Phone number</span>
+        </div>
+        <div class="customer">
+            <span th:text="*{streetAddress}">Street address</span>
+        </div>
+        <div class="customer">
+            <span th:object="${zipCode}" th:text="*{zipCode}">Zip code</span>
+        </div>
+        <div class="customer">
+            <span th:object="${zipCode}" th:text="*{city}">City</span>
+        </div>
     </div>
 
+    <button type="button" class="btn" popovertarget="edit-customer">Edit customer</button>
+    <div id="edit-customer" popover class="modal">
+        <form class="modal-form" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
+            <h2>Edit customer</h2>
+
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" th:field="*{firstName}" required>
+
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" th:field="*{lastName}" required>
+
+            <label for="email">Email</label>
+            <input id="email" type="text" th:field="*{email}" required>
+
+            <label for="phoneNumber">Phone number</label>
+            <input id="phoneNumber" type="text" th:field="*{phoneNumber}" required>
+
+            <label for="streetAddress">Street address</label>
+            <input id="streetAddress" type="text" th:field="*{streetAddress}" required>
+
+            <label for="zipCodeId">City and zip code</label>
+            <select id="zipCodeId" name="zipCodeId">
+                <option th:each="zipcode :${zipCodes}"
+                        th:value="${zipcode.getZipCodeId()}"
+                        th:text="${zipcode.getCity() + ' ' + zipcode.getZipCode()}"></option>
+            </select>
+
+            <button type="submit">Create</button>
+            <button type="button" popovertarget="edit-customer" popovertargetaction="hide">Cancel</button>
+        </form>
+
+    </div>
 </body>
 </html>

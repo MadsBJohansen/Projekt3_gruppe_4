@@ -25,7 +25,7 @@ public class DamageController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
-        model.addAttribute("contracts", contractService.findAllEndedContracts());
+        model.addAttribute("contracts", contractService.findEndedContractsWithoutReport());
         model.addAttribute("reports", damageService.findAllReports());
         return "damage-reports";
     }

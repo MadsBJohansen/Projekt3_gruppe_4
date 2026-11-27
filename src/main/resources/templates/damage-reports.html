@@ -13,14 +13,20 @@
     <span class="brand">Bilabonnement</span>
 </header>
 
-<form th:action="@{/damage-reports/create}" method="post">
-    <select name="contractId">
-        <option th:each="contract : ${contracts}" th:value="${contract.id}" th:text="${contract.id}"></option>
-    </select>
-    <button type="submit">Create Damage Report</button>
-</form>
+<main class="page">
+<details class="create-dropdown">
+    <summary>Create Damage Report</summary>
+    <div class="dropdown-content">
+        <form th:each="contract : ${contracts}"
+              th:action="@{/damage-reports/create}" method="post">
+            <input type="hidden" name="contractId" th:value="${contract.id}">
+            <button type="submit" th:text="'Contract ' + ${contract.id}"></button>
+        </form>
+        <p th:if="${contracts.isEmpty()}">No contracts ready</p>
+    </div>
+</details>
 
-<table>
+<table class="data-table">
     <thead>
         <tr>
             <th>Contract ID</th>
@@ -33,9 +39,10 @@
             <td th:text="${report.getContractId()}"></td>
             <td th:text="${report.getId()}"></td>
             <td th:text="${report.getReportDate()}"></td>
-            <td><a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}">View</a></td>
+            <td><a class="btn" th:href="@{/damage-reports/{reportId}(reportId=${report.id})}">View</a></td>
         </tr>
     </tbody>
 </table>
+</main>
 </body>
 </html>
