@@ -3,7 +3,6 @@ package com.gruppe4.projekt3_gruppe_4.service;
 import com.gruppe4.projekt3_gruppe_4.enums.CarStatus;
 import com.gruppe4.projekt3_gruppe_4.exceptions.ContractException;
 import com.gruppe4.projekt3_gruppe_4.model.Contract;
-import com.gruppe4.projekt3_gruppe_4.repository.CarRepo;
 import com.gruppe4.projekt3_gruppe_4.repository.ContractRepo;
 import com.gruppe4.projekt3_gruppe_4.repository.DamageRepo;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import java.util.List;
 public class ContractService {
     private final ContractRepo contractRepo;
     private final DamageRepo damageRepo;
-    private final CarRepo carRepo;
     private final CarService carService;
 
 
@@ -55,10 +53,9 @@ public class ContractService {
         carService.changeStatus(contract.getCarId(), CarStatus.RENTED);
     }
 
-    public ContractService(ContractRepo contractRepo, DamageRepo damageRepo, CarRepo carRepo, CarService carService) {
+    public ContractService(ContractRepo contractRepo, DamageRepo damageRepo, CarService carService) {
         this.contractRepo = contractRepo;
         this.damageRepo = damageRepo;
-        this.carRepo = carRepo;
         this.carService = carService;
     }
 
@@ -101,3 +98,4 @@ public class ContractService {
         return contractRepo.findContractById(contractId);
     }
 }
+
