@@ -131,6 +131,14 @@ public class CarRepo {
         jdbcTemplate.update(sql, carId, "AVAILABLE");
     }
 
+    public void saveStatus(int carId, String status) {
+        String sql = """
+                INSERT INTO car_status_log (car_id, status)
+                VALUES (?, ?)
+                """;
+        jdbcTemplate.update(sql, carId, status);
+    }
+
     public List<Car> findAllCars() {
         String sql = """
                 SELECT car.*,
@@ -139,7 +147,7 @@ public class CarRepo {
                         FROM car_status_log
                         WHERE car_id = car.id
                         ORDER BY changed_at DESC, id DESC
-                        LIMIT 1
+                        LIMIT 1     
                     ) AS status
                 FROM car
                 ORDER BY car.id DESC
@@ -174,6 +182,20 @@ public class CarRepo {
                     """;
 
         return jdbcTemplate.query(sql, carRowMapper, status);
+    }
+
+    public String findCurrentStatus(int carId) {
+        String sql = """
+            SELECT status FROM car_status_log
+            WHERE car_id = ?
+            ORDER BY changed_at DESC, id DESC
+            LIMIT 1
+            """;
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, carId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public int countCarsByStatus(String status) {

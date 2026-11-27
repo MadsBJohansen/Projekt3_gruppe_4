@@ -1,5 +1,6 @@
 package com.gruppe4.projekt3_gruppe_4.service;
 
+import com.gruppe4.projekt3_gruppe_4.enums.CarStatus;
 import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.repository.CarRepo;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,18 @@ public class CarService {
         carRepo.update(car);
     }
 
+    public void changeStatus(int carId, CarStatus status){
+        carRepo.saveStatus(carId, status.name());
+    }
+
     public Car findById(int id){
         Car car = carRepo.findById(id);
         if (car == null) throw new IllegalArgumentException("Car not found");
         return car;
+    }
+
+    public String getCurrentStatus(int carId) {
+        return carRepo.findCurrentStatus(carId);
     }
 
 
@@ -113,7 +122,7 @@ public class CarService {
         }
     }
 
-    private boolean isMissing(String value) {
+    private boolean isMissing(String     value) {
         return value == null || value.isBlank();
     }
 }
