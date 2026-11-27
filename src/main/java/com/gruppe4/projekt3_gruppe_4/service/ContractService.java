@@ -96,4 +96,8 @@ public class ContractService {
         }
         return result;
     }
+
+    public Contract findContractById(int contractId) {
+        return contractRepo.findContractById(contractId);
+    }
 }
