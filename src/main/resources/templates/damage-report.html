@@ -7,12 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Damage Report</title>
 </head>
-<body>
-<header class="topbar">
-    <span class="logo">LOGO</span>
-    <span class="brand">Bilabonnement</span>
-</header>
-    <table class="data-table">
+<body><header th:replace="~{fragments/header :: header('damage')}"></header>
+
+<table class="data-table">
         <thead>
             <tr>
                 <th>Damage ID</th>

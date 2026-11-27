@@ -8,10 +8,8 @@
     <title>Customer</title>
 </head>
 <body>
-<header class="topbar">
-    <span class="logo">LOGO</span>
-    <span class="brand">Bilabonnement</span>
-</header>
+<header th:replace="~{fragments/header :: header('customers')}"></header>
+
     <div class="customer" th:object="${customer}">
         <span th:text="*{firstName}">First name</span>
         <span th:text="*{lastName}">Last name</span>
