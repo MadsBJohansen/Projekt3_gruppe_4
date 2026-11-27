@@ -31,7 +31,10 @@ public class UserController {
 
     @GetMapping("/user/user-page")
     public String showUserPage(@RequestParam(defaultValue = "home") String tab,
-                               Model model) {
+                               Model model, HttpSession session) {
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
         model.addAttribute("tab", tab);
         model.addAttribute("car", new Car());
         model.addAttribute("customer", new Customer());
