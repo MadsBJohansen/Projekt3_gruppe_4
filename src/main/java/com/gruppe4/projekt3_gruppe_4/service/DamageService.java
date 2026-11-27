@@ -57,4 +57,12 @@ public class DamageService {
     public List<DamageReport> findAllReports() {
         return damageRepo.findAllReports();
     }
+
+    public BigDecimal calculateTotalCost(int reportId) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Damage d: findDamagesByReportId(reportId)) {
+            total = total.add(d.getRepairCost());
+        }
+        return total;
+    }
 }
