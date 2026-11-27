@@ -43,7 +43,7 @@ public class CustomerController {
         }
         try {
             customerService.createCustomer(customer);
-            return "redirect:/user/user-page";
+            return "redirect:/customer/showCustomers";
 
         } catch (CustomerException e){
             model.addAttribute("error", e.getMessage());

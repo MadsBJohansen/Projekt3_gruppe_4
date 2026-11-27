@@ -20,7 +20,7 @@
             <form th:each="c : ${pendingContracts}"
                   th:action="@{/damage-reports/create}" method="post">
                 <input type="hidden" name="contractId" th:value="${c.id}">
-                <button type="submit" class="pending-item" th:text="'Contract ' + ${c.id}"></button>
+                <button type="submit" class="btn pending-item" th:text="'Contract ' + ${c.id}"></button>
             </form>
 
             <p th:if="${pendingContracts.isEmpty()}">No contracts waiting</p>
@@ -75,7 +75,7 @@
                     <input type="number" th:field="*{repairCost}" step="0.01" min="0.01" required
                            placeholder="0.00" aria-label="Repair cost (DKK)">
 
-                    <button type="submit" class="btn-primary">Add</button>
+                    <button type="submit" class="btn">Add</button>
                 </form>
 
                 <footer class="damage-footer">
