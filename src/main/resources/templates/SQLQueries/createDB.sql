@@ -47,16 +47,16 @@ CREATE TABLE customer
 CREATE TABLE car
 (
     id              		INT 			AUTO_INCREMENT PRIMARY KEY,
-    vin 			VARCHAR(17) 	NOT NULL UNIQUE,
+    vin 			        VARCHAR(17) 	NOT NULL UNIQUE,
     trim_level          	VARCHAR(50)    	NOT NULL,
-    mileage 		INT        	    	NOT NULL,
+    mileage 		        INT        	    NOT NULL,
     base_price          	DECIMAL(10, 2) 	NOT NULL,
-    co2_emission     	DECIMAL(5, 1)	NOT NULL,
-    license_plate      	VARCHAR(7)  	NOT NULL UNIQUE,
-    current_location_id	INT          		NOT NULL,
+    co2_emission     	    DECIMAL(5, 1)	NOT NULL,
+    license_plate      	    VARCHAR(7)  	NOT NULL UNIQUE,
+    current_location_id	    INT          	NOT NULL,
     brand           		VARCHAR(50)    	NOT NULL,
-    model           	VARCHAR(50)    	NOT NULL,
-    year            		YEAR          		NOT NULL,
+    model           	    VARCHAR(50)    	NOT NULL,
+    year            		YEAR          	NOT NULL,
 
 
     CONSTRAINT fk_car_current_location_id
@@ -85,16 +85,17 @@ CREATE TABLE car_status_log
 
 CREATE TABLE contract
 (
-    id    			INT 			AUTO_INCREMENT PRIMARY KEY,
-    customer_id   	INT  			NOT NULL,
-    car_id         		INT  			NOT NULL,
-    location_id     	INT  			NOT NULL,
-    user_id         	INT  			NOT NULL,
-    start_date      	DATE 			NOT NULL,
-    car_return_date 	DATE,
-    canceled_at    	DATETIME,
-    period	 	INT  			NOT NULL,
-    monthly_price	DECIMAL(10,2)	NOT NULL,
+    id    			        INT 			AUTO_INCREMENT PRIMARY KEY,
+    customer_id   	        INT  			NOT NULL,
+    car_id         		    INT  			NOT NULL,
+    location_id     	    INT  			NOT NULL,
+    user_id         	    INT  			NOT NULL,
+    start_date      	    DATE 			NOT NULL,
+    car_return_date 	    DATE,
+    canceled_at     	    DATETIME,
+    period	 	            INT  			NOT NULL,
+    monthly_price	        DECIMAL(10,2)	NOT NULL,
+
     CONSTRAINT fk_contract_customer_id
         FOREIGN KEY(customer_id) REFERENCES customer(id),
     CONSTRAINT fk_contract_car_id

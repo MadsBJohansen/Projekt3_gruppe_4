@@ -12,17 +12,20 @@
 
 
 <main class="page">
-<details class="create-dropdown">
-    <summary>Create Damage Report</summary>
-    <div class="dropdown-content">
-        <form th:each="contract : ${contracts}"
-              th:action="@{/damage-reports/create}" method="post">
-            <input type="hidden" name="contractId" th:value="${contract.id}">
-            <button type="submit" th:text="'Contract ' + ${contract.id}"></button>
-        </form>
-        <p th:if="${contracts.isEmpty()}">No contracts ready</p>
+    <div class="page-header">
+        <h1>Damage reports</h1>
+        <details class="create-dropdown">
+            <summary>+ Create Report</summary>
+            <div class="dropdown-content">
+                <form th:each="contract : ${contracts}"
+                      th:action="@{/damage-reports/create}" method="post">
+                    <input type="hidden" name="contractId" th:value="${contract.id}">
+                    <button type="submit" th:text="'Contract ' + ${contract.id}"></button>
+                </form>
+                <p th:if="${contracts.isEmpty()}">No contracts ready</p>
+            </div>
+        </details>
     </div>
-</details>
 
 <table class="data-table">
     <thead>
@@ -34,9 +37,9 @@
     </thead>
     <tbody>
         <tr th:each="report : ${reports}">
-            <td th:text="${report.getContractId()}"></td>
-            <td th:text="${report.getId()}"></td>
-            <td th:text="${report.getReportDate()}"></td>
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getContractId()}"></a></td>
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getId()}"></a></td>
+            <td> <a th:href="@{/damage-reports/{reportId}(reportId=${report.id})}" th:text="${report.getReportDate()}"></a></td>
             <td><a class="btn" th:href="@{/damage-reports/{reportId}(reportId=${report.id})}">View</a></td>
         </tr>
     </tbody>

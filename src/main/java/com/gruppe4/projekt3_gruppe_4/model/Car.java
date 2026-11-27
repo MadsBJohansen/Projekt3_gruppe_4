@@ -145,4 +145,9 @@ public class Car {
     public void setModel(String model) {
         this.model = model;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
