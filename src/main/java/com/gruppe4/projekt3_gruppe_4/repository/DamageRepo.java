@@ -55,13 +55,23 @@ public class DamageRepo {
         }
     }
 
+
+    public DamageReport findReportByReportId(int reportId) {
+        String sql = "SELECT * FROM damage_report WHERE id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, damageReportRowMapper, reportId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     public List<Damage> findDamagesByReportId(int reportId) {
         String sql = "SELECT * FROM damage WHERE damage_report_id = ?";
         return jdbcTemplate.query(sql, damageRowMapper, reportId);
     }
 
     public List<DamageReport> findAllReports() {
-        String sql = "SELECT * FROM damage_report";
+        String sql = "SELECT * FROM damage_report ORDER BY date DESC";
         return jdbcTemplate.query(sql, damageReportRowMapper);
     }
 }

@@ -1,55 +1,68 @@
 USE projekt3_gruppe_4_db;
 
-INSERT INTO zip_code(zip_code,city)
-VALUES      ('2200','København N'),
-            ('2600','Glostrup'),
-            ('2605','Brøndby'),
-            ('2300','København S'),
-            ('5000','Odense C'),
-            ('8000','Aarhus C'),
-            ('9000','Aalborg');
-
+INSERT INTO zip_code(zip_code, city)
+VALUES  ('2200', 'København N'),
+        ('2600', 'Glostrup'),
+        ('2605', 'Brøndby'),
+        ('2300', 'København S'),
+        ('5000', 'Odense C'),
+        ('8000', 'Aarhus C'),
+        ('9000', 'Aalborg');
 
 -- Password = 'demo' (BCrypt, virker med Spring Securitys BCryptPasswordEncoder)
 SET @demo = '$2a$10$Y/lmprXp2F9azH1kYbZ5sOB/nXUS2b6vTAgZX8QIjD1UXkPlcrCRK';
 
-INSERT INTO user
-(first_name, last_name, username, password_hash, role)
+INSERT INTO user (first_name, last_name, username, password_hash, role)
 VALUES
-    ('Demo', 'Demosen', 'demo', @demo, 'ADMIN'),
-    ('Mads', 'Johansen', 'mads', @demo, 'ADMIN'),
-    ('Gustav', 'Clement', 'gustav', @demo, 'BUSINESS_DEVELOPER'),
-    ('Al', 'Agami', 'al', @demo, 'DATA_REGISTRATION'),
-    ('Rasmus', 'Gøtze', 'rasmus', @demo, 'DAMAGE_AND_REPAIR');
+    ('Demo',   'Demosen',  'demo',   @demo, 'ADMIN'),
+    ('Mads',   'Johansen', 'mads',   @demo, 'ADMIN'),
+    ('Gustav', 'Clement',  'gustav', @demo, 'BUSINESS_DEVELOPER'),
+    ('Al',     'Agami',    'al',     @demo, 'DATA_REGISTRATION'),
+    ('Rasmus', 'Gøtze',    'rasmus', @demo, 'DAMAGE_AND_REPAIR');
 
-INSERT INTO customer(first_name, last_name, email, phone_number, street_address, zip_code_id)
-VALUES      ('Bjørn', 'Programmering', 'bjoern@example.com', '+4511223344', 'Guldbergsgade 29', 1),
-            ('Oskar',	'It&Forret','oskar@example.com', '+4522334455', 'Guldbergsgade 29', 1),
-            ('Jaron', 'Systemudvikling', 'jaron@example.com', '+4533445566', 'Guldbergsgade 29', 1);
+INSERT INTO customer (first_name, last_name, email, phone_number, street_address, zip_code_id)
+VALUES  ('Bjørn', 'Programmering',   'bjoern@example.com', '+4511223344', 'Guldbergsgade 29', 1),
+        ('Oskar', 'It&Forret',       'oskar@example.com',  '+4522334455', 'Guldbergsgade 29', 1),
+        ('Jaron', 'Systemudvikling', 'jaron@example.com',  '+4533445566', 'Guldbergsgade 29', 1);
 
-INSERT INTO location(name, street_address, zip_code_id)
-VALUES	('Bilabonnement A/S', 'Vibeholmsvej', 3);
+INSERT INTO location (name, street_address, zip_code_id)
+VALUES  ('Bilabonnement A/S', 'Vibeholmsvej', 3);
 
 INSERT INTO car (vin, trim_level, mileage, base_price, co2_emission,
                  license_plate, current_location_id, brand, model, year)
 VALUES
-    ('HBUSRJGF9CBFPR9BN' ,'allure', 61860, 140000.00, 105.0, 'AB12345', 1, 'Fiat', '500 Vita comfort 70 HK', 2023),
-    ('2T1BURHE7JC019482' ,'rivoli',    27160, 330000.00, 0, 'CD67890', 1, 'Polestar', '2 Plus Standard Range Single Motor', 2022);
+    ('HBUSRJGF9CBFPR9BN', 'allure', 61860, 140000.00, 105.0, 'AB12345', 1, 'Fiat',     '500 Vita comfort 70 HK',             2023),
+    ('2T1BURHE7JC019482', 'rivoli', 27160, 330000.00,   0,   'CD67890', 1, 'Polestar', '2 Plus Standard Range Single Motor', 2022);
 
-INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
+-- Kontrakt 1 er aktiv, 2-7 er afsluttede og tilbageleverede
+INSERT INTO contract (customer_id, car_id, location_id, user_id, start_date, car_return_date, period, monthly_price)
 VALUES
-    (1, 2, 1, 2, '2026-11-24', 3999.00, 6);
-
-INSERT INTO contract(customer_id, car_id, location_id, user_id, start_date, monthly_price, period)
-VALUES
-    (2, 1, 1, 4, '2025-09-01', 2999.00, 6),   -- id 2, slut 2026-03-01
-    (3, 1, 1, 4, '2026-03-15', 2999.00, 6),   -- id 3, slut 2026-09-15
-    (1, 2, 1, 4, '2026-03-01', 3999.00, 6);   -- id 4, slut 2026-09-01
+    (1, 2, 1, 2, '2026-11-24', NULL,         6, 3999.00),   -- id 1, AKTIV, slut 2027-05-24
+    (2, 1, 1, 4, '2025-09-01', '2026-03-01', 6, 2999.00),   -- id 2, slut 2026-03-01
+    (3, 1, 1, 4, '2026-03-15', '2026-09-15', 6, 2999.00),   -- id 3, slut 2026-09-15
+    (1, 2, 1, 4, '2026-03-01', '2026-09-01', 6, 3999.00),   -- id 4, slut 2026-09-01
+    (2, 1, 1, 4, '2025-01-10', '2025-07-10', 6, 2999.00),   -- id 5, slut 2025-07-10
+    (3, 2, 1, 4, '2025-06-01', '2025-12-01', 6, 3999.00),   -- id 6, slut 2025-12-01
+    (1, 2, 1, 4, '2024-11-01', '2025-02-01', 3, 3999.00);   -- id 7, slut 2025-02-01
 
 INSERT INTO car_status_log (car_id, changed_at, status)
-VALUES (1, '2026-11-20 09:00:00', 'AVAILABLE'),
-       (2, '2026-11-20 09:00:00', 'AVAILABLE'),
-       (2, '2026-11-24 10:00:00', 'RENTED');
+VALUES  (1, '2026-11-20 09:00:00', 'AVAILABLE'),
+        (2, '2026-11-20 09:00:00', 'AVAILABLE'),
+        (2, '2026-11-24 10:00:00', 'RENTED');
 
+-- Rapporter på kontrakt 2, 4, 5 og 6 (kontrakt 3 og 7 er fri til dropdownen)
 INSERT INTO damage_report (contract_id, user_id, date)
-VALUES (1, 5, '2026-11-26')
+VALUES
+    (2, 5, '2026-03-02'),   -- report 1
+    (4, 5, '2026-09-02'),   -- report 2
+    (5, 5, '2025-07-11'),   -- report 3
+    (6, 5, '2025-12-02');   -- report 4 (ingen skader, til test af tom liste)
+
+INSERT INTO damage (damage_report_id, description, repair_cost)
+VALUES
+    (1, 'Paint damage, front bumper',         1500.00),
+    (1, 'Scratched alloy wheel, rear left',    400.00),
+    (1, 'Cracked windscreen',                 3000.00),
+    (2, 'Scratched alloy wheel, front right',  400.00),
+    (2, 'Dent in driver door',                1500.00),
+    (3, 'Paint damage, tailgate',             1500.00);

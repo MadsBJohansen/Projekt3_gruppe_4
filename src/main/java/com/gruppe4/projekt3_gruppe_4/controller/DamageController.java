@@ -35,11 +35,11 @@ public class DamageController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
-        DamageReport report = damageService.findReportById(reportId);
+        DamageReport report = damageService.findReportByReportId(reportId);
         if (report == null) {
             return "redirect:/damage-reports";
         }
-        model.addAttribute("report", damageService.findReportById(reportId));
+        model.addAttribute("report", report);
         model.addAttribute("damages", damageService.findDamagesByReportId(reportId));
         return "damage-report";
     }
@@ -64,7 +64,7 @@ public class DamageController {
         if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
-        if (damageService.findReportById(reportId) == null) {
+        if (damageService.findReportByReportId(reportId) == null) {
             return "redirect:/damage-reports";
         }
         Damage damage = new Damage();
