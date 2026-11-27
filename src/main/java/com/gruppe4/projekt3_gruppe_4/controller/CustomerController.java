@@ -5,6 +5,7 @@ import com.gruppe4.projekt3_gruppe_4.model.Customer;
 import com.gruppe4.projekt3_gruppe_4.model.ZipCode;
 import com.gruppe4.projekt3_gruppe_4.service.CustomerService;
 import com.gruppe4.projekt3_gruppe_4.service.ZipCodeService;
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +43,11 @@ public class CustomerController {
         }
         try {
             customerService.createCustomer(customer);
-            return "redirect:/user/user-page";
+            return "redirect:/customer/showCustomers";
 
         } catch (CustomerException e){
             model.addAttribute("error", e.getMessage());
-            return "user-page";
+            return "customers";
         }
     }
 
@@ -89,4 +90,42 @@ public class CustomerController {
         }
 
     }
+
+    @GetMapping("/customer/showCustomers")
+    public String showCustomers(Model model, HttpSession session){
+        if (session.getAttribute("user") == null){
+            return "redirect:/";
+        }
+
+        try {
+            model.addAttribute("customers", customerService.findAllCustomers());
+            model.addAttribute("customer", new Customer());
+            model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
+            return "customers";
+
+        } catch (CustomerException e) {
+            model.addAttribute("error", e.getMessage());
+            return "customers";
+        }
+
+    }
+
+//    @GetMapping("/customer/showDeletedCustomers")
+//    public String showDeletedCustomers(Model model, HttpSession session){
+//        if (session.getAttribute("user") == null){
+//            return "redirect:/";
+//        }
+//
+//        try {
+//            model.addAttribute("customers", customerService.findAllDeletedCustomers());
+//            model.addAttribute("customer", new Customer());
+//            model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
+//            return "customers";
+//
+//        } catch (CustomerException e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "customers";
+//        }
+//
+//    }
 }

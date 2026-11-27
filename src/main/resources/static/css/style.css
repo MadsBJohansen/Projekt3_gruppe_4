@@ -500,3 +500,9 @@ a {
 .page-header .create-dropdown {
     margin-bottom: 0;
 }
+
+a.tools-card {
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+}

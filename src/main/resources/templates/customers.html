@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customers</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="page">
+
+  <h1>customers</h1>
+
+  <button class="btn" type="button" popovertarget="create-customer">+ Create customer</button>
+
+
+  <table class="data-table">
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Street address</th>
+      <th>Zip Code</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}" th:if="${customer.firstName != 'DELETED' && customer.lastName != 'DELETED'}">
+      <td th:text="${customer.firstName}"></td>
+      <td th:text="${customer.lastName}"></td>
+      <td th:text="${customer.email}"></td>
+      <td th:text="${customer.phoneNumber}"></td>
+      <td th:text="${customer.streetAddress}"></td>
+      <td th:text="${customer.zipCodeId}"></td>
+      <td>
+        <a class="btn" th:href="@{/customer/{customerId}/showCustomer(customerId=${customer.id})}">Choose</a>
+      </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(customers)}">
+      <td colspan="6">No customers found</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div id="create-customer" popover class="modal modal-sm">
+    <form class="form form-grid" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
+      <h2 class="span-all">New customer</h2>
+
+      <div class="form-field">
+        <label for="firstName">First name</label>
+        <input id="firstName" type="text" th:field="*{firstName}" required>
+      </div>
+      <div class="form-field">
+        <label for="lastName">Last name</label>
+        <input id="lastName" type="text" th:field="*{lastName}" required>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input id="email" type="email" th:field="*{email}" required>
+      </div>
+      <div class="form-field">
+        <label for="phoneNumber">Phone number</label>
+        <input id="phoneNumber" type="text" th:field="*{phoneNumber}" required>
+      </div>
+
+      <div class="form-field">
+        <label for="streetAddress">Street address</label>
+        <input id="streetAddress" type="text" th:field="*{streetAddress}" required>
+      </div>
+      <div class="form-field">
+        <label for="zipCodeId">City and zip code</label>
+        <select id="zipCodeId" name="zipCodeId">
+          <option th:each="zipcode : ${zipCodes}"
+                  th:value="${zipcode.getZipCodeId()}"
+                  th:text="${zipcode.getCity() + ' ' + zipcode.getZipCode()}"></option>
+        </select>
+      </div>
+
+      <div class="form-actions span-all">
+        <button class="btn" type="submit">Create</button>
+        <button class="btn" type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+
+
+</main>
+</body>
+</html>
