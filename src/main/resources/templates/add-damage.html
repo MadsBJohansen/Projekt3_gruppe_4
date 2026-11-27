@@ -8,7 +8,7 @@
     <title>Damage Form</title>
 </head>
 <body>
-<header th:replace="~{fragments/header :: header}"></header>
+<header th:replace="~{fragments/header :: header('damage')}"></header>
 
 <form th:action="@{/damage/add}" method="post" th:object="${damage}">
     <label for="description">Description</label>

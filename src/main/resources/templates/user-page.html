@@ -7,38 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header class="topbar">
-    <div class="topbar-left">
-    <a th:href="@{/user/user-page}" class="company-logo">
-        <img th:src="@{/img/company-logo.svg}" class="logo" alt="Company logo">
-    </a>
-    <span class="brand">Bilabonnement</span>
-    </div>
-    <nav>
-        <ul>
-            <li><form th:action="@{/user/logout}" method="post">
-                <button type="submit" class="login-btn">Log out</button>
-            </form></li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="~{fragments/header :: header(${tab})}"></header>
 
-<nav class="tabs">
-    <ul>
-        <li>
-            <a th:href="@{/user/user-page(tab='home')}"
-               th:classappend="${tab == 'home'} ? 'active'">Home</a>
-        </li>
-        <li>
-            <a th:href="@{/user/user-page(tab='cars')}"
-               th:classappend="${tab == 'cars'} ? 'active'">Cars</a>
-        </li>
-        <li>
-            <a th:href="@{/user/user-page(tab='customers')}"
-               th:classappend="${tab == 'customers'} ? 'active'">Customers</a>
-        </li>
-    </ul>
-</nav>
 <main class="main">
     <section th:if="${tab == 'home'}">
         <h1>Welcome, <span th:text="${session.user.firstName}"></span></h1>

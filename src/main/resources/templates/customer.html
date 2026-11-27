@@ -4,14 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Customer</title>
 </head>
 <body>
-<header class="topbar">
-    <span class="logo">LOGO</span>
-    <span class="brand">Bilabonnement</span>
-</header>
+<div th:replace="~{fragments/header :: header('customers')}"></div>
+
     <div class="workspace-grid" th:object="${customer}">
         <div class="customer">
             <span th:text="*{firstName}">First name</span>
@@ -64,7 +62,6 @@
             <button type="submit">Create</button>
             <button type="button" popovertarget="edit-customer" popovertargetaction="hide">Cancel</button>
         </form>
-
     </div>
 </body>
 </html>
