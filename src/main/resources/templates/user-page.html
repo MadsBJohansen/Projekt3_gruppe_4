@@ -56,8 +56,9 @@
     </section>
     <section th:if="${tab == 'cars'}">
         <h1>Cars</h1>
+        <div class="table-card">
             <table class="table">
-                <thead>
+            <thead>
                 <tr>
                     <th>License plate</th>
                     <th>Brand</th>
@@ -65,24 +66,26 @@
                     <th>Year</th>
                     <th>Mileage</th>
                 </tr>
-                </thead>
+            </thead>
             <tbody>
                 <tr th:each="car : ${cars}">
-                <td th:text="${car.licensePlate}"></td>
-                <td th:text="${car.brand}"></td>
-                <td th:text="${car.model}"></td>
-                <td th:text="${car.year}"></td>
-                <td th:text="${car.mileage}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(cars)}">
-                <td colspan="5">No cars found</td>
-            </tr>
+                    <td th:text="${car.licensePlate}"></td>
+                    <td th:text="${car.brand}"></td>
+                    <td th:text="${car.model}"></td>
+                    <td th:text="${car.year}"></td>
+                    <td th:text="${car.mileage}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(cars)}">
+                    <td colspan="5">No cars found</td>
+                </tr>
             </tbody>
-        </table>
+            </table>
+        </div>
     </section>
     <section th:if="${tab == 'customers'}">
         <h1>customers</h1>
-        <table class="table">
+        <div class="table-card">
+            <table class="table">
             <thead>
             <tr>
                 <th>First Name</th>
@@ -107,6 +110,7 @@
             </tr>
             </tbody>
         </table>
+        </div>
     </section>
 
     <div id="create-customer" popover class="modal">

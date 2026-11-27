@@ -22,14 +22,18 @@ public class CarController {
     }
 
     @GetMapping("/car/{carId}/showCar")
-    public String showCar(Model model, @PathVariable int carId, HttpSession session){
-        if(session.getAttribute("user") == null){
+    public String showCar(Model model, @PathVariable int carId, HttpSession session) {
+        if (session.getAttribute("user") == null) {
             return "redirect:/";
         }
-        Car car = carService.findById(carId);
-        model.addAttribute("car", car);
-        model.addAttribute("locations", locationService.findAllLocations());
-        return "car";
+        try {
+            Car car = carService.findById(carId);
+            model.addAttribute("car", car);
+            model.addAttribute("locations", locationService.findAllLocations());
+            return "car";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/user/user-page?tab=cars";
+        }
     }
 
     @PostMapping("/car/editCar")

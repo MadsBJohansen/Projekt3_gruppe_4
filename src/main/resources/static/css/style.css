@@ -229,6 +229,35 @@ button {
 transform: scale(1.05);
 }
 
+.table-card {
+    margin: 60px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #9ca3af;
+}
+
+.table thead th {
+    background: #f6f7f9;
+    color: #556b82;
+    font-weight: 500;
+}
+
+.table tbody tr:hover {
+    background: whitesmoke;
+}
+
 /* Create Car form */
 #create-car {
     width: 660px;

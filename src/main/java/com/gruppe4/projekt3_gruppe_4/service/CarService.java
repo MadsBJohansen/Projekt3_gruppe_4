@@ -27,8 +27,11 @@ public class CarService {
     }
 
     public Car findById(int id){
-        return carRepo.findById(id);
+        Car car = carRepo.findById(id);
+        if (car == null) throw new IllegalArgumentException("Car not found");
+        return car;
     }
+
 
     @Transactional
     public void createCar(Car car) {

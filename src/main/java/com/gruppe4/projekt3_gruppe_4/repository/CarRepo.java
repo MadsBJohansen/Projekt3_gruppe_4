@@ -2,6 +2,7 @@ package com.gruppe4.projekt3_gruppe_4.repository;
 
 import com.gruppe4.projekt3_gruppe_4.model.Car;
 import com.gruppe4.projekt3_gruppe_4.model.Location;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,9 +30,13 @@ public class CarRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Car findById(int id){
+    public Car findById(int id) {
         String sql = "SELECT * FROM car WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, carRowMapper, id);
+        try {
+            return jdbcTemplate.queryForObject(sql, carRowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public void update(Car car){
