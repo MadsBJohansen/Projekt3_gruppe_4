@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cars</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <header th:replace="~{fragments/header :: header('cars')}"></header>
+
+        <main class="page">
+            <section th:if="${tab == 'cars'}">
+                <h1>Cars</h1>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>License plate</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>Mileage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="car : ${cars}">
+                            <td th:text="${car.licensePlate}"></td>
+                            <td th:text="${car.brand}"></td>
+                            <td th:text="${car.model}"></td>
+                            <td th:text="${car.year}"></td>
+                            <td th:text="${car.mileage}"></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(cars)}">
+                            <td colspan="5">No cars found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </body>
+</html>

@@ -40,6 +40,10 @@ public class UserController {
         model.addAttribute("cars", carService.findAllCars());
 
 
+        if (tab.equals("cars")) {
+            return "cars";
+        }
+
         if (tab.equals("customers")) {
             model.addAttribute("customers", customerService.findAll());
         }
