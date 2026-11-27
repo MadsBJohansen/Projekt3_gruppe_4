@@ -322,15 +322,34 @@ a {
 .create-dropdown summary {
     list-style: none;
 }
-.dropdown-content {
-    position: absolute;
-    min-width: 220px;
-    margin-top: 4px;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
-    z-index: 10;
+
+/* Klikbare rækker */
+.data-table .clickable-row td {
+    padding: 0;                    /* padding flyttes til linket */
+}
+
+.data-table .clickable-row td a {
+    display: block;                /* linket fylder hele cellen */
+    padding: 16px 24px;            /* samme som almindelige td */
+    color: inherit;                /* normal tekstfarve */
+    font-weight: normal;
+}
+
+.data-table .clickable-row:hover {
+    cursor: pointer;
+}
+
+.data-table .clickable-row:hover a {
+    text-decoration: none;         /* ingen understregning når hele rækken er et link */
+}
+
+/*--------add damage------*/
+
+.form-page {
+
+    display: flex;
+    justify-content: center;
+    padding: 24px 12px;
 }
 .dropdown-content .btn {
     width: 100%;
