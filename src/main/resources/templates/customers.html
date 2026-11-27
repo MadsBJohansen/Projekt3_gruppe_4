@@ -13,7 +13,7 @@
 
   <h1>customers</h1>
 
-  <button type="button" popovertarget="create-customer">+ Create customer</button>
+  <button class="btn" type="button" popovertarget="create-customer">+ Create customer</button>
 
 
   <table class="data-table">
@@ -36,7 +36,7 @@
       <td th:text="${customer.streetAddress}"></td>
       <td th:text="${customer.zipCodeId}"></td>
       <td>
-        <a th:href="@{/customer/{customerId}/showCustomer(customerId=${customer.id})}">Choose</a>
+        <a class="btn" th:href="@{/customer/{customerId}/showCustomer(customerId=${customer.id})}">Choose</a>
       </td>
     </tr>
     <tr th:if="${#lists.isEmpty(customers)}">
@@ -45,9 +45,9 @@
     </tbody>
   </table>
 
-  <div id="create-customer" popover class="modal">
-    <form class="modal-form" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
-      <h2 class="full-width">New customer</h2>
+  <div id="create-customer" popover class="modal modal-sm">
+    <form class="form form-grid" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
+      <h2 class="span-all">New customer</h2>
 
       <div class="form-field">
         <label for="firstName">First name</label>
@@ -80,9 +80,9 @@
         </select>
       </div>
 
-      <div class="full-width modal-buttons">
-        <button type="submit">Create</button>
-        <button type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
+      <div class="form-actions span-all">
+        <button class="btn" type="submit">Create</button>
+        <button class="btn" type="button" popovertarget="create-customer" popovertargetaction="hide">Cancel</button>
       </div>
     </form>
   </div>

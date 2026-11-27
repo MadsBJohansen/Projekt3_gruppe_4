@@ -1,30 +1,75 @@
+/* 1. Shared Colours & Sizes */
+:root {
+    --primary-color: #2f6bc4;
+    --background-color: #f0f1f3;
+    --surface-color: #ffffff;
+    --text-color: #1f2937;
+    --border-color: #d5d9dd;
+    --muted-color: #556b82;
+    --border-radius: 6px;
+    --modal-radius: 60px;
+}
+
+/* 2. Basic Page Styles */
 * {
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background-color: #f0f1f3;
-    color: #1f2937;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+h1, h2, h3 {
+    margin: 0 0 24px;
+}
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 26px;
+}
+h3 {
+    font-size: 20px;
+}
+a {
+    color: var(--primary-color);
 }
 
+/* 3. Page Layout */
+.page {
+    padding: 24px 40px;
+}
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 48px);
+    padding: 24px;
+}
+.workspace-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 40px;
+    margin: 24px 0;
+}
+
+/* 4. Header & Tabs */
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    height: 48px;
+    min-height: 48px;
     padding: 0 24px;
-    background-color: #2f3a4a;
-    color: white;
+    background: #2f3a4a;
+    color: var(--surface-color);
 }
-.topbar-left{
+.topbar-left {
     display: flex;
     align-items: center;
-    gap: 12px
+    gap: 12px;
 }
-
 .logo {
     border: 1px dashed #9ca3af;
     border-radius: 4px;
@@ -32,172 +77,22 @@ body {
     font-size: 11px;
     color: #d1d5db;
 }
-
 .brand {
-    font-weight: bold;
     font-size: 16px;
+    font-weight: 700;
 }
-
-.login-page{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 48px);
-    padding: 24px;
-}
-
-.createCustomer-page{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 48px);
-    padding: 24px;
-}
-
-.card {
-    width: 100%;
-    max-width: 390px;
-    background-color: white;
-    border: 1px solid #d5d9dd;
-    border-radius: 8px;
-    padding: 36px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.card h1 {
-    margin: 0 0 4px;
-    font-size: 26px;
-}
-
-.subtitle {
-    margin: 0 0 24px;
-    font-size: 14px;
-    color: #556b82;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-input, select {
-    width: 100%;
-    height: 42px;
-    padding: 0 12px;
-    margin-bottom: 18px;
-    border: 1px solid #c7ccd1;
-    border-radius: 6px;
-    font: inherit;
-    font-size: 15px;
-    background-color: white;
-    box-sizing: border-box;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #2f6bc4;
-    box-shadow: 0 0 0 3px rgba(47, 107, 196, 0.2);
-}
-
-.error {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 18px;
-    padding: 10px 14px;
-    background-color: #fdf1e7;
-    border: 1px solid #f0c9a4;
-    border-radius: 6px;
-    color: #7a3e0e;
-    font-size: 14px;
-}
-
-.error::before {
-    content: "!";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
-.success {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 18px;
-    padding: 10px 14px;
-    background-color: #eaf6ec;
-    border: 1px solid #a9d8b2;
-    border-radius: 6px;
-    color: #1e5e2c;
-    font-size: 14px;
-}
-.success::before {
-    content: "✓";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
-button, .btn {
-    display: inline-flex;
-    align-items: center;       /* centrerer lodret */
-    justify-content: center;   /* centrerer vandret */
-    height: 44px;
-    padding: 0 16px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    background-color: #2f6bc4;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;     /* fjerner understregning på links */
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-/* faner og tabs til user-page*/
-
 .tabs {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
     padding: 0 24px;
-    background-color: whitesmoke;
-    color: black;
-    border-bottom: 1px solid #d5d9dd;
+    background: #f5f5f5;
+    border-bottom: 1px solid var(--border-color);
 }
-
 .tabs ul {
     display: flex;
-    gap: 50px;
+    gap: 40px;
     list-style: none;
     margin: 0;
     padding: 0;
 }
-
 .tabs a {
     display: block;
     padding: 14px 4px;
@@ -205,144 +100,267 @@ button, .btn {
     text-decoration: none;
     border-bottom: 3px solid transparent;
 }
-
 .tabs a.active {
-    color: #2f6bc4;
-    border-bottom-color: #2f6bc4;
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
 }
 
-.workspace-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    display: grid;
-    padding: 50px;
-    gap: 40px;
-}
-
-.tools-card {
-    border: 1px solid #d5d9dd;
-    border-radius: 10px;
-    padding: 20px;
-    color: #1f2937;
-    background-color: white;
-    height: auto;
-    margin: 0;
-    text-align: center;
-    font-weight: normal;
+/* 5. Cards */
+.card {
     width: 100%;
+    padding: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+.card-sm {
+    max-width: 390px;
+}
+.tools-card {
+    width: 100%;
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--surface-color);
+    color: var(--text-color);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
     transition: transform 0.15s;
-
+}
+.tools-card h3 {
+    margin: 0;
 }
 .tools-card:hover {
-transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-.table-card {
-    margin: 60px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #9ca3af;
-}
-
-.table thead th {
-    background: #f6f7f9;
-    color: #556b82;
-    font-weight: 500;
-}
-
-.table tbody tr:hover {
-    background: whitesmoke;
-}
-
-/* Create Car form */
-#create-car {
-    width: 660px;
-    max-width: 94vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 24px;
-    border: 1px solid #d5d9dd;
-    border-radius: 8px;
-}
-#create-car h2 { margin: 0 0 8px; }
-#create-car > p { margin: 0 0 20px; }
-.car-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-.car-field label { display: block; }
-.car-field input, .car-field select { margin: 0; }
-.car-actions {
+/* 6. Forms & Fields */
+.form {
     display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
 }
-.car-form button { padding: 0 20px; }
-.car-form button:hover {
-    margin-top: 6px;
-    font-size: 15px;
-    color: white;
-    background-color: #24549c;
+.form h2, .form p {
+    margin: 0;
 }
-.car-form button:focus-visible { outline: 3px solid #1f2937; outline-offset: 3px; }
-#create-car button[type="button"] { background-color: #556b82; }
-
-
-/* Stack fields on small screens. */
-@media (max-width: 650px) {
-    .car-fields { grid-template-columns: 1fr; }
-}
-
-/* ------ Customer ----------------------------*/
-
-.customer-card{
-
-}
-
-/*------- Pop-up form --------------------------------*/
-.modal-form {
+.form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 24px;
 }
-
 .form-field {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    min-width: 0;
 }
-
-.full-width {
-    grid-column: 1 / -1;
+.form-field label {
+    font-size: 14px;
+    font-weight: 600;
 }
-
-.modal-buttons {
+.form-field input, .form-field select, .form-field textarea {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #c7ccd1;
+    border-radius: var(--border-radius);
+    background: var(--surface-color);
+    color: var(--text-color);
+    font: inherit;
+    font-size: 15px;
+}
+.form-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+.form-actions {
     display: flex;
-    gap: 10px;
-    justify-content: left;
+    gap: 12px;
+    margin-top: 8px;
+}
+.form-actions .btn {
+    flex: 1;
+}
+.form-inline {
+    margin: 0;
 }
 
-/* Sløret glas bag popover'en */
+/* 7. Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--primary-color);
+    color: var(--surface-color);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #24549c;
+}
+.btn:focus-visible, .tools-card:focus-visible, .tabs a:focus-visible, .create-dropdown summary:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+/* 8. Pop-up Forms */
+.modal, .modal-panel {
+    max-width: calc(100vw - 48px);
+    padding: 40px;
+    border: none;
+    border-radius: var(--modal-radius);
+    background: var(--surface-color);
+    color: var(--text-color);
+    box-shadow: 0 8px 15px rgb(36 87 167 / 25%);
+}
+.modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    overflow: hidden;
+}
+.modal-sm {
+    width: 480px;
+}
+.modal-lg {
+    width: 660px;
+}
+.modal .form {
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
+    padding: 4px;
+}
+.modal-inline {
+    margin: 24px 0;
+}
 .modal::backdrop {
-    background-color: rgba(242, 242, 242, 0.4);
+    background: rgb(242 242 242 / 40%);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
-/* ------ Damage reports: create dropdown ------ */
+/* 9. Error Messages */
+.error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    background: #fdf1e7;
+    border-color: #f0c9a4;
+    color: #7a3e0e;
+}
+.error::before {
+    content: "!";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
 
+/* 10. Tables */
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.data-table th {
+    text-align: left;
+    padding: 14px 24px;
+    background: #f7f8f9;
+    color: var(--muted-color);
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+.data-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.data-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* 11. Dropdown Menus */
+.create-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+.create-dropdown summary {
+    list-style: none;
+}
+.dropdown-content {
+    position: absolute;
+    min-width: 220px;
+    margin-top: 4px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
+    z-index: 10;
+}
+.dropdown-content .btn {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0;
+    background: var(--surface-color);
+    color: var(--text-color);
+    font-weight: 400;
+    text-align: left;
+}
+.dropdown-content .btn:hover {
+    background: var(--background-color);
+}
+.dropdown-content p {
+    margin: 0;
+    padding: 12px 16px;
+    color: var(--muted-color);
+}
+
+/* 12. Helper Classes */
+.span-all {
+    grid-column: 1 / -1;
+}
+.subtitle {
+    margin: 0 0 24px;
+    color: var(--muted-color);
+    font-size: 14px;
+}
+
+/* Damage Report Layout */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -354,183 +372,6 @@ transform: scale(1.05);
     margin: 0;
 }
 
-
-.create-dropdown {
-    position: relative;
-    display: inline-block;
-    margin: 24px;
-}
-
-.create-dropdown summary {
-    list-style: none;
-    background-color: #2f6bc4;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.create-dropdown summary:hover {
-    background-color: #24549c;
-}
-
-.create-dropdown .dropdown-content {
-    position: absolute;
-    min-width: 220px;
-    margin-top: 4px;
-    background-color: white;
-    border: 1px solid #d5d9dd;
-    border-radius: 6px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    z-index: 10;
-}
-
-.create-dropdown .dropdown-content button {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 12px 16px;
-    background: none;
-    color: #1f2937;
-    font-weight: normal;
-    text-align: left;
-    border-radius: 0;
-}
-
-.create-dropdown .dropdown-content button:hover {
-    background-color: #f0f1f3;
-}
-
-.create-dropdown .dropdown-content p {
-    margin: 0;
-    padding: 12px 16px;
-    color: #556b82;
-}
-
-/* ------ Tabeller ------ */
-
-.page {
-    padding: 24px 64px;
-}
-
-.page h1 {
-    margin: 0 0 24px;
-    font-size: 28px;
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: white;
-    border: 1px solid #d5d9dd;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.data-table th {
-    text-align: left;
-    padding: 14px 24px;
-    background-color: #f7f8f9;
-    color: #556b82;
-    font-size: 14px;
-    font-weight: 600;
-    border-bottom: 1px solid #d5d9dd;
-}
-
-.data-table td {
-    padding: 16px 24px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.data-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.data-table tbody tr:hover {
-    background-color: #f9fafb;
-}
-
-.data-table a {
-    color: #2f6bc4;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.data-table a:hover {
-    text-decoration: underline;
-}
-
-/*--------add damage------*/
-
-.form-page {
-
-    display: flex;
-    justify-content: center;
-    padding: 24px 12px;
-}
-
-.form-page textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    border: 1px solid #c7ccd1;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 15px;
-    resize: none;
-}
-
-.form-page textarea:focus {
-    outline: none;
-    border-color: #2f6bc4;
-    box-shadow: 0 0 0 3px rgba(47, 107, 196, 0.2);
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 16px;
-}
-
-.form-actions button {
-    margin: 0;
-    padding: 0 20px;
-}
-
-
-
-
-/* ------ Knapper ------ */
-
-.btn-primary,
-.btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    height: 44px;
-    margin: 0;
-    padding: 0 20px;
-    border-radius: 6px;
-    font: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background-color: #2f6bc4;
-    color: white;
-    border: 1px solid #2f6bc4;
-}
-
-.btn-secondary {
-    background-color: white;
-    color: #2f6bc4;
-    border: 1px solid #2f6bc4;
-}
 
 .damage-row {
     display: grid;
@@ -560,7 +401,7 @@ transform: scale(1.05);
     font-size: 20px;
 }
 
-/*---- Paneler (hvide bokse) ---- */
+
 .panel {
     background-color: white;
     border: 1px solid #d5d9dd;
@@ -648,3 +489,20 @@ transform: scale(1.05);
     background-color: #f5f8fd;
 }
 
+
+.damage-form input {
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font: inherit;
+}
+.page-header .create-dropdown {
+    margin-bottom: 0;
+}
+
+a.tools-card {
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+}

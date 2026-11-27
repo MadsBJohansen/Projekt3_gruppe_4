@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Car overview</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Car overview</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
 
-<header th:replace="~{fragments/header :: header('cars')}"></header>
+        <header th:replace="~{fragments/header :: header}"></header>
 
-
-<main>
-    <form th:action="@{/statistics/cars}" method="get">
-        <label for="status" >Status</label>
-        <select id="status" th:name="status" onchange="this.form.submit()">
-            <option value="">All</option>
-            <option th:each="s : ${statuses}"
-                    th:value="${s}"
-                    th:text="${s} + ' (' + ${countPerStatus.get(s)} + ')'"
-                    th:selected="${s == selectedStatus}"></option>
-        </select>
-    </form>
-</main>
-</body>
+        <main class="page">
+            <form class="form card card-sm" th:action="@{/statistics/cars}" method="get">
+                <div class="form-field">
+                    <label for="status" >Status</label>
+                    <select id="status" th:name="status">
+                        <option value="">All</option>
+                        <option th:each="s : ${statuses}"
+                            th:value="${s}"
+                            th:text="${s} + ' (' + ${countPerStatus.get(s)} + ')'"
+                            th:selected="${s == selectedStatus}"></option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Filter</button>
+                </div>
+            </form>
+        </main>
+    </body>
 </html>

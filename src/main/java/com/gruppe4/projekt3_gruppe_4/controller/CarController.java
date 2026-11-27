@@ -21,6 +21,15 @@ public class CarController {
         this.locationService = locationService;
     }
 
+    @GetMapping("/car/showCars")
+    public String showCars(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("cars", carService.findAllCars());
+        return "cars";
+    }
+
     @GetMapping("/car/{carId}/showCar")
     public String showCar(Model model, @PathVariable int carId, HttpSession session) {
         if (session.getAttribute("user") == null) {
@@ -32,7 +41,7 @@ public class CarController {
             model.addAttribute("locations", locationService.findAllLocations());
             return "car";
         } catch (IllegalArgumentException e) {
-            return "redirect:/user/user-page?tab=cars";
+            return "redirect:/car/showCars";
         }
     }
 

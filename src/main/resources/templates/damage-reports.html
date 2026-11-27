@@ -15,12 +15,12 @@
     <div class="page-header">
         <h1>Damage reports</h1>
         <details class="create-dropdown">
-            <summary>+ Create Report</summary>
+            <summary class="btn">+ Create Report</summary>
             <div class="dropdown-content">
-                <form th:each="contract : ${contracts}"
+                <form class="form-inline" th:each="contract : ${contracts}"
                       th:action="@{/damage-reports/create}" method="post">
                     <input type="hidden" name="contractId" th:value="${contract.id}">
-                    <button type="submit" th:text="'Contract ' + ${contract.id}"></button>
+                    <button class="btn" type="submit" th:text="'Contract ' + ${contract.id}"></button>
                 </form>
                 <p th:if="${contracts.isEmpty()}">No contracts ready</p>
             </div>

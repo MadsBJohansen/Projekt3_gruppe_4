@@ -1,64 +1,88 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>User page</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<header th:replace="~{fragments/header :: header('cars')}"></header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>User page</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <header th:replace="~{fragments/header :: header}"></header>
 
-<button class="btn" type="button" popovertarget="edit-car">Edit car</button>
+        <main class="page">
+            <button class="btn" type="button" popovertarget="edit-car">Edit car</button>
 
-<div id="edit-car" popover class="modal" th:object="${car}">
-  <form class="modal-form" th:action="@{/car/editCar}" method="post">
-    <h2>Car</h2>
+            <div id="edit-car" popover class="modal modal-lg" th:object="${car}">
+                <form class="form form-grid" th:action="@{/car/editCar}" method="post">
+                    <h2 class="span-all">Car</h2>
 
-        <label for="vin">VIN</label>
-        <input id="vin" type="text" th:field="*{vin}"
-               minlength="17" maxlength="17" required>
+                    <div class="form-field">
+                        <label for="vin">VIN</label>
+                        <input id="vin" type="text" th:field="*{vin}"
+                        minlength="17" maxlength="17" required>
+                    </div>
 
-        <label for="licensePlate">License plate</label>
-        <input id="licensePlate" type="text" th:field="*{licensePlate}"
-               maxlength="7" required>
+                    <div class="form-field">
+                        <label for="licensePlate">License plate</label>
+                        <input id="licensePlate" type="text" th:field="*{licensePlate}"
+                        maxlength="7" required>
+                    </div>
 
-        <label for="brand">Brand</label>
-        <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
+                    <div class="form-field">
+                        <label for="brand">Brand</label>
+                        <input id="brand" type="text" th:field="*{brand}" maxlength="50" required>
+                    </div>
 
-        <label for="model">Model</label>
-        <input id="model" type="text" th:field="*{model}" maxlength="50" required>
+                    <div class="form-field">
+                        <label for="model">Model</label>
+                        <input id="model" type="text" th:field="*{model}" maxlength="50" required>
+                    </div>
 
-        <label for="trimLevel">Trim level</label>
-        <input id="trimLevel" type="text" th:field="*{trimLevel}"
-               maxlength="50" required>
+                    <div class="form-field">
+                        <label for="trimLevel">Trim level</label>
+                        <input id="trimLevel" type="text" th:field="*{trimLevel}"
+                        maxlength="50" required>
+                    </div>
 
-        <label for="year">Year</label>
-        <input id="year" type="number" th:field="*{year}" required>
+                    <div class="form-field">
+                        <label for="year">Year</label>
+                        <input id="year" type="number" th:field="*{year}" required>
+                    </div>
 
-        <label for="mileage">Mileage (km)</label>
-        <input id="mileage" type="number" th:field="*{mileage}" min="0" required>
+                    <div class="form-field">
+                        <label for="mileage">Mileage (km)</label>
+                        <input id="mileage" type="number" th:field="*{mileage}" min="0" required>
+                    </div>
 
-        <label for="basePrice">Base price (DKK)</label>
-        <input id="basePrice" type="number" th:field="*{basePrice}"
-               min="0.01" max="99999999.99" step="0.01" required>
+                    <div class="form-field">
+                        <label for="basePrice">Base price (DKK)</label>
+                        <input id="basePrice" type="number" th:field="*{basePrice}"
+                        min="0.01" max="99999999.99" step="0.01" required>
+                    </div>
 
-        <label for="co2Emission">CO2 emission (g/km)</label>
-        <input id="co2Emission" type="number" th:field="*{co2Emission}"
-               min="0" max="9999.9" step="0.1" required>
+                    <div class="form-field">
+                        <label for="co2Emission">CO2 emission (g/km)</label>
+                        <input id="co2Emission" type="number" th:field="*{co2Emission}"
+                        min="0" max="9999.9" step="0.1" required>
+                    </div>
 
-        <label for="currentLocationId">Location</label>
-        <select id="currentLocationId" th:field="*{currentLocationId}" required>
-          <option value="0" disabled>Select a location</option>
-          <option th:each="location : ${locations}"
-                  th:value="${location.id}"
-                  th:text="${location.name}"></option>
-        </select>
-    <button type="submit">Update</button>
-    <button type="button" popovertargetaction="hide">Cancel</button>
-      </form>
+                    <div class="form-field">
+                        <label for="currentLocationId">Location</label>
+                        <select id="currentLocationId" th:field="*{currentLocationId}" required>
+                            <option value="0" disabled>Select a location</option>
+                            <option th:each="location : ${locations}"
+                                th:value="${location.id}"
+                                th:text="${location.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-actions span-all">
+                        <button type="submit" class="btn">Update</button>
+                        <button type="button" popovertarget="edit-car" popovertargetaction="hide" class="btn">Cancel</button>
+                    </div>
+                </form>
 
-</div>
+            </div>
 
-</body>
+        </main>
+    </body>
 </html>
