@@ -8,12 +8,10 @@
     <title>Customer</title>
 </head>
 <body>
-<header class="topbar">
-    <span class="logo">LOGO</span>
-    <span class="brand">Bilabonnement</span>
-</header>
-    <div class="customer-card" th:object="${customer}">
-        <div class="customer-field">
+<div th:replace="~{fragments/header :: header('customers')}"></div>
+
+    <div class="workspace-grid" th:object="${customer}">
+        <div class="customer">
             <span th:text="*{firstName}">First name</span>
             <span th:text="*{lastName}">Last name</span>
         </div>
