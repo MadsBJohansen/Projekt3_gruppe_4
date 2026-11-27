@@ -28,6 +28,7 @@ public class CustomerController {
         }
 
         Customer customer = customerService.findById(customerId);
+        model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
         model.addAttribute("customer", customer);
         model.addAttribute("zipCode", zipCodeService.findById(customer.getZipCodeId()));
         return "customer";
@@ -45,7 +46,26 @@ public class CustomerController {
 
         } catch (CustomerException e){
             model.addAttribute("error", e.getMessage());
-            return "redirect:/user/user-page";
+            return "user-page";
+        }
+    }
+
+    @PostMapping("/customer/updateCustomer")
+    public String updateCustomer(@ModelAttribute Customer customer, Model model, HttpSession session){
+
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
+
+        try {
+            customerService.updateCustomer(customer);
+            return "redirect:/customer/" + customer.getId() + "/showCustomer";
+
+        } catch (CustomerException e) {
+            if (session.getAttribute("user") == null){
+            model.addAttribute("error", e.getMessage());
+            }
+            return "customer";
         }
     }
 }
