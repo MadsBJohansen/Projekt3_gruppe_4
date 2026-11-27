@@ -69,7 +69,7 @@ public class CustomerRepo {
                 customer.getEmail(),
                 customer.getPhoneNumber(),
                 customer.getStreetAddress(),
-                customer.getZipCodeId());
+                customer.getZipCodeId(), customer.getId());
     }
 
     public List<Customer> findAllCustomers() {
