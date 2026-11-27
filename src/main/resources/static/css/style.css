@@ -158,9 +158,14 @@ input:focus, select:focus {
     flex-shrink: 0;
 }
 
-button {
+button, .btn {
+    display: inline-flex;
+    align-items: center;       /* centrerer lodret */
+    justify-content: center;   /* centrerer vandret */
     height: 44px;
+    padding: 0 16px;
     margin-top: 6px;
+    margin-bottom: 6px;
     background-color: #2f6bc4;
     color: white;
     border: none;
@@ -168,6 +173,8 @@ button {
     font: inherit;
     font-size: 15px;
     font-weight: 600;
+    text-decoration: none;     /* fjerner understregning på links */
+    box-sizing: border-box;
     cursor: pointer;
 }
 
