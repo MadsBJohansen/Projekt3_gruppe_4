@@ -68,4 +68,25 @@ public class CustomerController {
             return "customer";
         }
     }
+
+    @PostMapping("/customer/archiveCustomer")
+    public String archiveCustomer(@RequestParam int customerId, Model model, HttpSession session){
+        if (session.getAttribute("user") == null){
+            return "redirect:/";
+        }
+        try {
+            Customer customer = customerService.findById(customerId);
+            customerService.archiveCustomer(customer);
+            return "redirect:/customer/" + customerId +"/showCustomer";
+
+        }catch (CustomerException e){
+            Customer customer = customerService.findById(customerId);
+            model.addAttribute("zipCodes", zipCodeService.findAllZipCodes());
+            model.addAttribute("customer", customer);
+            model.addAttribute("zipCode", zipCodeService.findById(customer.getZipCodeId()));
+            model.addAttribute("error", e.getMessage());
+            return "customer";
+        }
+
+    }
 }
