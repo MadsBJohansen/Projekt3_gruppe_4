@@ -300,3 +300,112 @@ transform: scale(1.05);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
+
+/* ------ Damage reports: create dropdown ------ */
+
+.create-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 24px;
+}
+
+.create-dropdown summary {
+    list-style: none;
+    background-color: #2f6bc4;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-dropdown summary:hover {
+    background-color: #24549c;
+}
+
+.create-dropdown .dropdown-content {
+    position: absolute;
+    min-width: 220px;
+    margin-top: 4px;
+    background-color: white;
+    border: 1px solid #d5d9dd;
+    border-radius: 6px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.create-dropdown .dropdown-content button {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 12px 16px;
+    background: none;
+    color: #1f2937;
+    font-weight: normal;
+    text-align: left;
+    border-radius: 0;
+}
+
+.create-dropdown .dropdown-content button:hover {
+    background-color: #f0f1f3;
+}
+
+.create-dropdown .dropdown-content p {
+    margin: 0;
+    padding: 12px 16px;
+    color: #556b82;
+}
+
+/* ------ Tabeller ------ */
+
+.page {
+    padding: 24px 64px;
+}
+
+.page h1 {
+    margin: 0 0 24px;
+    font-size: 28px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border: 1px solid #d5d9dd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 14px 24px;
+    background-color: #f7f8f9;
+    color: #556b82;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #d5d9dd;
+}
+
+.data-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.data-table a {
+    color: #2f6bc4;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.data-table a:hover {
+    text-decoration: underline;
+}
