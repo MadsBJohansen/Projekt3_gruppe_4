@@ -462,6 +462,26 @@ transform: scale(1.05);
     text-decoration: underline;
 }
 
+/* Klikbare rækker */
+.data-table .clickable-row td {
+    padding: 0;                    /* padding flyttes til linket */
+}
+
+.data-table .clickable-row td a {
+    display: block;                /* linket fylder hele cellen */
+    padding: 16px 24px;            /* samme som almindelige td */
+    color: inherit;                /* normal tekstfarve */
+    font-weight: normal;
+}
+
+.data-table .clickable-row:hover {
+    cursor: pointer;
+}
+
+.data-table .clickable-row:hover a {
+    text-decoration: none;         /* ingen understregning når hele rækken er et link */
+}
+
 /*--------add damage------*/
 
 .form-page {
