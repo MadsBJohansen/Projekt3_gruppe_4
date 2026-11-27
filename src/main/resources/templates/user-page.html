@@ -69,7 +69,10 @@
             </thead>
             <tbody>
                 <tr th:each="car : ${cars}">
-                    <td th:text="${car.licensePlate}"></td>
+                    <td>
+                        <a th:href="@{/car/{carId}/showCar(carId=${car.id})}"
+                           th:text="${car.licensePlate}"> </a>
+                    </td>
                     <td th:text="${car.brand}"></td>
                     <td th:text="${car.model}"></td>
                     <td th:text="${car.year}"></td>

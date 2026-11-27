@@ -213,7 +213,7 @@ button {
 
 .tools-card {
     border: 1px solid #d5d9dd;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     color: #1f2937;
     background-color: white;
@@ -233,7 +233,7 @@ transform: scale(1.05);
     margin: 60px;
     background-color: white;
     border: 1px solid black;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
