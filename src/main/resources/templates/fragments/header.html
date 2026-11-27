@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<header th:fragment="header" class="topbar">
-  <span class="logo">LOGO</span>
-  <span class="brand">Bilabonnement</span>
-</header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
+<div th:fragment="header(active)">
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">LOGO</span>
+      <span class="brand">Bilabonnement</span>
+    </div>
+    <form th:action="@{/logout}" method="post" class="logout-form">
+      <button type="submit" class="logout-btn">Log out</button>
+    </form>
+  </header>
 
+  <nav class="tabs">
+    <ul>
+      <li><a th:href="@{/user/user-page(tab='home')}" th:classappend="${active == 'home'} ? 'active'">Home</a></li>
+      <li><a th:href="@{/user/user-page(tab='cars')}" th:classappend="${active == 'cars'} ? 'active'">Cars</a></li>
+      <li><a th:href="@{/user/user-page(tab='customers')}" th:classappend="${active == 'customers'} ? 'active'">Customers</a></li>
+      <li><a th:href="@{/damage-reports}" th:classappend="${active == 'damage'} ? 'active'">Damage reports</a></li>
+    </ul>
+  </nav>
+</div>
 </body>
 </html>

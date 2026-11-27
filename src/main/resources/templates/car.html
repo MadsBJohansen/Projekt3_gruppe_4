@@ -7,21 +7,7 @@
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-left">
-    <a th:href="@{/user/user-page}" class="company-logo">
-      <img th:src="@{/img/company-logo.svg}" class="logo" alt="Company logo">
-    </a>
-    <span class="brand">Bilabonnement</span>
-  </div>
-  <nav>
-    <ul>
-      <li><form th:action="@{/user/logout}" method="post">
-        <button type="submit" class="login-btn">Log out</button>
-      </form></li>
-    </ul>
-  </nav>
-</header>
+<header th:replace="~{fragments/header :: header('cars')}"></header>
 
 <button class="btn" type="button" popovertarget="edit-car">Edit car</button>
 
