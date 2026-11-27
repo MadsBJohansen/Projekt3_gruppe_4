@@ -35,7 +35,7 @@
 
             <button type="button" class="btn" popovertarget="edit-customer">Edit customer</button>
             <div id="edit-customer" popover class="modal modal-sm">
-                <form class="form form-grid" th:object="${customer}" th:action="@{/customer/createCustomer}" method="post">
+                <form class="form form-grid" th:object="${customer}" th:action="@{/customer/updateCustomer}" method="post">
                     <h2 class="span-all">Edit customer</h2>
 
                     <div class="form-field">
@@ -73,8 +73,14 @@
                     </div>
 
                     <div class="form-actions span-all">
-                        <button type="submit" class="btn">Create</button>
+                        <button type="submit" class="btn">Update</button>
                         <button type="button" popovertarget="edit-customer" popovertargetaction="hide" class="btn">Cancel</button>
+                    </div>
+                </form>
+                <form class="form" th:object="${customer}" th:action="@{/customer/archiveCustomer}" method="post" onsubmit="return confirm('DELETE CUSTOMER!!??')">
+                    <input type="hidden" name="customerId" th:value="${customerId}">
+                    <div class="form-actions">
+                        <button type="submit" class="btn">DELETE</button>
                     </div>
                 </form>
             </div>
