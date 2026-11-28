@@ -62,7 +62,8 @@ public class CarRepo {
                 car.getCurrentLocationId(),
                 car.getBrand(),
                 car.getModel(),
-                car.getYear());
+                car.getYear(),
+                car.getId());
     }
 
     public boolean existsByLicensePlate(String licensePlate) {
