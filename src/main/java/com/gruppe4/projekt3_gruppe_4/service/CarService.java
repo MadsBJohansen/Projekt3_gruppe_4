@@ -23,15 +23,15 @@ public class CarService {
         return carRepo.findAllCars();
     }
 
-    public void updateCar(Car car){
+    public void updateCar(Car car) {
         carRepo.update(car);
     }
 
-    public void changeStatus(int carId, CarStatus status){
+    public void changeStatus(int carId, CarStatus status) {
         carRepo.saveStatus(carId, status.name());
     }
 
-    public Car findById(int id){
+    public Car findById(int id) {
         Car car = carRepo.findById(id);
         if (car == null) throw new IllegalArgumentException("Car not found");
         return car;
@@ -89,6 +89,11 @@ public class CarService {
             );
         }
 
+        if (!car.getLicensePlate().matches("[A-Z]{2}[0-9]{5}")) {
+            throw new IllegalArgumentException("License plate must contain 2 letters and 5 digits."
+            );
+        }
+
         if (car.getYear() < Year.now().getValue() - 5) {
             throw new IllegalArgumentException("The car must not be more than 5 years old.");
         }
@@ -122,7 +127,7 @@ public class CarService {
         }
     }
 
-    private boolean isMissing(String     value) {
+    private boolean isMissing(String value) {
         return value == null || value.isBlank();
     }
 }

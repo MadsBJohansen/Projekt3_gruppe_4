@@ -40,8 +40,13 @@
 
                     <div class="form-field">
                         <label for="licensePlate">License plate</label>
-                        <input id="licensePlate" type="text" th:field="*{licensePlate}"
-                        maxlength="7" required>
+                        <input id="licensePlate" type="text"
+                               th:field="*{licensePlate}"
+                               minlength="7"
+                               maxlength="7"
+                               pattern="[A-Z]{2}[0-9]{5}"
+                               title="License plate must contain 2 letters and 5 digits."
+                               required>
                     </div>
 
                     <div class="form-field">

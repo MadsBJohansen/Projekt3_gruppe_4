@@ -134,6 +134,27 @@ class CarServiceTest {
         verify(carRepo, never()).saveInitialStatus(anyInt());
     }
     @Test
+    void shouldRejectInvalidLicensePlate() {
+        // Arrange
+        car.setLicensePlate("TOO-LONG");
+
+        // Act
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> carService.createCar(car)
+        );
+
+        // Assert
+        assertEquals(
+                "License plate must contain 2 letters and 5 digits.",
+                exception.getMessage()
+        );
+
+        verify(carRepo, never()).saveCar(car);
+        verify(carRepo, never()).saveInitialStatus(anyInt());
+    }
+
+    @Test
     void shouldRejectMissingBasePrice() {
         assertInvalidPrice(null);
     }
