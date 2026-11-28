@@ -3,7 +3,6 @@ package com.gruppe4.projekt3_gruppe_4.service;
 import com.gruppe4.projekt3_gruppe_4.enums.CarStatus;
 import com.gruppe4.projekt3_gruppe_4.exceptions.ContractException;
 import com.gruppe4.projekt3_gruppe_4.model.Contract;
-import com.gruppe4.projekt3_gruppe_4.repository.CarRepo;
 import com.gruppe4.projekt3_gruppe_4.repository.ContractRepo;
 import com.gruppe4.projekt3_gruppe_4.repository.DamageRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,16 +31,13 @@ class ContractServiceTest {
     private DamageRepo damageRepo;
 
     @Mock
-    private CarRepo carRepo;
-
-    @Mock
     private CarService carService;
 
     private ContractService contractService;
 
     @BeforeEach
     void setUp() {
-        contractService = new ContractService(contractRepo, damageRepo, carRepo, carService);
+        contractService = new ContractService(contractRepo, damageRepo, carService);
     }
 
     @Test
