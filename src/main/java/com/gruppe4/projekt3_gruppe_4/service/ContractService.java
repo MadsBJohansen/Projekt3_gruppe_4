@@ -22,6 +22,17 @@ public class ContractService {
 
     @Transactional
     public void createContract (Contract contract) {
+        validateRequiredIds(contract);
+        validateStartDate(contract);
+        validatePeriod(contract);
+        validateMonthlyPrice(contract);
+        validateCarAvailability(contract);
+
+        contractRepo.saveContract(contract);
+        carService.changeStatus(contract.getCarId(), CarStatus.RENTED);
+    }
+
+    private void validateRequiredIds(Contract contract) {
         if (contract.getCustomerId() <= 0 ) {
             throw new ContractException("A customer must be chosen");
         }
@@ -34,23 +45,37 @@ public class ContractService {
         if (contract.getUserId() <= 0 ) {
             throw new ContractException("Must be logged in");
         }
+    }
+
+    private void validateStartDate(Contract contract) {
         if (contract.getStartDate() == null) {
             throw new ContractException("Start date is required");
         }
-        if (contract.getPeriod() != 3 && contract.getPeriod() != 6 && contract.getPeriod() != 12) {
+    }
+
+    private void validatePeriod(Contract contract) {
+        if (contract.getPeriod() != 3
+                && contract.getPeriod() != 6
+                && contract.getPeriod() != 12) {
             throw new ContractException("Period must be 3, 6 or 12 months");
         }
-        if (contract.getMonthlyPrice() == null || contract.getMonthlyPrice().compareTo(BigDecimal.ZERO) < 0) {
-            throw new ContractException("Monthly price cannot be negative");
+    }
+
+    private void validateMonthlyPrice(Contract contract) {
+        if (contract.getMonthlyPrice() == null) {
+            throw new ContractException("Monthly price is required");
         }
 
+        if (contract.getMonthlyPrice().compareTo(BigDecimal.ZERO) < 0) {
+            throw new ContractException("Monthly price cannot be negative");
+        }
+    }
+
+    private void validateCarAvailability(Contract contract) {
         String status = carService.getCurrentStatus(contract.getCarId());
         if (!"AVAILABLE".equals(status)) {
             throw new ContractException("The car is not available");
         }
-
-        contractRepo.saveContract(contract);
-        carService.changeStatus(contract.getCarId(), CarStatus.RENTED);
     }
 
     public ContractService(ContractRepo contractRepo, DamageRepo damageRepo, CarService carService) {

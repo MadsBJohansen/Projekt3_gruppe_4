@@ -1,0 +1,31 @@
+name: Unit tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hent kode
+        uses: actions/checkout@v6
+
+      - name: Installer Java 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Kør unit-tests
+        run: >
+          mvn --batch-mode
+          -Dtest=CarServiceTest,ContractServiceTest,CustomerServiceTest,DamageServiceTest
+          test
