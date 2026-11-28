@@ -20,18 +20,20 @@
                             <th>Model</th>
                             <th>Year</th>
                             <th>Mileage</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="car : ${cars}">
-                            <td th:text="${car.licensePlate}"></td>
-                            <td th:text="${car.brand}"></td>
-                            <td th:text="${car.model}"></td>
-                            <td th:text="${car.year}"></td>
-                            <td th:text="${car.mileage}"></td>
+                        <tr class="clickable-row" th:each="car : ${cars}">
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}" th:text="${car.licensePlate}"></a></td>
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}" th:text="${car.brand}"></a></td>
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}" th:text="${car.model}"></a></td>
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}" th:text="${car.year}"></a></td>
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}" th:text="${car.mileage}"></a></td>
+                            <td><a th:href="@{/car/{id}/showCar(id=${car.id})}">View</a></td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(cars)}">
-                            <td colspan="5">No cars found</td>
+                            <td colspan="6">No cars found</td>
                         </tr>
                     </tbody>
                 </table>

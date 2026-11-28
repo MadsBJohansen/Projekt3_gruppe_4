@@ -3,13 +3,48 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>User page</title>
+        <title>Car</title>
         <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
     <body>
         <header th:replace="~{fragments/header :: header}"></header>
 
         <main class="page">
+            <div class="workspace-grid" th:object="${car}">
+                <div class="card">
+                    <span th:text="*{vin}">VIN</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{licensePlate}">License plate</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{brand}">Brand</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{model}">Model</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{trimLevel}">Trim level</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{year}">Year</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{mileage}">Mileage (km)</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{basePrice}">Base price (DKK)</span>
+                </div>
+                <div class="card">
+                    <span th:text="*{co2Emission}">CO2 emission (g/km)</span>
+                </div>
+                <div class="card">
+                    <span th:each="location : ${locations}"
+                        th:if="${location.id == car.currentLocationId}"
+                        th:text="${location.name}">Location</span>
+                </div>
+            </div>
+
             <button class="btn" type="button" popovertarget="edit-car">Edit car</button>
 
             <div id="edit-car" popover class="modal modal-lg" th:object="${car}">
