@@ -49,6 +49,7 @@
 
             <div id="edit-car" popover class="modal modal-lg" th:object="${car}">
                 <form class="form form-grid" th:action="@{/car/editCar}" method="post">
+                    <input type="hidden" th:field="*{id}">
                     <h2 class="span-all">Car</h2>
 
                     <div class="form-field">
